@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - Vars
     var locationManager: CLLocationManager!
+    var stops: Array<Stop>?
     
     // MARK: - IBActions
     @IBAction func locateUser(sender: UIBarButtonItem) {
@@ -35,6 +36,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         self.locationManager.requestWhenInUseAuthorization()
         
         self.navigationController?.navigationBar.topItem?.titleView = self.locationSearchBar
+        
+        self.fetchStops()
     }
     
 
@@ -43,6 +46,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
         self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
     }
+    
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView: MKPinAnnotationView?
+        
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        } else {
+            annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
+            
+            if (annotationView == nil) {
+                annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "stopPin")
+                annotationView?.canShowCallout = true
+                annotationView?.pinTintColor = mapView.tintColor
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            } else {
+                annotationView?.annotation = annotation
+            }
+        }
+        
+        return annotationView
+    }
+    
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let stop = view.annotation as? Stop
+        print("Callout accessory tapped for \(stop?.stopId), \(stop?.stopName))")
+    }
+
     
     
     // MARK: - UISearchBarDelegate
@@ -62,6 +94,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
                 let firstMapItem = response.mapItems[0] as MKMapItem!
                 self.mapView.setRegion(MKCoordinateRegionMakeWithDistance((firstMapItem.placemark.location?.coordinate)!, 1000, 1000), animated: true)
             }
+        }
+    }
+    
+    
+    // MARK: - Controller methods
+    func fetchStops() {
+        self.stops = Stop.fetchAllStops()
+        if (self.stops != nil) {
+            self.mapView.addAnnotations(self.stops!)
         }
     }
 }

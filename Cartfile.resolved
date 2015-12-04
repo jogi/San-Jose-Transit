@@ -1,1 +1,2 @@
 github "stephencelis/SQLite.swift" "da2d43422a72ae0e91356fccfde1959d43b97385"
+github "itsbonczek/kingpin" "0.3.1"

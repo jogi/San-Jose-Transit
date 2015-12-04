@@ -19,6 +19,12 @@
 		D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D477DEF21C1021FF009C356E /* CoreLocation.framework */; };
 		D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48018F01C108AA5004615BB /* SQLite.framework */; };
 		D48018F71C108B47004615BB /* SQLite.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48018F61C108B47004615BB /* SQLite.framework.dSYM */; };
+		D48018FC1C117EED004615BB /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48018FB1C117EED004615BB /* Stop.swift */; };
+		D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D48018FE1C11BBE1004615BB /* vta_gtfs.db */; };
+		D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019031C11C979004615BB /* StopRouteViewController.swift */; };
+		D48019061C11C9B0004615BB /* StopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019051C11C9B0004615BB /* StopDetailViewController.swift */; };
+		D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019071C11C9C4004615BB /* RouteDetailViewController.swift */; };
+		D480190A1C11CA3B004615BB /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019091C11CA3B004615BB /* Route.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +56,12 @@
 		D477DEF21C1021FF009C356E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D48018F01C108AA5004615BB /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		D48018F61C108B47004615BB /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SQLite.framework.dSYM; path = Carthage/Build/iOS/SQLite.framework.dSYM; sourceTree = "<group>"; };
+		D48018FB1C117EED004615BB /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
+		D48018FE1C11BBE1004615BB /* vta_gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = vta_gtfs.db; sourceTree = "<group>"; };
+		D48019031C11C979004615BB /* StopRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteViewController.swift; sourceTree = "<group>"; };
+		D48019051C11C9B0004615BB /* StopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewController.swift; sourceTree = "<group>"; };
+		D48019071C11C9C4004615BB /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
+		D48019091C11CA3B004615BB /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +100,8 @@
 			children = (
 				D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */,
 				D477DEE61C1020EE009C356E /* Controllers */,
+				D48018FA1C117ED1004615BB /* Models */,
+				D48019001C11C1EA004615BB /* Views */,
 				D477DEE01C1020DB009C356E /* Storyboards */,
 				D477DEDE1C1020DB009C356E /* Resources */,
 				D477DEE91C1020FC009C356E /* Supporting Files */,
@@ -98,6 +112,7 @@
 		D477DEDE1C1020DB009C356E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D48018FE1C11BBE1004615BB /* vta_gtfs.db */,
 				D477DEDF1C1020DB009C356E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -119,6 +134,9 @@
 				D477DEEA1C102183009C356E /* RoutesViewController.swift */,
 				D477DEEC1C10218F009C356E /* SettingsViewController.swift */,
 				D477DEEE1C1021A4009C356E /* MapViewController.swift */,
+				D48019031C11C979004615BB /* StopRouteViewController.swift */,
+				D48019051C11C9B0004615BB /* StopDetailViewController.swift */,
+				D48019071C11C9C4004615BB /* RouteDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -148,6 +166,23 @@
 				D48018F61C108B47004615BB /* SQLite.framework.dSYM */,
 			);
 			name = Vendor;
+			sourceTree = "<group>";
+		};
+		D48018FA1C117ED1004615BB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D48018FB1C117EED004615BB /* Stop.swift */,
+				D48019091C11CA3B004615BB /* Route.swift */,
+			);
+			name = Models;
+			path = "SJ Transit/Models";
+			sourceTree = SOURCE_ROOT;
+		};
+		D48019001C11C1EA004615BB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */,
+				D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */,
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
 			);
@@ -242,11 +278,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */,
+				D48019061C11C9B0004615BB /* StopDetailViewController.swift in Sources */,
 				D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */,
+				D480190A1C11CA3B004615BB /* Route.swift in Sources */,
 				D477DEEB1C102183009C356E /* RoutesViewController.swift in Sources */,
+				D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */,
 				D477DEE81C1020EE009C356E /* FavoritesViewVontroller.swift in Sources */,
 				D477DEEF1C1021A4009C356E /* MapViewController.swift in Sources */,
 				D477DEED1C10218F009C356E /* SettingsViewController.swift in Sources */,
+				D48018FC1C117EED004615BB /* Stop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
