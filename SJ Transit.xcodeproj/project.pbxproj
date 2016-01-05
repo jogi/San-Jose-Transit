@@ -22,9 +22,33 @@
 		D48018FC1C117EED004615BB /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48018FB1C117EED004615BB /* Stop.swift */; };
 		D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D48018FE1C11BBE1004615BB /* vta_gtfs.db */; };
 		D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019031C11C979004615BB /* StopRouteViewController.swift */; };
-		D48019061C11C9B0004615BB /* StopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019051C11C9B0004615BB /* StopDetailViewController.swift */; };
 		D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019071C11C9C4004615BB /* RouteDetailViewController.swift */; };
 		D480190A1C11CA3B004615BB /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019091C11CA3B004615BB /* Route.swift */; };
+		D480190F1C12B6A3004615BB /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480190E1C12B6A3004615BB /* RouteTableViewCell.swift */; };
+		D48019121C12B79C004615BB /* CellAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019111C12B79C004615BB /* CellAdditions.swift */; };
+		D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48019131C12BB60004615BB /* QuartzCore.framework */; };
+		D48019161C12D181004615BB /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019151C12D181004615BB /* Trip.swift */; };
+		D48019181C12D18B004615BB /* StopTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019171C12D18B004615BB /* StopTime.swift */; };
+		D480191A1C12D1BF004615BB /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019191C12D1BF004615BB /* Calendar.swift */; };
+		D480191D1C130010004615BB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480191C1C130010004615BB /* Database.swift */; };
+		D480191F1C1306C1004615BB /* NSDate+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480191E1C1306C1004615BB /* NSDate+Additions.swift */; };
+		D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48019231C140586004615BB /* SVProgressHUD.framework */; };
+		D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */; };
+		D48019281C144E45004615BB /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019271C144E45004615BB /* Threading.swift */; };
+		D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */; };
+		D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192F1C14811C004615BB /* NSCalendar+Additions.swift */; };
+		D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019311C159966004615BB /* StopRouteTimesViewController.swift */; };
+		D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */; };
+		D480193A1C15B1BC004615BB /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */; };
+		D480193C1C15C244004615BB /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193B1C15C244004615BB /* String+Additions.swift */; };
+		D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */; };
+		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
+		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
+		D4C212E01C1AB6EB00FB6219 /* favorites.db in Resources */ = {isa = PBXBuildFile; fileRef = D4C212DF1C1AB6EB00FB6219 /* favorites.db */; };
+		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
+		D4FDEDB11C1945EF00D01886 /* RouteMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */; };
+		D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */; };
+		D4FDEDB51C19846500D01886 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB41C19846500D01886 /* Favorite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +59,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				D48018F71C108B47004615BB /* SQLite.framework.dSYM in Carthage - Copy Debug Symbols */,
+				D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */,
 			);
 			name = "Carthage - Copy Debug Symbols";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,9 +84,34 @@
 		D48018FB1C117EED004615BB /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		D48018FE1C11BBE1004615BB /* vta_gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = vta_gtfs.db; sourceTree = "<group>"; };
 		D48019031C11C979004615BB /* StopRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteViewController.swift; sourceTree = "<group>"; };
-		D48019051C11C9B0004615BB /* StopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewController.swift; sourceTree = "<group>"; };
 		D48019071C11C9C4004615BB /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		D48019091C11CA3B004615BB /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		D480190E1C12B6A3004615BB /* RouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		D48019111C12B79C004615BB /* CellAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellAdditions.swift; sourceTree = "<group>"; };
+		D48019131C12BB60004615BB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D48019151C12D181004615BB /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		D48019171C12D18B004615BB /* StopTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopTime.swift; sourceTree = "<group>"; };
+		D48019191C12D1BF004615BB /* Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		D480191C1C130010004615BB /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		D480191E1C1306C1004615BB /* NSDate+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Additions.swift"; sourceTree = "<group>"; };
+		D48019211C1404C6004615BB /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
+		D48019231C140586004615BB /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SVProgressHUD.framework.dSYM; path = Carthage/Build/iOS/SVProgressHUD.framework.dSYM; sourceTree = "<group>"; };
+		D48019271C144E45004615BB /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
+		D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTableViewCell.swift; sourceTree = "<group>"; };
+		D480192F1C14811C004615BB /* NSCalendar+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Additions.swift"; sourceTree = "<group>"; };
+		D48019311C159966004615BB /* StopRouteTimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimesViewController.swift; sourceTree = "<group>"; };
+		D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimeTableViewCell.swift; sourceTree = "<group>"; };
+		D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
+		D480193B1C15C244004615BB /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
+		D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripStopTableViewCell.swift; sourceTree = "<group>"; };
+		D480193F1C16C923004615BB /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		D48019411C172624004615BB /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		D4C212DF1C1AB6EB00FB6219 /* favorites.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = favorites.db; sourceTree = "<group>"; };
+		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
+		D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapViewController.swift; sourceTree = "<group>"; };
+		D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Additions.swift"; sourceTree = "<group>"; };
+		D4FDEDB41C19846500D01886 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +119,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
+				D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */,
 				D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +154,8 @@
 				D477DEE61C1020EE009C356E /* Controllers */,
 				D48018FA1C117ED1004615BB /* Models */,
 				D48019001C11C1EA004615BB /* Views */,
+				D48019101C12B790004615BB /* Extensions */,
+				D480191B1C130004004615BB /* Utilities */,
 				D477DEE01C1020DB009C356E /* Storyboards */,
 				D477DEDE1C1020DB009C356E /* Resources */,
 				D477DEE91C1020FC009C356E /* Supporting Files */,
@@ -113,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				D48018FE1C11BBE1004615BB /* vta_gtfs.db */,
+				D4C212DF1C1AB6EB00FB6219 /* favorites.db */,
 				D477DEDF1C1020DB009C356E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -130,13 +185,16 @@
 		D477DEE61C1020EE009C356E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D477DEE71C1020EE009C356E /* FavoritesViewVontroller.swift */,
-				D477DEEA1C102183009C356E /* RoutesViewController.swift */,
-				D477DEEC1C10218F009C356E /* SettingsViewController.swift */,
 				D477DEEE1C1021A4009C356E /* MapViewController.swift */,
 				D48019031C11C979004615BB /* StopRouteViewController.swift */,
-				D48019051C11C9B0004615BB /* StopDetailViewController.swift */,
+				D48019311C159966004615BB /* StopRouteTimesViewController.swift */,
+				D477DEE71C1020EE009C356E /* FavoritesViewVontroller.swift */,
+				D477DEEA1C102183009C356E /* RoutesViewController.swift */,
 				D48019071C11C9C4004615BB /* RouteDetailViewController.swift */,
+				D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */,
+				D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */,
+				D480193F1C16C923004615BB /* TripDetailViewController.swift */,
+				D477DEEC1C10218F009C356E /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +202,7 @@
 		D477DEE91C1020FC009C356E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D48019211C1404C6004615BB /* Cartfile */,
 				D44107E71BFD71CF0022B7E2 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -153,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				D48018F81C108B59004615BB /* Vendor */,
+				D48019131C12BB60004615BB /* QuartzCore.framework */,
 				D477DEF21C1021FF009C356E /* CoreLocation.framework */,
 				D477DEF01C1021F8009C356E /* MapKit.framework */,
 			);
@@ -162,6 +222,8 @@
 		D48018F81C108B59004615BB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				D48019231C140586004615BB /* SVProgressHUD.framework */,
+				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
 				D48018F01C108AA5004615BB /* SQLite.framework */,
 				D48018F61C108B47004615BB /* SQLite.framework.dSYM */,
 			);
@@ -173,6 +235,11 @@
 			children = (
 				D48018FB1C117EED004615BB /* Stop.swift */,
 				D48019091C11CA3B004615BB /* Route.swift */,
+				D48019151C12D181004615BB /* Trip.swift */,
+				D48019171C12D18B004615BB /* StopTime.swift */,
+				D48019191C12D1BF004615BB /* Calendar.swift */,
+				D48019411C172624004615BB /* Shape.swift */,
+				D4FDEDB41C19846500D01886 /* Favorite.swift */,
 			);
 			name = Models;
 			path = "SJ Transit/Models";
@@ -181,8 +248,34 @@
 		D48019001C11C1EA004615BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D480190E1C12B6A3004615BB /* RouteTableViewCell.swift */,
+				D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */,
+				D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */,
+				D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */,
+				D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D48019101C12B790004615BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D48019111C12B79C004615BB /* CellAdditions.swift */,
+				D480191E1C1306C1004615BB /* NSDate+Additions.swift */,
+				D48019271C144E45004615BB /* Threading.swift */,
+				D480192F1C14811C004615BB /* NSCalendar+Additions.swift */,
+				D480193B1C15C244004615BB /* String+Additions.swift */,
+				D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D480191B1C130004004615BB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D480191C1C130010004615BB /* Database.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,10 +339,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */,
 				D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */,
 				D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */,
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
+				D4C212E01C1AB6EB00FB6219 /* favorites.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +358,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SQLite.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
 			);
 			name = "Carthage - Copy Frameworks";
 			outputPaths = (
@@ -278,16 +374,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48019181C12D18B004615BB /* StopTime.swift in Sources */,
+				D480190F1C12B6A3004615BB /* RouteTableViewCell.swift in Sources */,
+				D4FDEDB51C19846500D01886 /* Favorite.swift in Sources */,
+				D480193C1C15C244004615BB /* String+Additions.swift in Sources */,
 				D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */,
-				D48019061C11C9B0004615BB /* StopDetailViewController.swift in Sources */,
+				D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */,
+				D48019281C144E45004615BB /* Threading.swift in Sources */,
+				D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */,
+				D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */,
+				D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */,
+				D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */,
+				D480191A1C12D1BF004615BB /* Calendar.swift in Sources */,
+				D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */,
 				D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */,
+				D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */,
+				D480193A1C15B1BC004615BB /* DateTimePickerViewController.swift in Sources */,
 				D480190A1C11CA3B004615BB /* Route.swift in Sources */,
+				D48019121C12B79C004615BB /* CellAdditions.swift in Sources */,
 				D477DEEB1C102183009C356E /* RoutesViewController.swift in Sources */,
+				D48019161C12D181004615BB /* Trip.swift in Sources */,
 				D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */,
 				D477DEE81C1020EE009C356E /* FavoritesViewVontroller.swift in Sources */,
 				D477DEEF1C1021A4009C356E /* MapViewController.swift in Sources */,
+				D48019421C172624004615BB /* Shape.swift in Sources */,
 				D477DEED1C10218F009C356E /* SettingsViewController.swift in Sources */,
+				D480191D1C130010004615BB /* Database.swift in Sources */,
 				D48018FC1C117EED004615BB /* Stop.swift in Sources */,
+				D4FDEDB11C1945EF00D01886 /* RouteMapViewController.swift in Sources */,
+				D480191F1C1306C1004615BB /* NSDate+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +501,7 @@
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-Transit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi.SJ-Transit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -402,7 +517,7 @@
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-Transit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi.SJ-Transit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -9,87 +9,151 @@
 import UIKit
 
 class FavoritesViewVontroller: UITableViewController {
-
+    var favorites = [[Favorite]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.moveFavoritesIfRequired()
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.fetchFavorites()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.favorites.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.favorites[section].count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let outerCell: UITableViewCell!
+        let favorite = self.favorites[indexPath.section][indexPath.row]
+        
+        if favorite.type == .FavoriteRoute {
+            let cell = tableView.dequeueIdentifiableCell(RouteTableViewCell.self, forIndexPath: indexPath)
+            cell.route = favorite.favorite as? Route
+            outerCell = cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesStopCellIdentifier", forIndexPath: indexPath)
+            let stop = favorite.favorite as? Stop
+            cell.textLabel?.text = stop?.stopName
+            cell.detailTextLabel?.text = stop?.routes
+            outerCell = cell
+        }
 
-        // Configure the cell...
-
-        return cell
+        return outerCell
     }
-    */
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let favorite = self.favorites[indexPath.section][indexPath.row]
+        if favorite.type == .FavoriteRoute {
+            let viewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("RouteDetailViewController") as? RouteDetailViewController
+            viewController?.route = favorite.favorite as? Route
+            
+            self.navigationController?.pushViewController(viewController!, animated: true)
+        } else {
+            let stopRouteController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteViewController") as! StopRouteViewController
+            stopRouteController.stop = favorite.favorite as? Stop
+            self.navigationController?.pushViewController(stopRouteController, animated: true)
+        }
+    }
 
-    /*
-    // Override to support conditional editing of the table view.
+
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
+
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            Favorite.deleteFavorite(self.favorites[indexPath.section][indexPath.row].favoriteId)
+            self.favorites[indexPath.section].removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
-    /*
-    // Override to support rearranging the table view.
+            if self.favorites.count == 0 {
+                tableView.addNoDataFooterView("No favorites.")
+            }
+        }
+    }
+
+    
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+        var tempFavorites = self.favorites[fromIndexPath.section]
+        let tempObject = tempFavorites[fromIndexPath.row]
+        tempFavorites.removeAtIndex(fromIndexPath.row)
+        tempFavorites.insert(tempObject, atIndex: toIndexPath.row)
+        self.favorites[fromIndexPath.section] = tempFavorites
+        
+        for (index, element) in tempFavorites.enumerate() {
+            element.sortOrder = index
+        }
+        
+        Favorite.updateFavorites(tempFavorites)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
+    
+    
+    override func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        if sourceIndexPath.section != proposedDestinationIndexPath.section {
+            var row = 0
+            if sourceIndexPath.section < proposedDestinationIndexPath.section {
+                row = tableView.numberOfRowsInSection(sourceIndexPath.section) - 1
+            }
+            
+            return NSIndexPath(forRow: row, inSection: sourceIndexPath.section)
+        }
+        
+        return proposedDestinationIndexPath
+    }
+    
+    
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    func fetchFavorites() {
+        self.tableView.addLoadingFooterView()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            self.favorites = Favorite.favorites()
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                if self.favorites.count > 0 {
+                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                } else {
+                    self.tableView.addNoDataFooterView("No favorites.")
+                }
+            });
+        });
     }
-    */
-
+    
+    
+    func moveFavoritesIfRequired() {
+        let bundleFavoritesPath = NSBundle.mainBundle().pathForResource("favorites", ofType: "db")!
+        let documentsFavoritesPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0].stringByAppendingString("/favorites.db")
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(documentsFavoritesPath) {
+            do {
+                try NSFileManager.defaultManager().copyItemAtPath(bundleFavoritesPath, toPath: documentsFavoritesPath)
+            } catch {
+                print("Couldn't copy favorites db to Documents: \(error)")
+            }
+        }
+    }
 }

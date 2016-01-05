@@ -1,1 +1,2 @@
 github "stephencelis/SQLite.swift" "master"
+github "TransitApp/SVProgressHUD"

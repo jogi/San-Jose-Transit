@@ -9,87 +9,90 @@
 import UIKit
 
 class StopRouteViewController: UITableViewController {
+    // MARK: - IBOutlets
+    @IBOutlet weak var stopNameLabel: UILabel!
+    @IBOutlet weak var routesLabel: UILabel!
+    
+    var stop: Stop?
+    var data: Array<StopTime> = []
+    var afterTime: NSDate = NSDate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.title = "Departures"
+        self.stopNameLabel.text = self.stop?.stopName
+        self.routesLabel.text = self.stop?.routes
+        
+        self.fetchStopTimes()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.data.count
     }
-
-    /*
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueIdentifiableCell(StopRouteTableViewCell.self, forIndexPath: indexPath)
+        cell.stopTime = self.data[indexPath.row]
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let stopTime = self.data[indexPath.row]
+        stopTime.stop.stopId = self.stop?.stopId
+        stopTime.stop.stopName = self.stop?.stopName
+        
+        let stopRouteTimeController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteTimesViewController") as! StopRouteTimesViewController
+        stopRouteTimeController.stopTime = stopTime
+        
+        self.navigationController?.pushViewController(stopRouteTimeController, animated: true)
     }
-    */
+    
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    func fetchStopTimes() {
+        // get all relevant tripIds
+        self.tableView.addLoadingFooterView()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            let tripIds = Trip.trips((self.stop!.routes?.componentsSeparatedByString(", "))!, activeOn: NSDate())
+            self.data = StopTime.stopTimes(self.stop!.stopId, afterTime: self.afterTime, tripIds: tripIds)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                if self.data.count > 0 {
+                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                } else {
+                    self.tableView.addNoDataFooterView()
+                }
+            });
+        });
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    @IBAction func stopRouteAction(sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { _ -> Void in
+            self.performSegueWithIdentifier("StopRouteDatePickerSegue", sender: self)
+        }))
+        alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { _ -> Void in
+            Favorite.addFavorite(.FavoriteStop, typeId: (self.stop?.stopId)!)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "StopRouteDatePickerSegue" {
+            let viewController = segue.destinationViewController as! DateTimePickerViewController
+            viewController.onDateSelected = { selectedDate in
+                self.afterTime = selectedDate
+                self.fetchStopTimes()
+            }
+        }
     }
-    */
-
 }

@@ -14,12 +14,6 @@ class RoutesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.fetchRoutes()
     }
@@ -38,19 +32,28 @@ class RoutesViewController: UITableViewController {
     
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("RoutesCellIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueIdentifiableCell(RouteTableViewCell.self, forIndexPath: indexPath)
 
-        // Configure the cell...
-        cell.textLabel?.text = String(format: "%@ %@", self.routes[indexPath.row].routeShortName!, self.routes[indexPath.row].routeLongName!)
+        cell.route = self.routes[indexPath.row]
 
         return cell
+    }
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let viewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("RouteDetailViewController") as? RouteDetailViewController
+        viewController?.route = self.routes[indexPath.row]
+        
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
 
     
     // MARK: - Controller methods
     
     func fetchRoutes() {
-        self.routes = Route.fetchAllRoutes()
+        self.routes = Route.routes()
         self.tableView.reloadData()
     }
 }

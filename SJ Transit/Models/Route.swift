@@ -9,45 +9,78 @@
 import UIKit
 import SQLite
 
-public class Route: NSObject {
-    var routeLongName: String?
-    var routeShortName: String?
-    var routeType: NSInteger?
-    var routeId: String?
+
+enum RouteType: Int {
+    case LightRail = 0
+    case Subway = 1
+    case Rail = 2
+    case Bus = 3
+    case Ferry = 4
+    case CableCar = 5
+    case Gondola = 6
+    case Funicular = 7
+}
+
+
+class Route: NSObject {
+    var routeLongName: String!
+    var routeShortName: String!
+    var routeType: RouteType!
+    var routeId: String!
     var agencyId: String?
     
+    
+    convenience init(routeId: String?, routeShortName: String?, routeLongName: String?, routeType: RouteType?, agencyId: String?) {
+        self.init()
+        self.routeId = routeId
+        self.routeShortName = routeShortName
+        self.routeLongName = routeLongName
+        self.routeType = routeType
+        self.agencyId = agencyId
+    }
+    
     // MARK: - Methods
-    public class func fetchAllRoutes() -> (Array <Route>) {
-        let path = NSBundle.mainBundle().pathForResource("vta_gtfs", ofType: "db")!
+    class func routes() -> (Array <Route>) {
         var routeList = Array<Route>()
         
-        var db = Connection!()
-        do {
-            db = try Connection(path, readonly: true)
+        let db = Database.connection
+        let routes = Table("routes")
+        
+        // columns
+        let colRouteId = Expression<String>("route_id")
+        let colRouteType = Expression<Int>("route_type")
+        let colRouteLongName = Expression<String>("route_long_name")
+        let colRouteShortName = Expression<String?>("route_short_name")
+        
+        for route in db!.prepare(routes.order(cast(colRouteShortName) as Expression<Int?>, colRouteShortName)) {
+            let aRoute = Route()
+            aRoute.routeId = route[colRouteId]
+            aRoute.routeType = RouteType(rawValue: route[colRouteType])
+            aRoute.routeLongName = route[colRouteLongName]
+            aRoute.routeShortName = route[colRouteShortName]
             
-            let routes = Table("routes")
-            
-            // columns
-            let colRouteId = Expression<String?>("route_id")
-            let colRouteType = Expression<NSInteger?>("route_type")
-            let colRouteLongName = Expression<String?>("route_long_name")
-            let colRouteShortName = Expression<String?>("route_short_name")
-            
-            for route in db.prepare(routes.order(colRouteType, colRouteShortName)) {
-                let aRoute = Route()
-                aRoute.routeId = route[colRouteId]
-                aRoute.routeType = route[colRouteType]
-                aRoute.routeLongName = route[colRouteLongName]
-                aRoute.routeShortName = route[colRouteShortName]
-                
-                routeList.append(aRoute)
-            }
-        } catch {
-            routeList = []
+            routeList.append(aRoute)
         }
         
-        
-        
         return routeList
+    }
+    
+    
+    class func route(byId routeId: String) -> Route? {
+        let db = Database.connection
+        let routes = Table("routes")
+        var route: Route?
+        
+        // columns
+        let colRouteId = Expression<String>("route_id")
+        let colRouteType = Expression<Int>("route_type")
+        let colRouteLongName = Expression<String>("route_long_name")
+        let colRouteShortName = Expression<String?>("route_short_name")
+        
+        for row in db!.prepare(routes.filter(colRouteId == routeId)) {
+            route = Route(routeId: row[colRouteId], routeShortName: row[colRouteShortName], routeLongName: row[colRouteLongName], routeType: RouteType(rawValue: row[colRouteType]), agencyId: nil)
+        }
+        
+        return route
     }
 }

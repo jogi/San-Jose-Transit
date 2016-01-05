@@ -11,9 +11,9 @@ import CoreLocation
 import SQLite
 import MapKit
 
-public class Stop: NSObject, MKAnnotation {
+class Stop: NSObject, MKAnnotation {
     var stopId: String!
-    var stopName: String?
+    var stopName: String!
     var stopDescription: String?
     var latitude: Double!
     var longitude: Double!
@@ -21,53 +21,72 @@ public class Stop: NSObject, MKAnnotation {
     
     
     // MARK: - MKAnnotation protocol
-    public var coordinate: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2DMake(self.latitude, self.longitude)
         }
     }
     
-    public var title: String? {
+    var title: String? {
         get {
             return self.stopName
         }
     }
     
-    public var subtitle: String? {
+    var subtitle: String? {
         get {
             return self.routes
         }
     }
     
     
+    convenience init(stopId: String?, stopName: String?, stopDescription: String?, latitude: Double?, longitude: Double?, routes: String?) {
+        self.init()
+        self.stopId = stopId
+        self.stopName = stopName
+        self.stopDescription = stopDescription
+        self.latitude = latitude
+        self.longitude = longitude
+        self.routes = routes
+    }
+    
+    
     // MARK: - Methods
-    public class func fetchAllStops() -> (Array <Stop>) {
-        let path = NSBundle.mainBundle().pathForResource("vta_gtfs", ofType: "db")!
+    class func stops() -> (Array <Stop>) {
         var stopsList = Array<Stop>()
         
-        var db = Connection!()
-        do {
-            db = try Connection(path, readonly: true)
+        let db = Database.connection
+        let stops = Table("stops")
+        
+        for stop in db!.prepare(stops) {
+            let aStop = Stop()
+            aStop.stopId = stop[Expression<String>("stop_id")]
+            aStop.stopName = stop[Expression<String>("stop_name")]
+            aStop.stopDescription = stop[Expression<String?>("stop_desc")]
+            aStop.latitude = stop[Expression<Double>("stop_lat")]
+            aStop.longitude = stop[Expression<Double>("stop_lon")]
+            aStop.routes = stop[Expression<String?>("routes")]
             
-            let stops = Table("stops")
-            
-            for stop in db.prepare(stops) {
-                let aStop = Stop()
-                aStop.stopId = stop[Expression<String>("stop_id")]
-                aStop.stopName = stop[Expression<String?>("stop_name")]
-                aStop.stopDescription = stop[Expression<String?>("stop_desc")]
-                aStop.latitude = stop[Expression<Double>("stop_lat")]
-                aStop.longitude = stop[Expression<Double>("stop_lon")]
-                aStop.routes = stop[Expression<String?>("routes")]
-                
-                stopsList.append(aStop)
-            }
-        } catch {
-            stopsList = []
+            stopsList.append(aStop)
         }
 
-        
-        
         return stopsList
+    }
+    
+    
+    class func stop(byId stopId: String) -> Stop? {
+        let db = Database.connection!
+        let stops = Table("stops")
+        var stop: Stop?
+        
+        let colStopId = Expression<String>("stop_id")
+        let colStopName = Expression<String>("stop_name")
+        let colRoutes = Expression<String>("routes")
+        
+        for row in db.prepare(stops.filter(colStopId == stopId)) {
+            stop = Stop(stopId: row[colStopId], stopName: row[colStopName], stopDescription: nil, latitude: nil, longitude: nil, routes: row[colRoutes])
+        }
+        
+        return stop
     }
 }

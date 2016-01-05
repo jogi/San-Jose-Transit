@@ -9,16 +9,17 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SVProgressHUD
 
 class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
     // MARK: - IBOutlets
-    @IBOutlet weak var locationSearchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: - Vars
     var locationManager: CLLocationManager!
     var stops: Array<Stop>?
+    var hasAcquiredUserLocaion: Bool = false
     
     // MARK: - IBActions
     @IBAction func locateUser(sender: UIBarButtonItem) {
@@ -35,16 +36,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         self.locationManager = CLLocationManager.init()
         self.locationManager.requestWhenInUseAuthorization()
         
-        self.navigationController?.navigationBar.topItem?.titleView = self.locationSearchBar
-        
         self.fetchStops()
     }
     
 
     // MARK: - MKMapViewDelegate
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
-        self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
+        if self.hasAcquiredUserLocaion == false {
+            self.hasAcquiredUserLocaion = true
+            let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
+            self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
+        }
     }
     
     
@@ -60,7 +62,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
                 annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
                 annotationView?.pinTintColor = mapView.tintColor
-                annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+                
+                let disclosureButton = UIButton(type: .DetailDisclosure)
+                disclosureButton.setImage(UIImage(named: "right-arrow"), forState: .Normal) // yup, annotation views are stupid, so try to trick it
+                annotationView?.rightCalloutAccessoryView = disclosureButton
             } else {
                 annotationView?.annotation = annotation
             }
@@ -72,13 +77,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let stop = view.annotation as? Stop
-        print("Callout accessory tapped for \(stop?.stopId), \(stop?.stopName))")
+        let stopRouteController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteViewController") as! StopRouteViewController
+        stopRouteController.stop = stop
+        self.navigationController?.pushViewController(stopRouteController, animated: true)
     }
 
     
     
     // MARK: - UISearchBarDelegate
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        SVProgressHUD.show()
+        
         let searchRequest = MKLocalSearchRequest.init()
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
@@ -87,9 +97,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         localSearch.startWithCompletionHandler { (response, error) -> Void in
             guard let response = response else {
                 NSLog("Search error: \(error)")
+                SVProgressHUD.showErrorWithStatus("Try Again")
                 return
             }
             
+            SVProgressHUD.dismiss()
             if response.mapItems.count > 0 {
                 let firstMapItem = response.mapItems[0] as MKMapItem!
                 self.mapView.setRegion(MKCoordinateRegionMakeWithDistance((firstMapItem.placemark.location?.coordinate)!, 1000, 1000), animated: true)
@@ -100,7 +112,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - Controller methods
     func fetchStops() {
-        self.stops = Stop.fetchAllStops()
+        self.stops = Stop.stops()
         if (self.stops != nil) {
             self.mapView.addAnnotations(self.stops!)
         }
