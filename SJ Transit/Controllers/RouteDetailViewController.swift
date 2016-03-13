@@ -66,23 +66,24 @@ class RouteDetailViewController: UITableViewController {
     
     func fetchTrip() {
         self.tableView.addLoadingFooterView()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
             // get the first trip
-            self.tripId = StopTime.trip(self.route?.routeId, directionId: Direction(rawValue: self.directionSegment.selectedSegmentIndex), afterTime: self.afterTime)
+            strongSelf.tripId = StopTime.trip(strongSelf.route?.routeId, directionId: Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex), afterTime: strongSelf.afterTime)
             
-            if let tripId = self.tripId {
-                self.times = StopTime.stopTimes(tripId)
+            if let tripId = strongSelf.tripId {
+                strongSelf.times = StopTime.stopTimes(tripId)
             } else {
-                self.times = []
+                strongSelf.times = []
             }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-                if self.times.count > 0 {
-                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                strongSelf.tableView.reloadData()
+                if strongSelf.times.count > 0 {
+                    strongSelf.tableView.tableFooterView = UIView(frame: CGRectZero)
                 } else {
-                    print("No trips found for route: \(self.route?.routeId), direction: \(Direction(rawValue: self.directionSegment.selectedSegmentIndex)), afterTime: \(self.afterTime)")
-                    self.tableView.addNoDataFooterView()
+                    print("No trips found for route: \(strongSelf.route?.routeId), direction: \(Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex)), afterTime: \(strongSelf.afterTime)")
+                    strongSelf.tableView.addNoDataFooterView()
                 }
             });
         });
@@ -100,12 +101,24 @@ class RouteDetailViewController: UITableViewController {
                 self.navigationController?.pushViewController(viewController!, animated: true)
             }))
         }
-        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { _ -> Void in
-            self.performSegueWithIdentifier("RouteTimePickerSegue", sender: self)
+        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { [weak self] _ -> Void in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.performSegueWithIdentifier("RouteTimePickerSegue", sender: strongSelf)
         }))
-        alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { _ -> Void in
-            Favorite.addFavorite(.FavoriteRoute, typeId: self.route.routeId)
-        }))
+        if Favorite.isFavorite(.FavoriteRoute, typeId: self.route.routeId) {
+            alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+                guard let strongSelf = self else { return }
+                
+                Favorite.deleteFavorite(.FavoriteRoute, typeId: strongSelf.route.routeId)
+            }))
+        } else {
+            alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+                guard let strongSelf = self else { return }
+                
+                Favorite.addFavorite(.FavoriteRoute, typeId: strongSelf.route.routeId)
+            }))
+        }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -123,10 +136,11 @@ class RouteDetailViewController: UITableViewController {
             viewController.onDateSelected = { selectedDate in
                 self.afterTime = selectedDate
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.times = []
-                    self.tableView.reloadData()
-                    self.fetchTrip()
+                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                    guard let strongSelf = self else { return }
+                    strongSelf.times = []
+                    strongSelf.tableView.reloadData()
+                    strongSelf.fetchTrip()
                 });
             }
         }

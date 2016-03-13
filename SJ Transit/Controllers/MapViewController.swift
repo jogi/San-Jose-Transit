@@ -112,9 +112,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - Controller methods
     func fetchStops() {
-        self.stops = Stop.stops()
-        if (self.stops != nil) {
-            self.mapView.addAnnotations(self.stops!)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.stops = Stop.stops()
+            if (strongSelf.stops != nil) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    strongSelf.mapView.addAnnotations(strongSelf.stops!)
+                });
+            }
         }
     }
 }

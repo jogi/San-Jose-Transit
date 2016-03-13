@@ -58,8 +58,10 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Controller methods
     func mapRoute() {
         self.mapView.addAnnotations(self.times)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            let shapes = Shape.shapes(forTrip:self.tripId!)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            
+            let shapes = Shape.shapes(forTrip:strongSelf.tripId!)
             var points = [CLLocationCoordinate2D]()
             
             for aShape in shapes {
@@ -68,8 +70,8 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.mapView.addOverlay(polyline)
-                self.animateMapRegion(to: shapes[0].coordinate)
+                strongSelf.mapView.addOverlay(polyline)
+                strongSelf.animateMapRegion(to: shapes[0].coordinate)
             });
         });
     }
@@ -79,5 +81,10 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
         let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         self.mapView.setRegion(region, animated: true)
+    }
+    
+    
+    deinit {
+        self.mapView.delegate = nil
     }
 }

@@ -44,10 +44,11 @@ class StopTime: NSObject, MKAnnotation {
     
     // get stop times for a stop for specified tripIds
     class func stopTimes(stopId: String!, afterTime: NSDate!, tripIds: Array<String>!) -> (Array<StopTime>) {
+        guard let db = Database.connection else {
+            return []
+        }
+        
         var times = Array<StopTime>()
-        
-        let db = Database.connection!
-        
         let stopTimes = Table("stop_times")
         let trips = Table("trips")
         let routes = Table("routes")
@@ -64,24 +65,27 @@ class StopTime: NSObject, MKAnnotation {
         
         let query = stopTimes.select(stopTimes[colArrivalTime].min, trips[colRouteId], routes[colRouteShortName], trips[colDirectionId], trips[colTripHeadSign]).join(trips, on: stopTimes[colTripId] == trips[colTripId]).join(routes, on: trips[colRouteId] == routes[colRouteId]).filter(stopTimes[colStopId] == stopId && tripIds.contains(stopTimes[colTripId]) && stopTimes[colArrivalTime] >= SQLTimeFormatter.stringFromDate(afterTime) && stopTimes[colIsLastStop] == false).group(trips[colRouteId]).order(trips[colRouteId], stopTimes[colArrivalTime])
         
-        for stopTime in db.prepare(query) {
-            let aStopTime = StopTime()
-            aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime].min]!.sanitizedTimeString)
-            aStopTime.trip = Trip(tripId: nil, routeId: stopTime[trips[colRouteId]], serviceId: nil, tripHeadsign: stopTime[trips[colTripHeadSign]], directionId: Direction(rawValue: stopTime[trips[colDirectionId]]), shapeId: nil)
-            aStopTime.route = Route(routeId: stopTime[trips[colRouteId]], routeShortName: stopTime[routes[colRouteShortName]], routeLongName: nil, routeType: nil, agencyId: nil)
-            
-            times.append(aStopTime)
-        }
+        do {
+            for stopTime in try db.prepare(query) {
+                let aStopTime = StopTime()
+                aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime].min]!.sanitizedTimeString)
+                aStopTime.trip = Trip(tripId: nil, routeId: stopTime[trips[colRouteId]], serviceId: nil, tripHeadsign: stopTime[trips[colTripHeadSign]], directionId: Direction(rawValue: stopTime[trips[colDirectionId]]), shapeId: nil)
+                aStopTime.route = Route(routeId: stopTime[trips[colRouteId]], routeShortName: stopTime[routes[colRouteShortName]], routeLongName: nil, routeType: nil, agencyId: nil)
+                
+                times.append(aStopTime)
+            }
+        } catch _ {}
         
         return times
     }
     
     
     class func stopTimes(stopId: String!, routeId: String!, tripIds: Array<String>!, afterTime: NSDate!) -> (Array<StopTime>) {
+        guard let db = Database.connection else {
+            return []
+        }
+        
         var times = Array<StopTime>()
-        
-        let db = Database.connection!
-        
         let stopTimes = Table("stop_times")
         let trips = Table("trips")
         
@@ -97,24 +101,27 @@ class StopTime: NSObject, MKAnnotation {
         
         let query = stopTimes.select(stopTimes[colArrivalTime], trips[colTripHeadSign], trips[colTripId], trips[colShapeId], trips[colDirectionId]).join(trips, on: stopTimes[colTripId] == trips[colTripId]).filter(stopTimes[colStopId] == stopId && trips[colRouteId] == routeId && tripIds.contains(stopTimes[colTripId]) && stopTimes[colArrivalTime] >= SQLTimeFormatter.stringFromDate(afterTime) && stopTimes[colIsLastStop] == false).order(stopTimes[colArrivalTime])
         
-        for stopTime in db.prepare(query) {
-            let aStopTime = StopTime()
-            aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime]].sanitizedTimeString)
-            aStopTime.trip = Trip(tripId: stopTime[trips[colTripId]], routeId: nil, serviceId: nil, tripHeadsign: stopTime[trips[colTripHeadSign]], directionId: Direction(rawValue: stopTime[trips[colDirectionId]]), shapeId: stopTime[trips[colShapeId]])
-            aStopTime.route = Route(routeId: routeId, routeShortName: nil, routeLongName: nil, routeType: nil, agencyId: nil)
-            
-            times.append(aStopTime)
-        }
+        do  {
+            for stopTime in try db.prepare(query) {
+                let aStopTime = StopTime()
+                aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime]].sanitizedTimeString)
+                aStopTime.trip = Trip(tripId: stopTime[trips[colTripId]], routeId: nil, serviceId: nil, tripHeadsign: stopTime[trips[colTripHeadSign]], directionId: Direction(rawValue: stopTime[trips[colDirectionId]]), shapeId: stopTime[trips[colShapeId]])
+                aStopTime.route = Route(routeId: routeId, routeShortName: nil, routeLongName: nil, routeType: nil, agencyId: nil)
+                
+                times.append(aStopTime)
+            }
+        } catch _ {}
         
         return times
     }
     
     
     class func stopTimes(tripId: String) -> (Array<StopTime>) {
-        var times = Array<StopTime>()
-    
-        let db = Database.connection!
+        guard let db = Database.connection else {
+            return []
+        }
         
+        var times = Array<StopTime>()
         let stopTimes = Table("stop_times")
         let stops = Table("stops")
         
@@ -130,26 +137,30 @@ class StopTime: NSObject, MKAnnotation {
         
         let query = stopTimes.select(stopTimes[colArrivalTime], stopTimes[colStopId], stopTimes[colStopSequence], stops[colStopName], stops[colStopLat], stops[colStopLon], stops[colRoutes]).join(stops, on: stopTimes[colStopId] == stops[colStopId]).filter(stopTimes[colTripId] == tripId).order(stopTimes[colStopSequence])
         
-        for stopTime in db.prepare(query) {
-            let aStopTime = StopTime()
-            aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime]].sanitizedTimeString)
-            aStopTime.stopSequence = stopTime[stopTimes[colStopSequence]]
-            aStopTime.stop = Stop(stopId: stopTime[stopTimes[colStopId]], stopName: stopTime[stops[colStopName]], stopDescription: nil, latitude: stopTime[stops[colStopLat]], longitude: stopTime[stops[colStopLon]], routes: stopTime[stops[colRoutes]])
-            
-            times.append(aStopTime)
-        }
+        do {
+            for stopTime in try db.prepare(query) {
+                let aStopTime = StopTime()
+                aStopTime.arrivalTime = SQLTimeFormatter.dateFromString(stopTime[stopTimes[colArrivalTime]].sanitizedTimeString)
+                aStopTime.stopSequence = stopTime[stopTimes[colStopSequence]]
+                aStopTime.stop = Stop(stopId: stopTime[stopTimes[colStopId]], stopName: stopTime[stops[colStopName]], stopDescription: nil, latitude: stopTime[stops[colStopLat]], longitude: stopTime[stops[colStopLon]], routes: stopTime[stops[colRoutes]])
+                
+                times.append(aStopTime)
+            }
+        } catch _ {}
         
         return times
     }
     
     
     class func trip(routeId: String!, directionId: Direction!, afterTime: NSDate!) -> (String?) {
+        guard let db = Database.connection else {
+            return nil
+        }
+        
         var tripId: String?
         
         // find trips ids active today
         let tripIds = Trip.trips([routeId], directionId: directionId, activeOn: afterTime)
-        
-        let db = Database.connection!
         let stopTimes = Table("stop_times")
         
         // columns
@@ -157,9 +168,11 @@ class StopTime: NSObject, MKAnnotation {
         let colArrivalTime = Expression<String>("arrival_time")
         let colStopSequence = Expression<Int>("stop_sequence")
         
-        for row in db.prepare(stopTimes.select(colTripId).filter(tripIds.contains(colTripId) && colStopSequence == 1 && colArrivalTime >= SQLTimeFormatter.stringFromDate(afterTime))) {
-            tripId = row[colTripId]
-        }
+        do {
+            for row in try db.prepare(stopTimes.select(colTripId).filter(tripIds.contains(colTripId) && colStopSequence == 1 && colArrivalTime >= SQLTimeFormatter.stringFromDate(afterTime))) {
+                tripId = row[colTripId]
+            }
+        } catch _ {}
         
         return tripId
     }

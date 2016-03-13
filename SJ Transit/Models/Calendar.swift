@@ -39,14 +39,17 @@ class Calendar: NSObject {
     var sunday: ServiceAvailble!
     
     class func isServiceActive(date: NSDate, serviceId: String) -> Bool {
-        let db = Database.connection
+        guard let db = Database.connection else {
+            return false
+        }
+        
         let calendar = Table("calendar")
         let colServiceId = Expression<String>("service_id")
         let colStartDate = Expression<NSDate>("start_date")
         let colEndDate = Expression<NSDate>("end_date")
         let colToday = Expression<Int>(date.dayAsString)
         
-        let count = db!.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date && colEndDate >= date && colToday == 1).count)
+        let count = db.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date && colEndDate >= date && colToday == 1).count)
         
         return count > 0
     }

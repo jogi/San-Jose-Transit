@@ -28,7 +28,6 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
         self.fetchTripDetail()
         self.mapRoute()
     }
-
     
     // MARK: - Table view data source
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,21 +127,23 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func fetchTripDetail() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            self.times = StopTime.stopTimes((self.stopTime?.trip.tripId)!)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.times = StopTime.stopTimes((strongSelf.stopTime?.trip.tripId)!)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-                self.mapView.addAnnotations(self.times)
+                strongSelf.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                strongSelf.mapView.addAnnotations(strongSelf.times)
                 
                 // focus the selected stop
-                let stopTimes = self.times.filter({ (stopTime) -> Bool in
-                    return stopTime.stop.stopId == self.stopTime?.stop.stopId
+                let stopTimes = strongSelf.times.filter({ (stopTime) -> Bool in
+                    return stopTime.stop.stopId == strongSelf.stopTime?.stop.stopId
                 })
                 
                 if stopTimes.count > 0 {
-                    self.animateMapRegion(to: (stopTimes[0].stop.coordinate))
-                    self.mapView.selectAnnotation(stopTimes[0], animated: true)
+                    strongSelf.animateMapRegion(to: (stopTimes[0].stop.coordinate))
+                    strongSelf.mapView.selectAnnotation(stopTimes[0], animated: true)
                 }
             });
         });
@@ -150,8 +151,10 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func mapRoute() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            let shapes = Shape.shapes(forShape:(self.stopTime?.trip.shapeId)!)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            
+            let shapes = Shape.shapes(forShape:(strongSelf.stopTime?.trip.shapeId)!)
             var points = [CLLocationCoordinate2D]()
             
             for aShape in shapes {
@@ -160,8 +163,8 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.mapView.addOverlay(polyline)
-                self.animateMapRegion(to: shapes[0].coordinate)
+                strongSelf.mapView.addOverlay(polyline)
+                strongSelf.animateMapRegion(to: shapes[0].coordinate)
             });
         });
     }
@@ -171,5 +174,10 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
         let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         self.mapView.setRegion(region, animated: true)
+    }
+    
+    
+    deinit {
+        self.mapView.delegate = nil
     }
 }

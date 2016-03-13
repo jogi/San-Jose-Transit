@@ -42,8 +42,11 @@ class Trip: NSObject {
     
     // get all trip ids which are active today
     class func trips(routeIds: Array<String>, activeOn: NSDate) -> (Array<String>) {
+        guard let db = Database.connection else {
+            return []
+        }
+        
         var tripIds = Array<String>()
-        let db = Database.connection!
         let trips = Table("trips")
         
         // columns
@@ -51,12 +54,14 @@ class Trip: NSObject {
         let colTripId = Expression<String>("trip_id")
         let colServiceId = Expression<String>("service_id")
         
-        for trip in db.prepare(trips.select(colTripId, colServiceId).filter(routeIds.contains(colRouteId))) {
-            // check if it is active
-            if Calendar.isServiceActive(activeOn, serviceId: trip[colServiceId]) {
-                tripIds.append(trip[colTripId])
+        do  {
+            for trip in try db.prepare(trips.select(colTripId, colServiceId).filter(routeIds.contains(colRouteId))) {
+                // check if it is active
+                if Calendar.isServiceActive(activeOn, serviceId: trip[colServiceId]) {
+                    tripIds.append(trip[colTripId])
+                }
             }
-        }
+        } catch _ {}
         
         return tripIds
     }
@@ -64,8 +69,11 @@ class Trip: NSObject {
     
     // get all trip ids which are active today in a specific direction
     class func trips(routeIds: Array<String>, directionId: Direction!, activeOn: NSDate) -> (Array<String>) {
+        guard let db = Database.connection else {
+            return []
+        }
+        
         var tripIds = Array<String>()
-        let db = Database.connection!
         let trips = Table("trips")
         
         // columns
@@ -74,12 +82,14 @@ class Trip: NSObject {
         let colDirectionId = Expression<Int>("direction_id")
         let colServiceId = Expression<String>("service_id")
         
-        for trip in db.prepare(trips.select(colTripId, colServiceId).filter(routeIds.contains(colRouteId) && trips[colDirectionId] == directionId.rawValue)) {
-            // check if it is active
-            if Calendar.isServiceActive(activeOn, serviceId: trip[colServiceId]) {
-                tripIds.append(trip[colTripId])
+        do {
+            for trip in try db.prepare(trips.select(colTripId, colServiceId).filter(routeIds.contains(colRouteId) && trips[colDirectionId] == directionId.rawValue)) {
+                // check if it is active
+                if Calendar.isServiceActive(activeOn, serviceId: trip[colServiceId]) {
+                    tripIds.append(trip[colTripId])
+                }
             }
-        }
+        } catch _ {}
         
         return tripIds
     }

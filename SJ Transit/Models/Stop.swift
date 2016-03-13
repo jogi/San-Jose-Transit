@@ -55,27 +55,35 @@ class Stop: NSObject, MKAnnotation {
     class func stops() -> (Array <Stop>) {
         var stopsList = Array<Stop>()
         
-        let db = Database.connection
+        guard let db = Database.connection else {
+            return []
+        }
+        
         let stops = Table("stops")
         
-        for stop in db!.prepare(stops) {
-            let aStop = Stop()
-            aStop.stopId = stop[Expression<String>("stop_id")]
-            aStop.stopName = stop[Expression<String>("stop_name")]
-            aStop.stopDescription = stop[Expression<String?>("stop_desc")]
-            aStop.latitude = stop[Expression<Double>("stop_lat")]
-            aStop.longitude = stop[Expression<Double>("stop_lon")]
-            aStop.routes = stop[Expression<String?>("routes")]
-            
-            stopsList.append(aStop)
-        }
+        do {
+            for stop in try db.prepare(stops) {
+                let aStop = Stop()
+                aStop.stopId = stop[Expression<String>("stop_id")]
+                aStop.stopName = stop[Expression<String>("stop_name")]
+                aStop.stopDescription = stop[Expression<String?>("stop_desc")]
+                aStop.latitude = stop[Expression<Double>("stop_lat")]
+                aStop.longitude = stop[Expression<Double>("stop_lon")]
+                aStop.routes = stop[Expression<String?>("routes")]
+                
+                stopsList.append(aStop)
+            }
+        } catch _ {}
 
         return stopsList
     }
     
     
     class func stop(byId stopId: String) -> Stop? {
-        let db = Database.connection!
+        guard let db = Database.connection else {
+            return nil
+        }
+        
         let stops = Table("stops")
         var stop: Stop?
         
@@ -83,9 +91,11 @@ class Stop: NSObject, MKAnnotation {
         let colStopName = Expression<String>("stop_name")
         let colRoutes = Expression<String>("routes")
         
-        for row in db.prepare(stops.filter(colStopId == stopId)) {
-            stop = Stop(stopId: row[colStopId], stopName: row[colStopName], stopDescription: nil, latitude: nil, longitude: nil, routes: row[colRoutes])
-        }
+        do {
+            for row in try db.prepare(stops.filter(colStopId == stopId)) {
+                stop = Stop(stopId: row[colStopId], stopName: row[colStopName], stopDescription: nil, latitude: nil, longitude: nil, routes: row[colRoutes])
+            }
+        } catch _ {}
         
         return stop
     }

@@ -24,9 +24,11 @@ class Shape: NSObject {
     
     // MARK: - Methods
     class func shapes(forShape shapeId: String) -> (Array<Shape>) {
-        var shapeList = Array<Shape>()
+        guard let db = Database.connection else {
+            return []
+        }
         
-        let db = Database.connection
+        var shapeList = Array<Shape>()
         let shapes = Table("shapes")
         
         // columns
@@ -35,23 +37,27 @@ class Shape: NSObject {
         let colLongitude = Expression<Double>("shape_pt_lon")
         let colPointSequence = Expression<Int>("shape_pt_sequence")
         
-        for row in db!.prepare(shapes.select(colLatitude, colLongitude, colPointSequence).filter(colShapeId == shapeId).order(colPointSequence)) {
-            let aShape = Shape()
-            aShape.pointLat = row[colLatitude]
-            aShape.pointLon = row[colLongitude]
-            aShape.pointSequence = row[colPointSequence]
-            
-            shapeList.append(aShape)
-        }
+        do {
+            for row in try db.prepare(shapes.select(colLatitude, colLongitude, colPointSequence).filter(colShapeId == shapeId).order(colPointSequence)) {
+                let aShape = Shape()
+                aShape.pointLat = row[colLatitude]
+                aShape.pointLon = row[colLongitude]
+                aShape.pointSequence = row[colPointSequence]
+                
+                shapeList.append(aShape)
+            }
+        } catch _ {}
         
         return shapeList
     }
     
     
     class func shapes(forTrip tripId: String) -> (Array<Shape>) {
-        var shapeList = Array<Shape>()
+        guard let db = Database.connection else {
+            return []
+        }
         
-        let db = Database.connection
+        var shapeList = Array<Shape>()
         let shapes = Table("shapes")
         let trips = Table("trips")
         
@@ -62,14 +68,16 @@ class Shape: NSObject {
         let colPointSequence = Expression<Int>("shape_pt_sequence")
         let colTripId = Expression<String>("trip_id")
         
-        for row in db!.prepare(shapes.select(shapes[colLatitude], shapes[colLongitude], shapes[colPointSequence]).join(trips, on: shapes[colShapeId] == trips[colShapeId]).filter(trips[colTripId] == tripId).order(shapes[colPointSequence])) {
-            let aShape = Shape()
-            aShape.pointLat = row[shapes[colLatitude]]
-            aShape.pointLon = row[shapes[colLongitude]]
-            aShape.pointSequence = row[shapes[colPointSequence]]
-            
-            shapeList.append(aShape)
-        }
+        do {
+            for row in try db.prepare(shapes.select(shapes[colLatitude], shapes[colLongitude], shapes[colPointSequence]).join(trips, on: shapes[colShapeId] == trips[colShapeId]).filter(trips[colTripId] == tripId).order(shapes[colPointSequence])) {
+                let aShape = Shape()
+                aShape.pointLat = row[shapes[colLatitude]]
+                aShape.pointLon = row[shapes[colLongitude]]
+                aShape.pointSequence = row[shapes[colPointSequence]]
+                
+                shapeList.append(aShape)
+            }
+        } catch _ {}
         
         return shapeList
     }

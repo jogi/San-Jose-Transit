@@ -61,17 +61,19 @@ class StopRouteTimesViewController: UITableViewController {
     
     func fetchStopTimes() {
         self.tableView.addLoadingFooterView()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            
             // get all relevant tripIds
-            let tripIds = Trip.trips([(self.stopTime?.route.routeId)!], activeOn: self.afterTime)
-            self.data = StopTime.stopTimes(self.stopTime?.stop.stopId, routeId: self.stopTime?.route.routeId, tripIds: tripIds, afterTime: self.afterTime)
+            let tripIds = Trip.trips([(strongSelf.stopTime?.route.routeId)!], activeOn: strongSelf.afterTime)
+            strongSelf.data = StopTime.stopTimes(strongSelf.stopTime?.stop.stopId, routeId: strongSelf.stopTime?.route.routeId, tripIds: tripIds, afterTime: strongSelf.afterTime)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-                if self.data.count > 0 {
-                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                strongSelf.tableView.reloadData()
+                if strongSelf.data.count > 0 {
+                    strongSelf.tableView.tableFooterView = UIView(frame: CGRectZero)
                 } else {
-                    self.tableView.addNoDataFooterView()
+                    strongSelf.tableView.addNoDataFooterView()
                 }
             });
         });
@@ -79,12 +81,21 @@ class StopRouteTimesViewController: UITableViewController {
 
     @IBAction func stopRouteTimesAction(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { _ -> Void in
-            self.performSegueWithIdentifier("StopRouteTimePickerSegue", sender: self)
+        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { [weak self] _ -> Void in
+            guard let strongSelf = self else { return }
+            strongSelf.performSegueWithIdentifier("StopRouteTimePickerSegue", sender: strongSelf)
         }))
-        alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { _ -> Void in
-            Favorite.addFavorite(.FavoriteStop, typeId: (self.stopTime?.stop.stopId)!)
-        }))
+        if Favorite.isFavorite(.FavoriteStop, typeId: (self.stopTime?.stop.stopId)!) {
+            alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+                guard let strongSelf = self else { return }
+                Favorite.deleteFavorite(.FavoriteStop, typeId: (strongSelf.stopTime?.stop.stopId)!)
+            }))
+        } else {
+            alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+                guard let strongSelf = self else { return }
+                Favorite.addFavorite(.FavoriteStop, typeId: (strongSelf.stopTime?.stop.stopId)!)
+            }))
+        }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }

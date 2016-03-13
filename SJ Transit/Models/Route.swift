@@ -41,9 +41,11 @@ class Route: NSObject {
     
     // MARK: - Methods
     class func routes() -> (Array <Route>) {
-        var routeList = Array<Route>()
+        guard let db = Database.connection else {
+            return []
+        }
         
-        let db = Database.connection
+        var routeList = Array<Route>()
         let routes = Table("routes")
         
         // columns
@@ -52,22 +54,27 @@ class Route: NSObject {
         let colRouteLongName = Expression<String>("route_long_name")
         let colRouteShortName = Expression<String?>("route_short_name")
         
-        for route in db!.prepare(routes.order(cast(colRouteShortName) as Expression<Int?>, colRouteShortName)) {
-            let aRoute = Route()
-            aRoute.routeId = route[colRouteId]
-            aRoute.routeType = RouteType(rawValue: route[colRouteType])
-            aRoute.routeLongName = route[colRouteLongName]
-            aRoute.routeShortName = route[colRouteShortName]
-            
-            routeList.append(aRoute)
-        }
+        do {
+            for route in try db.prepare(routes.order(cast(colRouteShortName) as Expression<Int?>, colRouteShortName)) {
+                let aRoute = Route()
+                aRoute.routeId = route[colRouteId]
+                aRoute.routeType = RouteType(rawValue: route[colRouteType])
+                aRoute.routeLongName = route[colRouteLongName]
+                aRoute.routeShortName = route[colRouteShortName]
+                
+                routeList.append(aRoute)
+            }
+        }catch _ {}
         
         return routeList
     }
     
     
     class func route(byId routeId: String) -> Route? {
-        let db = Database.connection
+        guard let db = Database.connection else {
+            return nil
+        }
+        
         let routes = Table("routes")
         var route: Route?
         
@@ -77,9 +84,11 @@ class Route: NSObject {
         let colRouteLongName = Expression<String>("route_long_name")
         let colRouteShortName = Expression<String?>("route_short_name")
         
-        for row in db!.prepare(routes.filter(colRouteId == routeId)) {
-            route = Route(routeId: row[colRouteId], routeShortName: row[colRouteShortName], routeLongName: row[colRouteLongName], routeType: RouteType(rawValue: row[colRouteType]), agencyId: nil)
-        }
+        do {
+            for row in try db.prepare(routes.filter(colRouteId == routeId)) {
+                route = Route(routeId: row[colRouteId], routeShortName: row[colRouteShortName], routeLongName: row[colRouteLongName], routeType: RouteType(rawValue: row[colRouteType]), agencyId: nil)
+            }
+        } catch _ {}
         
         return route
     }

@@ -129,15 +129,16 @@ class FavoritesViewVontroller: UITableViewController {
     
     func fetchFavorites() {
         self.tableView.addLoadingFooterView()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            self.favorites = Favorite.favorites()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            guard let strongSelf = self else { return }
+            strongSelf.favorites = Favorite.favorites()
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-                if self.favorites.count > 0 {
-                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                strongSelf.tableView.reloadData()
+                if strongSelf.favorites.count > 0 {
+                    strongSelf.tableView.tableFooterView = UIView(frame: CGRectZero)
                 } else {
-                    self.tableView.addNoDataFooterView("No favorites.")
+                    strongSelf.tableView.addNoDataFooterView("No favorites.")
                 }
             });
         });
