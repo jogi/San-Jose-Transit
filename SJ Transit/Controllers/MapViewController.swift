@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.locationManager = CLLocationManager.init()
+        self.locationManager = CLLocationManager()
         self.locationManager.requestWhenInUseAuthorization()
         
         self.fetchStops()
@@ -59,7 +59,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
             annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
             
             if (annotationView == nil) {
-                annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "stopPin")
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
                 annotationView?.pinTintColor = mapView.tintColor
                 
@@ -89,11 +89,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         searchBar.resignFirstResponder()
         SVProgressHUD.show()
         
-        let searchRequest = MKLocalSearchRequest.init()
+        let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
         
-        let localSearch = MKLocalSearch.init(request: searchRequest)
+        let localSearch = MKLocalSearch(request: searchRequest)
         localSearch.startWithCompletionHandler { (response, error) -> Void in
             guard let response = response else {
                 NSLog("Search error: \(error)")

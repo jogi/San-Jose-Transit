@@ -34,7 +34,7 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
             annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
             
             if (annotationView == nil) {
-                annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "stopPin")
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
                 annotationView?.pinTintColor = mapView.tintColor
             } else {
