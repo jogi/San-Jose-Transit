@@ -8,6 +8,9 @@
 
 import UIKit
 import SVProgressHUD
+import Fabric
+import Crashlytics
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.handleShortcut(shortcutItem)
             return false
         }
+        
+        Fabric.with([Answers.self, Crashlytics.self])
         
         return true
     }

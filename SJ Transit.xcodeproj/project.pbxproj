@@ -45,6 +45,8 @@
 		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
 		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
 		D4C212E01C1AB6EB00FB6219 /* favorites.db in Resources */ = {isa = PBXBuildFile; fileRef = D4C212DF1C1AB6EB00FB6219 /* favorites.db */; };
+		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
+		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
 		D4FDEDB11C1945EF00D01886 /* RouteMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */; };
 		D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */; };
@@ -108,6 +110,8 @@
 		D480193F1C16C923004615BB /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		D48019411C172624004615BB /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		D4C212DF1C1AB6EB00FB6219 /* favorites.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = favorites.db; sourceTree = "<group>"; };
+		D4FACC661C9CF003009A346A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "SJ Transit/Vendor/Crashlytics.framework"; sourceTree = "<group>"; };
 		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
 		D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapViewController.swift; sourceTree = "<group>"; };
 		D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Additions.swift"; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
 				D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */,
 				D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */,
+				D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */,
+				D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +228,8 @@
 		D48018F81C108B59004615BB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				D4FACC661C9CF003009A346A /* Fabric.framework */,
+				D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */,
 				D48019231C140586004615BB /* SVProgressHUD.framework */,
 				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
 				D48018F01C108AA5004615BB /* SQLite.framework */,
@@ -290,6 +298,7 @@
 				D44107D41BFD71CE0022B7E2 /* Resources */,
 				D48018F21C108AB5004615BB /* Carthage - Copy Frameworks */,
 				D48018F31C108AF7004615BB /* Carthage - Copy Debug Symbols */,
+				D4FACC651C9CEFD2009A346A /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -374,6 +383,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D4FACC651C9CEFD2009A346A /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"./SJ Transit/Vendor/Fabric.framework/run\" 6157693c17f76334a81ceeb67363a6316e020b98 384dbd25a4d97c586bc17c14315edb6b2220ee091b61e618724789b4155bfb75";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -504,9 +527,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"\"$(PROJECT_DIR)/SJ Transit/Vendor\"",
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -525,6 +550,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"\"$(PROJECT_DIR)/SJ Transit/Vendor\"",
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

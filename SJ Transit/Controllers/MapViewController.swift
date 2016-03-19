@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import SVProgressHUD
+import Crashlytics
 
 class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
@@ -37,6 +38,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         self.locationManager.requestWhenInUseAuthorization()
         
         self.fetchStops()
+        
+        Answers.logContentViewWithName("Show Map", contentType: "Map", contentId: nil, customAttributes: nil)
     }
     
 
