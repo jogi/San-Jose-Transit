@@ -14,9 +14,12 @@ class FavoritesViewVontroller: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.moveFavoritesIfRequired()
+        Favorite.createFavoritesIfRequred()
+        self.addNoScheduleViewIfRequired()
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -145,16 +148,11 @@ class FavoritesViewVontroller: UITableViewController {
     }
     
     
-    func moveFavoritesIfRequired() {
-        let bundleFavoritesPath = NSBundle.mainBundle().pathForResource("favorites", ofType: "db")!
-        let documentsFavoritesPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0].stringByAppendingString("/favorites.db")
+    func reloadAfterUpdate() {
+        // remove the no schedule view
+        self.removeNoScheduleView()
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(documentsFavoritesPath) {
-            do {
-                try NSFileManager.defaultManager().copyItemAtPath(bundleFavoritesPath, toPath: documentsFavoritesPath)
-            } catch {
-                print("Couldn't copy favorites db to Documents: \(error)")
-            }
-        }
+        // reload data
+        self.fetchFavorites()
     }
 }

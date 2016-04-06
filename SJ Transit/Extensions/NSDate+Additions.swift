@@ -36,15 +36,11 @@ extension NSDate {
     func humanReadableTime() -> (String?) {
         // first form a date with today's date and the given time
         let calendar = NSCalendar.currentCalendar()
+        // TODO:- fix this timezone
         calendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         calendar.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         let (hour, minutes, seconds, _) = calendar.getTimeFromDate(self)
         let newDate = calendar.dateBySettingHour(hour, minute: minutes, second: seconds, ofDate: NSDate(), options: [])
-        
-        let dateComponentsFormatter = NSDateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = .Positional
-        dateComponentsFormatter.allowedUnits = .Minute
-        dateComponentsFormatter.calendar = calendar
         
         let difference = Int((newDate?.timeIntervalSinceDate(NSDate()))!)
         

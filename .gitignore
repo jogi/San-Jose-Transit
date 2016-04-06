@@ -40,3 +40,5 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/screenshots
+fastlane/metadata
+fastlane/Appfile

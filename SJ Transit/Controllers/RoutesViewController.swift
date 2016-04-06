@@ -15,7 +15,10 @@ class RoutesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.addNoScheduleViewIfRequired()
         self.fetchRoutes()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,5 +58,14 @@ class RoutesViewController: UITableViewController {
     func fetchRoutes() {
         self.routes = Route.routes()
         self.tableView.reloadData()
+    }
+    
+    
+    func reloadAfterUpdate() {
+        // remove the no schedule view
+        self.removeNoScheduleView()
+        
+        // reload data
+        self.fetchRoutes()
     }
 }

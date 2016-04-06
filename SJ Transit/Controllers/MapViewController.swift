@@ -39,7 +39,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         
         self.fetchStops()
         
-        Answers.logContentViewWithName("Show Map", contentType: "Map", contentId: nil, customAttributes: nil)
+        Answers.logCustomEventWithName("Show Map", customAttributes: nil)
+        
+        self.addNoScheduleViewIfRequired()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
     }
     
 
@@ -125,5 +129,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
                 });
             }
         }
+    }
+    
+    func reloadAfterUpdate() {
+        // remove the no schedule view
+        self.removeNoScheduleView()
+        
+        // reload data
+        self.fetchStops()
     }
 }

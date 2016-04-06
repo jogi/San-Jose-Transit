@@ -12,9 +12,9 @@ import SQLite
 class Database {
     static var connection: Connection? {
         get {
-            let path = NSBundle.mainBundle().pathForResource("vta_gtfs", ofType: "db")!
+            let path = kGTFSDBPath
             
-            var db = Connection!()
+            var db: Connection?
             do {
                 db = try Connection(path, readonly: true)
             } catch {
@@ -28,9 +28,9 @@ class Database {
     
     static var favoritesConnection: Connection? {
         get {
-            let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0].stringByAppendingString("/favorites.db")
+            let path = kFavoritesDBPath
             
-            var db = Connection!()
+            var db: Connection?
             do {
                 db = try Connection(path)
             } catch {

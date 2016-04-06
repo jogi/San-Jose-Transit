@@ -166,4 +166,30 @@ class Favorite: NSObject {
             }
         }
     }
+    
+    
+    class func createFavoritesIfRequred() {
+        guard let db = Database.favoritesConnection else {
+            return
+        }
+        
+        let favoritesTable = Table("favorites")
+        
+        // columns
+        let colFavoriteId = Expression<Int>("fav_id")
+        let colSortOrder = Expression<Int?>("sort_order")
+        let colType = Expression<Int>("fav_type")
+        let colTypeId = Expression<String>("fav_type_id")
+        
+        do {
+            try db.run(favoritesTable.create(ifNotExists: true) { t in
+                t.column(colFavoriteId, primaryKey: .Autoincrement)
+                t.column(colType)
+                t.column(colTypeId)
+                t.column(colSortOrder)
+            })
+        } catch {
+            print("Failed to create Favorites table: \(error)")
+        }
+    }
 }

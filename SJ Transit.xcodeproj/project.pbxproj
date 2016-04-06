@@ -20,7 +20,6 @@
 		D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48018F01C108AA5004615BB /* SQLite.framework */; };
 		D48018F71C108B47004615BB /* SQLite.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48018F61C108B47004615BB /* SQLite.framework.dSYM */; };
 		D48018FC1C117EED004615BB /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48018FB1C117EED004615BB /* Stop.swift */; };
-		D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D48018FE1C11BBE1004615BB /* vta_gtfs.db */; };
 		D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019031C11C979004615BB /* StopRouteViewController.swift */; };
 		D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019071C11C9C4004615BB /* RouteDetailViewController.swift */; };
 		D480190A1C11CA3B004615BB /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019091C11CA3B004615BB /* Route.swift */; };
@@ -44,9 +43,18 @@
 		D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */; };
 		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
 		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
-		D4C212E01C1AB6EB00FB6219 /* favorites.db in Resources */ = {isa = PBXBuildFile; fileRef = D4C212DF1C1AB6EB00FB6219 /* favorites.db */; };
+		D49584941CAFAC4100954327 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584931CAFAC4100954327 /* Constants.swift */; };
+		D49584961CAFAD5F00954327 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */; };
+		D49584981CAFAF9700954327 /* NoScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584971CAFAF9700954327 /* NoScheduleView.swift */; };
+		D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49584991CAFAFAB00954327 /* NoScheduleView.xib */; };
+		D495849C1CB23A2000954327 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849B1CB23A2000954327 /* Utilities.swift */; };
+		D495849E1CB2460700954327 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849D1CB2460700954327 /* Downloader.swift */; };
+		D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D495849F1CB34FBD00954327 /* Zip.framework */; };
+		D49584A21CB34FE300954327 /* Zip.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
+		D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
 		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
 		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
+		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
 		D4FDEDB11C1945EF00D01886 /* RouteMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */; };
 		D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */; };
@@ -60,6 +68,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */,
 				D48018F71C108B47004615BB /* SQLite.framework.dSYM in Carthage - Copy Debug Symbols */,
 				D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */,
 			);
@@ -84,7 +93,6 @@
 		D48018F01C108AA5004615BB /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		D48018F61C108B47004615BB /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SQLite.framework.dSYM; path = Carthage/Build/iOS/SQLite.framework.dSYM; sourceTree = "<group>"; };
 		D48018FB1C117EED004615BB /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
-		D48018FE1C11BBE1004615BB /* vta_gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = vta_gtfs.db; sourceTree = "<group>"; };
 		D48019031C11C979004615BB /* StopRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteViewController.swift; sourceTree = "<group>"; };
 		D48019071C11C9C4004615BB /* RouteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		D48019091C11CA3B004615BB /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -109,9 +117,17 @@
 		D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripStopTableViewCell.swift; sourceTree = "<group>"; };
 		D480193F1C16C923004615BB /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		D48019411C172624004615BB /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
-		D4C212DF1C1AB6EB00FB6219 /* favorites.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = favorites.db; sourceTree = "<group>"; };
+		D49584931CAFAC4100954327 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
+		D49584971CAFAF9700954327 /* NoScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScheduleView.swift; sourceTree = "<group>"; };
+		D49584991CAFAFAB00954327 /* NoScheduleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoScheduleView.xib; sourceTree = "<group>"; };
+		D495849B1CB23A2000954327 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		D495849D1CB2460700954327 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		D495849F1CB34FBD00954327 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Zip.framework; path = Carthage/Build/iOS/Zip.framework; sourceTree = "<group>"; };
+		D49584A11CB34FE300954327 /* Zip.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Zip.framework.dSYM; path = Carthage/Build/iOS/Zip.framework.dSYM; sourceTree = "<group>"; };
 		D4FACC661C9CF003009A346A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "SJ Transit/Vendor/Crashlytics.framework"; sourceTree = "<group>"; };
+		D4FACC6C1CA89416009A346A /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
 		D4FDEDB01C1945EF00D01886 /* RouteMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapViewController.swift; sourceTree = "<group>"; };
 		D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Additions.swift"; sourceTree = "<group>"; };
@@ -123,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */,
 				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
@@ -172,8 +189,6 @@
 		D477DEDE1C1020DB009C356E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D48018FE1C11BBE1004615BB /* vta_gtfs.db */,
-				D4C212DF1C1AB6EB00FB6219 /* favorites.db */,
 				D477DEDF1C1020DB009C356E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -234,6 +249,8 @@
 				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
 				D48018F01C108AA5004615BB /* SQLite.framework */,
 				D48018F61C108B47004615BB /* SQLite.framework.dSYM */,
+				D495849F1CB34FBD00954327 /* Zip.framework */,
+				D49584A11CB34FE300954327 /* Zip.framework.dSYM */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -248,6 +265,7 @@
 				D48019191C12D1BF004615BB /* Calendar.swift */,
 				D48019411C172624004615BB /* Shape.swift */,
 				D4FDEDB41C19846500D01886 /* Favorite.swift */,
+				D4FACC6C1CA89416009A346A /* Update.swift */,
 			);
 			name = Models;
 			path = "SJ Transit/Models";
@@ -261,6 +279,8 @@
 				D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */,
 				D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */,
 				D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */,
+				D49584971CAFAF9700954327 /* NoScheduleView.swift */,
+				D49584991CAFAFAB00954327 /* NoScheduleView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,6 +294,7 @@
 				D480192F1C14811C004615BB /* NSCalendar+Additions.swift */,
 				D480193B1C15C244004615BB /* String+Additions.swift */,
 				D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */,
+				D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +303,9 @@
 			isa = PBXGroup;
 			children = (
 				D480191C1C130010004615BB /* Database.swift */,
+				D49584931CAFAC4100954327 /* Constants.swift */,
+				D495849B1CB23A2000954327 /* Utilities.swift */,
+				D495849D1CB2460700954327 /* Downloader.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -358,10 +382,10 @@
 			files = (
 				D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */,
 				D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */,
-				D48018FF1C11BBE1004615BB /* vta_gtfs.db in Resources */,
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
-				D4C212E01C1AB6EB00FB6219 /* favorites.db in Resources */,
+				D49584A21CB34FE300954327 /* Zip.framework.dSYM in Resources */,
+				D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +400,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SQLite.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Zip.framework",
 			);
 			name = "Carthage - Copy Frameworks";
 			outputPaths = (
@@ -409,14 +434,19 @@
 				D480190F1C12B6A3004615BB /* RouteTableViewCell.swift in Sources */,
 				D4FDEDB51C19846500D01886 /* Favorite.swift in Sources */,
 				D480193C1C15C244004615BB /* String+Additions.swift in Sources */,
+				D49584961CAFAD5F00954327 /* UIViewController+Additions.swift in Sources */,
 				D48019041C11C979004615BB /* StopRouteViewController.swift in Sources */,
 				D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */,
 				D48019281C144E45004615BB /* Threading.swift in Sources */,
 				D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */,
 				D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */,
+				D495849C1CB23A2000954327 /* Utilities.swift in Sources */,
+				D49584941CAFAC4100954327 /* Constants.swift in Sources */,
 				D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */,
 				D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */,
 				D480191A1C12D1BF004615BB /* Calendar.swift in Sources */,
+				D495849E1CB2460700954327 /* Downloader.swift in Sources */,
+				D4FACC6D1CA89416009A346A /* Update.swift in Sources */,
 				D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */,
 				D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */,
 				D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */,
@@ -425,6 +455,7 @@
 				D48019121C12B79C004615BB /* CellAdditions.swift in Sources */,
 				D477DEEB1C102183009C356E /* RoutesViewController.swift in Sources */,
 				D48019161C12D181004615BB /* Trip.swift in Sources */,
+				D49584981CAFAF9700954327 /* NoScheduleView.swift in Sources */,
 				D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */,
 				D477DEE81C1020EE009C356E /* FavoritesViewVontroller.swift in Sources */,
 				D477DEEF1C1021A4009C356E /* MapViewController.swift in Sources */,
@@ -527,6 +558,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -535,9 +567,10 @@
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi.SJ-Transit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -545,8 +578,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -554,9 +588,10 @@
 				);
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi.SJ-Transit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

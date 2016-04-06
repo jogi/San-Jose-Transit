@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E61b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -34,7 +34,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="B1t-2w-9dO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavoritesStopCellIdentifier" textLabel="kgo-TT-pV3" detailTextLabel="l8P-Vu-tLm" style="IBUITableViewCellStyleValue1" id="I5X-ky-HtI">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
@@ -47,7 +47,7 @@
                                             <rect key="frame" x="15" y="12" width="81" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Routes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l8P-Vu-tLm">
@@ -255,7 +255,7 @@
                                 <action selector="directionChanged:" destination="HAn-5I-McI" eventType="valueChanged" id="0UF-pI-x0v"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="ji1-mo-vK4">
+                        <barButtonItem key="rightBarButtonItem" image="more" id="ji1-mo-vK4">
                             <connections>
                                 <action selector="routeAction:" destination="HAn-5I-McI" id="OLz-qq-ojs"/>
                             </connections>
@@ -551,7 +551,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="DOo-kJ-2Sw">
                         <barButtonItem key="backBarButtonItem" title="Back" id="nIF-kG-LNy"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Unl-ff-7Xj">
+                        <barButtonItem key="rightBarButtonItem" image="more" id="Unl-ff-7Xj">
                             <connections>
                                 <action selector="stopRouteAction:" destination="qau-on-Bax" id="vQF-39-v0t"/>
                             </connections>
@@ -626,7 +626,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Stop Name" id="2M2-vo-gtU">
                         <barButtonItem key="backBarButtonItem" title="Back" id="JZS-rF-2GL"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="3uh-GN-RGz">
+                        <barButtonItem key="rightBarButtonItem" image="more" id="3uh-GN-RGz">
                             <connections>
                                 <action selector="stopRouteTimesAction:" destination="hdT-zb-AMV" id="3du-rb-tiy"/>
                             </connections>
@@ -742,7 +742,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8RR-kE-W2T">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="DTJ-de-Zj8">
                                 <cells>
@@ -757,7 +757,7 @@
                                                     <rect key="frame" x="15" y="12" width="54" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fph-FG-7xF">
@@ -830,7 +830,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -896,6 +896,7 @@
         <image name="location" width="22" height="22"/>
         <image name="map-tb" width="28" height="24"/>
         <image name="map-tb-selected" width="28" height="24"/>
+        <image name="more" width="22" height="6"/>
         <image name="routes-tb" width="28" height="28"/>
         <image name="routes-tb-selected" width="28" height="28"/>
         <image name="settings-tb" width="28" height="28"/>

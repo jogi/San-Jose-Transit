@@ -32,7 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        SVProgressHUD.setForegroundColor(self.window?.rootViewController!.view.tintColor)
+        SVProgressHUD.setDefaultMaskType(.Clear)
+        SVProgressHUD.setDefaultStyle(.Dark)
         
         if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
             self.handleShortcut(shortcutItem)
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Fabric.with([Answers.self, Crashlytics.self])
+        
+        self.checkForUpdate()
         
         return true
     }
@@ -74,6 +77,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .OpenRoutes:
                 tabBarController.selectedIndex = 2
                 return true
+        }
+    }
+    
+    private func checkForUpdate() {
+        if Utilities.isScheduleEmpty() == false {
+            Update.checkForUpdates { (result) in
+                switch (result) {
+                case .Success(let update):
+                    if let window = self.window, viewController = window.rootViewController {
+                        if update.isNewerVersion() == true {
+                            update.presentUpdateAlert(on: viewController) {
+                                update.downloadAndUnzip(nil)
+                            }
+                        }
+                    }
+                case .Failure(_):
+                    break
+                }
+            }
         }
     }
 }
