@@ -50,7 +50,6 @@
 		D495849C1CB23A2000954327 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849B1CB23A2000954327 /* Utilities.swift */; };
 		D495849E1CB2460700954327 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849D1CB2460700954327 /* Downloader.swift */; };
 		D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D495849F1CB34FBD00954327 /* Zip.framework */; };
-		D49584A21CB34FE300954327 /* Zip.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
 		D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
 		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
 		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
@@ -384,7 +383,6 @@
 				D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */,
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
-				D49584A21CB34FE300954327 /* Zip.framework.dSYM in Resources */,
 				D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,7 +556,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -580,7 +578,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
