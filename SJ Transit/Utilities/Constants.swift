@@ -10,7 +10,7 @@ import Foundation
 
 // Database
 let kGTFSDBPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0].stringByAppendingString("/gtfs.db")
-let kFavoritesDBPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0].stringByAppendingString("/favorites.db")
+let kFavoritesDBPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0].stringByAppendingString("/favorites.sqlite3")
 
 // Defaults
 let kDefaultsFirstTimeKey = "kFirstTime"

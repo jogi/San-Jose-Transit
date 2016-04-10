@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         SVProgressHUD.setDefaultMaskType(.Clear)
         SVProgressHUD.setDefaultStyle(.Dark)
+        SVProgressHUD.setMinimumDismissTimeInterval(1.5)
         
         if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
             self.handleShortcut(shortcutItem)
@@ -43,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Answers.self, Crashlytics.self])
         
         self.checkForUpdate()
+        Utilities.cleanupOldFiles()
+        Favorite.createFavoritesIfRequred()
         
         return true
     }

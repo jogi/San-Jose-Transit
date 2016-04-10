@@ -13,8 +13,7 @@ class FavoritesViewVontroller: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Favorite.createFavoritesIfRequred()
+
         self.addNoScheduleViewIfRequired()
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()

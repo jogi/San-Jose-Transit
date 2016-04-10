@@ -59,6 +59,7 @@ class RouteDetailViewController: UITableViewController {
         
         let stopRouteTimeController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteTimesViewController") as! StopRouteTimesViewController
         stopRouteTimeController.stopTime = stopTime
+        stopRouteTimeController.afterTime = self.afterTime
         
         self.navigationController?.pushViewController(stopRouteTimeController, animated: true)
     }

@@ -98,9 +98,17 @@ class Update {
                     Update.unzipFileToCaches(download.destinationPath, completion: { (error) in
                         if error == nil {
                             print("Unzip successful")
-                            NSNotificationCenter.defaultCenter().postNotificationName(kDidFinishDownloadingSchedulesNotification, object: nil)
-                            self.updateDefaultsWithLatestVersion()
-                            completion?(nil)
+                            defer {
+                                NSNotificationCenter.defaultCenter().postNotificationName(kDidFinishDownloadingSchedulesNotification, object: nil)
+                                self.updateDefaultsWithLatestVersion()
+                                completion?(nil)
+                            }
+                            // delete the zip file
+                            do {
+                                try NSFileManager.defaultManager().removeItemAtPath(download.destinationPath)
+                            } catch {
+                                print("Error deleting the temp downloaded file: \(error)")
+                            }
                         } else {
                             completion?(error)
                         }

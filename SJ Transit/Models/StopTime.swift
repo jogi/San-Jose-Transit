@@ -169,7 +169,7 @@ class StopTime: NSObject, MKAnnotation {
         let colStopSequence = Expression<Int>("stop_sequence")
         
         do {
-            for row in try db.prepare(stopTimes.select(colTripId).filter(tripIds.contains(colTripId) && colStopSequence == 1 && colArrivalTime >= SQLTimeFormatter.stringFromDate(afterTime))) {
+            for row in try db.prepare(stopTimes.select(colTripId).filter(tripIds.contains(colTripId) && colStopSequence == 1 && colArrivalTime >= SQLTimeFormatter.stringFromDate(afterTime)).order(colArrivalTime).limit(1)) {
                 tripId = row[colTripId]
             }
         } catch _ {}

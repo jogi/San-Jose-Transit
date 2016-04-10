@@ -51,6 +51,8 @@
 		D495849E1CB2460700954327 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849D1CB2460700954327 /* Downloader.swift */; };
 		D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D495849F1CB34FBD00954327 /* Zip.framework */; };
 		D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
+		D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */; };
+		D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */; };
 		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
 		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
 		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
@@ -59,6 +61,16 @@
 		D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */; };
 		D4FDEDB51C19846500D01886 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FDEDB41C19846500D01886 /* Favorite.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D49584AD1CB4EA4000954327 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D44107CE1BFD71CE0022B7E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D44107D51BFD71CE0022B7E2;
+			remoteInfo = "SJ Transit";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D48018F31C108AF7004615BB /* Carthage - Copy Debug Symbols */ = {
@@ -124,6 +136,10 @@
 		D495849D1CB2460700954327 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		D495849F1CB34FBD00954327 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Zip.framework; path = Carthage/Build/iOS/Zip.framework; sourceTree = "<group>"; };
 		D49584A11CB34FE300954327 /* Zip.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Zip.framework.dSYM; path = Carthage/Build/iOS/Zip.framework.dSYM; sourceTree = "<group>"; };
+		D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SJ TransitUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJ_TransitUITests.swift; sourceTree = "<group>"; };
+		D49584AC1CB4EA4000954327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		D4FACC661C9CF003009A346A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "SJ Transit/Vendor/Crashlytics.framework"; sourceTree = "<group>"; };
 		D4FACC6C1CA89416009A346A /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
@@ -149,6 +165,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D49584A51CB4EA4000954327 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -156,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				D44107D81BFD71CE0022B7E2 /* SJ Transit */,
+				D49584A91CB4EA4000954327 /* SJ TransitUITests */,
 				D477DEF41C102204009C356E /* Frameworks */,
 				D44107D71BFD71CE0022B7E2 /* Products */,
 			);
@@ -165,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D44107D61BFD71CE0022B7E2 /* SJ Transit.app */,
+				D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -309,6 +334,16 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		D49584A91CB4EA4000954327 /* SJ TransitUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */,
+				D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */,
+				D49584AC1CB4EA4000954327 /* Info.plist */,
+			);
+			path = "SJ TransitUITests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -332,13 +367,31 @@
 			productReference = D44107D61BFD71CE0022B7E2 /* SJ Transit.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D49584A71CB4EA4000954327 /* SJ TransitUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D49584B11CB4EA4000954327 /* Build configuration list for PBXNativeTarget "SJ TransitUITests" */;
+			buildPhases = (
+				D49584A41CB4EA4000954327 /* Sources */,
+				D49584A51CB4EA4000954327 /* Frameworks */,
+				D49584A61CB4EA4000954327 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D49584AE1CB4EA4000954327 /* PBXTargetDependency */,
+			);
+			name = "SJ TransitUITests";
+			productName = "SJ TransitUITests";
+			productReference = D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D44107CE1BFD71CE0022B7E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Vashishtha Jogi";
 				TargetAttributes = {
@@ -353,6 +406,10 @@
 								enabled = 0;
 							};
 						};
+					};
+					D49584A71CB4EA4000954327 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
 				};
 			};
@@ -370,6 +427,7 @@
 			projectRoot = "";
 			targets = (
 				D44107D51BFD71CE0022B7E2 /* SJ Transit */,
+				D49584A71CB4EA4000954327 /* SJ TransitUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -384,6 +442,13 @@
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
 				D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D49584A61CB4EA4000954327 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +531,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D49584A41CB4EA4000954327 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */,
+				D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D49584AE1CB4EA4000954327 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D44107D51BFD71CE0022B7E2 /* SJ Transit */;
+			targetProxy = D49584AD1CB4EA4000954327 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D44107E81BFD71CF0022B7E2 /* Debug */ = {
@@ -593,6 +675,32 @@
 			};
 			name = Release;
 		};
+		D49584AF1CB4EA4000954327 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "SJ Transit";
+			};
+			name = Debug;
+		};
+		D49584B01CB4EA4000954327 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "SJ Transit";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,6 +718,15 @@
 			buildConfigurations = (
 				D44107EB1BFD71CF0022B7E2 /* Debug */,
 				D44107EC1BFD71CF0022B7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D49584B11CB4EA4000954327 /* Build configuration list for PBXNativeTarget "SJ TransitUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D49584AF1CB4EA4000954327 /* Debug */,
+				D49584B01CB4EA4000954327 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
