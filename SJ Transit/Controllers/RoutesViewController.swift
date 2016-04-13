@@ -8,6 +8,7 @@
 
 import UIKit
 import SQLite
+import Crashlytics
 
 class RoutesViewController: UITableViewController {
     var routes: Array<Route>!
@@ -19,6 +20,12 @@ class RoutesViewController: UITableViewController {
         self.fetchRoutes()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Answers.logCustomEventWithName("Show Routes", customAttributes: nil)
     }
 
     override func didReceiveMemoryWarning() {

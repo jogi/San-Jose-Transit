@@ -43,6 +43,7 @@
 		D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */; };
 		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
 		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
+		D49558401CBE1F710059CF2D /* Coverage.geojson in Resources */ = {isa = PBXBuildFile; fileRef = D495583F1CBE1F710059CF2D /* Coverage.geojson */; };
 		D49584941CAFAC4100954327 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584931CAFAC4100954327 /* Constants.swift */; };
 		D49584961CAFAD5F00954327 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */; };
 		D49584981CAFAF9700954327 /* NoScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584971CAFAF9700954327 /* NoScheduleView.swift */; };
@@ -129,6 +130,7 @@
 		D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripStopTableViewCell.swift; sourceTree = "<group>"; };
 		D480193F1C16C923004615BB /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		D48019411C172624004615BB /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		D495583F1CBE1F710059CF2D /* Coverage.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coverage.geojson; sourceTree = "<group>"; };
 		D49584931CAFAC4100954327 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		D49584971CAFAF9700954327 /* NoScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScheduleView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		D477DEDE1C1020DB009C356E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D495583F1CBE1F710059CF2D /* Coverage.geojson */,
 				D477DEDF1C1020DB009C356E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -445,6 +448,7 @@
 				D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */,
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
 				D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */,
+				D49558401CBE1F710059CF2D /* Coverage.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,7 +646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -664,7 +668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

@@ -31,6 +31,12 @@ class SettingsViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
     }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Answers.logCustomEventWithName("Show Updates", customAttributes: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

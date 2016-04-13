@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class DateTimePickerViewController: UIViewController {
     @IBOutlet weak var pickerView: UIDatePicker!
@@ -18,6 +19,12 @@ class DateTimePickerViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.pickerView.backgroundColor = UIColor.whiteColor()
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Answers.logCustomEventWithName("Show Date Picker", customAttributes: ["parent": self.parentViewController ?? "NA"])
     }
     
     

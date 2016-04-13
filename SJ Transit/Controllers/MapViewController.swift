@@ -38,12 +38,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         self.locationManager.requestWhenInUseAuthorization()
         
         self.fetchStops()
-        
-        Answers.logCustomEventWithName("Show Map", customAttributes: nil)
-        
         self.addNoScheduleViewIfRequired()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Answers.logCustomEventWithName("Show Map", customAttributes: nil)
     }
     
 
@@ -99,6 +102,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
+        
+        Answers.logSearchWithQuery(searchBar.text, customAttributes: nil)
         
         let localSearch = MKLocalSearch(request: searchRequest)
         localSearch.startWithCompletionHandler { (response, error) -> Void in

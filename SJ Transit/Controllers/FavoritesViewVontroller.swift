@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class FavoritesViewVontroller: UITableViewController {
     var favorites = [[Favorite]]()
@@ -25,6 +26,7 @@ class FavoritesViewVontroller: UITableViewController {
         super.viewDidAppear(animated)
         
         self.fetchFavorites()
+        Answers.logCustomEventWithName("Show Favorites", customAttributes: nil)
     }
 
     // MARK: - Table view data source
