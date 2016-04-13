@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C47a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TripStopTableViewCell" id="bHO-Rg-vhY" customClass="TripStopTableViewCell" customModule="SJ_Transit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bHO-Rg-vhY" id="vxJ-Ro-hcz">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRE-vY-7kK">
+                        <rect key="frame" x="15" y="0.0" width="4" height="22"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.2117267102" green="0.58770948649999999" blue="0.99686223269999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="gli-xD-o06"/>
+                            <constraint firstAttribute="width" constant="4" id="vfJ-CK-9Jm"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3n-yg-rbb">
+                        <rect key="frame" x="15" y="21" width="4" height="23"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.2117267102" green="0.58770948649999999" blue="0.99686223269999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="D0T-qw-YO4"/>
+                            <constraint firstAttribute="width" constant="4" id="Pxl-lu-EIW"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJS-nw-5n2">
+                        <rect key="frame" x="11" y="16" width="12" height="12"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.2117267102" green="0.58770948649999999" blue="0.99686223269999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="0Qu-hZ-wPm"/>
+                            <constraint firstAttribute="height" constant="12" id="2d7-54-NXp"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqg-nE-Ns6">
+                        <rect key="frame" x="34" y="10" width="469" height="22"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="05O-9F-wHG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQD-gk-Gah">
+                        <rect key="frame" x="513" y="10" width="72" height="22"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="4yY-sT-vdJ"/>
+                            <constraint firstAttribute="width" constant="72" id="sbs-7O-lLu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="sJS-nw-5n2" firstAttribute="centerY" secondItem="vxJ-Ro-hcz" secondAttribute="centerY" id="4Lx-Sm-hlM"/>
+                    <constraint firstItem="IQD-gk-Gah" firstAttribute="centerY" secondItem="vxJ-Ro-hcz" secondAttribute="centerY" id="Kd3-gx-LqI"/>
+                    <constraint firstAttribute="bottom" secondItem="X3n-yg-rbb" secondAttribute="bottom" constant="-1" id="ObJ-XA-SEd"/>
+                    <constraint firstItem="IQD-gk-Gah" firstAttribute="leading" secondItem="Yqg-nE-Ns6" secondAttribute="trailing" constant="10" id="Oto-kq-b5f"/>
+                    <constraint firstItem="Yqg-nE-Ns6" firstAttribute="leading" secondItem="zRE-vY-7kK" secondAttribute="trailing" constant="15" id="QDN-nK-vUP"/>
+                    <constraint firstItem="zRE-vY-7kK" firstAttribute="leading" secondItem="vxJ-Ro-hcz" secondAttribute="leading" constant="15" id="bKq-yq-pq7"/>
+                    <constraint firstAttribute="trailing" secondItem="IQD-gk-Gah" secondAttribute="trailing" constant="15" id="biv-ka-tPc"/>
+                    <constraint firstItem="Yqg-nE-Ns6" firstAttribute="centerY" secondItem="vxJ-Ro-hcz" secondAttribute="centerY" id="i3F-qe-IBm"/>
+                    <constraint firstItem="X3n-yg-rbb" firstAttribute="leading" secondItem="vxJ-Ro-hcz" secondAttribute="leading" constant="15" id="lPw-eb-NJ0"/>
+                    <constraint firstItem="sJS-nw-5n2" firstAttribute="leading" secondItem="vxJ-Ro-hcz" secondAttribute="leading" constant="11" id="uoF-hl-D8N"/>
+                    <constraint firstItem="zRE-vY-7kK" firstAttribute="top" secondItem="vxJ-Ro-hcz" secondAttribute="top" id="wC8-5l-naL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <inset key="separatorInset" minX="34" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="bottomLineView" destination="X3n-yg-rbb" id="2f0-7O-1kf"/>
+                <outlet property="circleView" destination="sJS-nw-5n2" id="RXK-dy-nJJ"/>
+                <outlet property="stopNameLabel" destination="Yqg-nE-Ns6" id="xzO-3i-g6J"/>
+                <outlet property="timeLabel" destination="IQD-gk-Gah" id="0Do-kk-hDq"/>
+                <outlet property="topLineView" destination="zRE-vY-7kK" id="4b1-yG-mTs"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
