@@ -16,7 +16,7 @@ class StopRouteTimeTableViewCell: UITableViewCell, IdentifiableCell {
     // Properties
     var stopTime: StopTime! {
         didSet {
-            self.timeLabel.text = stopTime.arrivalTime.timeAsString
+            self.timeLabel.text = stopTime.arrivalTime.timeWithMeridianAsString
             self.tripHeadsignLabel.text = stopTime.trip.directionId.description + " to " + stopTime.trip.tripHeadsign
         }
     }

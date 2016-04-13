@@ -14,13 +14,25 @@ class StopRouteTableViewCell: UITableViewCell, IdentifiableCell {
     @IBOutlet weak var tripHeadsignLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var fullTimeLabel: UILabel!
     
     // Properties
     var stopTime: StopTime! {
         didSet {
             self.routeNameLabel.text = stopTime.route.routeShortName
             self.tripHeadsignLabel.text = stopTime.trip.directionId.description + " to " + stopTime.trip.tripHeadsign
-            self.timeLabel.text = stopTime.arrivalTime.humanReadableTime()
+            let minutesFromNow = stopTime.arrivalTime.minutesFromNow()
+            if minutesFromNow >= 0 {
+                self.timeLabel.text = "\(minutesFromNow)"
+                self.timeLabel.hidden = false
+                self.minutesLabel.hidden = false
+                self.fullTimeLabel.hidden = true
+            } else {
+                self.fullTimeLabel.text = stopTime.arrivalTime.timeAsString
+                self.timeLabel.hidden = true
+                self.minutesLabel.hidden = true
+                self.fullTimeLabel.hidden = false
+            }
         }
     }
     
@@ -33,5 +45,7 @@ class StopRouteTableViewCell: UITableViewCell, IdentifiableCell {
         self.routeNameLabel.text = nil
         self.tripHeadsignLabel.text = nil
         self.timeLabel.text = nil
+        self.minutesLabel.text = nil
+        self.fullTimeLabel.text = nil
     }
 }

@@ -45,11 +45,11 @@ class Calendar: NSObject {
         
         let calendar = Table("calendar")
         let colServiceId = Expression<String>("service_id")
-        let colStartDate = Expression<NSDate>("start_date")
-        let colEndDate = Expression<NSDate>("end_date")
+        let colStartDate = Expression<String>("start_date")
+        let colEndDate = Expression<String>("end_date")
         let colToday = Expression<Int>(date.dayAsString)
         
-        let count = db.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date && colEndDate >= date && colToday == 1).count)
+        let count = db.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date.dateAsString && colEndDate >= date.dateAsString && colToday == 1).count)
         
         return count > 0
     }

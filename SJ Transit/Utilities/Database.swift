@@ -41,12 +41,3 @@ class Database {
         }
     }
 }
-
-
-let SQLTimeFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "HH:mm:ss"
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(name: "PST")
-    return formatter
-}()

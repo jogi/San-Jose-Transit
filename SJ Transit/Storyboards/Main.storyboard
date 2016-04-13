@@ -522,6 +522,16 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88:99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUi-Dr-OOp">
+                                            <rect key="frame" x="496" y="21" width="66" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="7wJ-nq-vyX"/>
+                                                <constraint firstAttribute="width" constant="66" id="hPo-2o-ucx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                            <color key="textColor" red="0.2117267102" green="0.58770948649999999" blue="0.99686223269999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Gci-ZZ-3lS" firstAttribute="leading" secondItem="Avg-hJ-tFZ" secondAttribute="leading" constant="15" id="12M-Wz-zEP"/>
@@ -531,12 +541,15 @@
                                         <constraint firstItem="Gci-ZZ-3lS" firstAttribute="top" secondItem="dsE-T4-xaA" secondAttribute="bottom" constant="6" id="Dub-WI-lqb"/>
                                         <constraint firstAttribute="trailing" secondItem="HZF-e5-eiS" secondAttribute="trailing" constant="5" id="XQh-hw-il3"/>
                                         <constraint firstAttribute="trailing" secondItem="eMP-kD-2lN" secondAttribute="trailing" constant="5" id="YpD-vY-fDL"/>
+                                        <constraint firstItem="tUi-Dr-OOp" firstAttribute="centerY" secondItem="Avg-hJ-tFZ" secondAttribute="centerY" id="bJa-Ff-ewV"/>
                                         <constraint firstItem="eMP-kD-2lN" firstAttribute="leading" secondItem="dsE-T4-xaA" secondAttribute="trailing" constant="22" id="cew-3Y-JlU"/>
                                         <constraint firstItem="HZF-e5-eiS" firstAttribute="top" secondItem="eMP-kD-2lN" secondAttribute="bottom" id="e8G-Vf-Z9h"/>
                                         <constraint firstItem="HZF-e5-eiS" firstAttribute="leading" secondItem="Gci-ZZ-3lS" secondAttribute="trailing" constant="22" id="nom-Gq-qgb"/>
+                                        <constraint firstAttribute="trailing" secondItem="tUi-Dr-OOp" secondAttribute="trailing" constant="5" id="vzw-b4-iLn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="fullTimeLabel" destination="tUi-Dr-OOp" id="NKO-rg-EQX"/>
                                     <outlet property="minutesLabel" destination="HZF-e5-eiS" id="566-RE-Rmv"/>
                                     <outlet property="routeNameLabel" destination="dsE-T4-xaA" id="gpu-fF-UYp"/>
                                     <outlet property="timeLabel" destination="eMP-kD-2lN" id="uaJ-Pv-HqD"/>
@@ -903,9 +916,9 @@
         <image name="settings-tb-selected" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T4Z-pV-N2v"/>
         <segue reference="KPh-JI-SXh"/>
+        <segue reference="T4Z-pV-N2v"/>
         <segue reference="Biq-BZ-PfL"/>
-        <segue reference="47M-Rr-QJZ"/>
+        <segue reference="Lik-LT-jwq"/>
     </inferredMetricsTieBreakers>
 </document>

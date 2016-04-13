@@ -19,7 +19,7 @@ class TripStopTableViewCell: UITableViewCell, IdentifiableNibBasedCell {
     var stopTime: StopTime? {
         didSet {
             self.stopNameLabel.text = stopTime?.stop.stopName
-            self.timeLabel.text = stopTime?.arrivalTime.timeAsString
+            self.timeLabel.text = stopTime?.arrivalTime.timeWithMeridianAsString
         }
     }
     

@@ -51,6 +51,7 @@ class StopRouteViewController: UITableViewController {
         
         let stopRouteTimeController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteTimesViewController") as! StopRouteTimesViewController
         stopRouteTimeController.stopTime = stopTime
+        stopRouteTimeController.afterTime = self.afterTime
         
         self.navigationController?.pushViewController(stopRouteTimeController, animated: true)
     }
@@ -62,7 +63,7 @@ class StopRouteViewController: UITableViewController {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
-            let tripIds = Trip.trips((strongSelf.stop!.routes?.componentsSeparatedByString(", "))!, activeOn: NSDate())
+            let tripIds = Trip.trips((strongSelf.stop!.routes?.componentsSeparatedByString(", "))!, activeOn: strongSelf.afterTime)
             strongSelf.data = StopTime.stopTimes(strongSelf.stop!.stopId, afterTime: strongSelf.afterTime, tripIds: tripIds)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
