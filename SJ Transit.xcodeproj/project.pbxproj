@@ -404,6 +404,7 @@
 					D44107D51BFD71CE0022B7E2 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = H5537L6Q5K;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -415,6 +416,7 @@
 					};
 					D49584A71CB4EA4000954327 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
 				};
@@ -658,6 +660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -679,6 +682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -692,6 +696,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Debug;
@@ -705,6 +710,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Release;
