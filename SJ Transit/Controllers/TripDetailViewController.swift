@@ -31,51 +31,51 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Trip Detail", customAttributes: nil)
+        Answers.logCustomEvent(withName: "Show Trip Detail", customAttributes: nil)
     }
     
     // MARK: - Table view data source
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.times.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueIdentifiableCell(TripStopTableViewCell.self, forIndexPath: indexPath)
         
         // Configure the cell...
-        cell.stopTime = self.times[indexPath.row]
-        cell.topLineView.hidden = indexPath.row == 0
-        cell.bottomLineView.hidden = indexPath.row == (self.times.count - 1)
+        cell.stopTime = self.times[(indexPath as NSIndexPath).row]
+        cell.topLineView.isHidden = (indexPath as NSIndexPath).row == 0
+        cell.bottomLineView.isHidden = (indexPath as NSIndexPath).row == (self.times.count - 1)
         
         return cell
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        self.presentStopOptions(self.times[indexPath.row])
+        self.presentStopOptions(self.times[(indexPath as NSIndexPath).row])
     }
     
     
     // MARK: - MKMapViewDelegate
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKPinAnnotationView?
         
-        if annotation.isKindOfClass(MKUserLocation) {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         } else {
-            annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "stopPin") as? MKPinAnnotationView
             
             if (annotationView == nil) {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
                 annotationView?.pinTintColor = mapView.tintColor
                 
-                let disclosureButton = UIButton(type: .DetailDisclosure)
-                disclosureButton.setImage(UIImage(named: "right-arrow"), forState: .Normal) // yup, annotation views are stupid, so try to trick it
+                let disclosureButton = UIButton(type: .detailDisclosure)
+                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControlState()) // yup, annotation views are stupid, so try to trick it
                 annotationView?.rightCalloutAccessoryView = disclosureButton
             } else {
                 annotationView?.annotation = annotation
@@ -86,13 +86,13 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let stopTime = view.annotation as? StopTime
         self.presentStopOptions(stopTime!)
     }
     
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.lineWidth = 4.0;
         renderer.strokeColor = mapView.tintColor
@@ -102,45 +102,45 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     
     // MARK: - IBActions
-    @IBAction func locateMe(sender: AnyObject) {
+    @IBAction func locateMe(_ sender: AnyObject) {
         self.animateMapRegion(to: self.mapView.userLocation.coordinate)
     }
     
     
     // MARK: - Controller methods
-    func presentStopOptions(stopTime: StopTime) {
+    func presentStopOptions(_ stopTime: StopTime) {
         // present action sheet with options
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Stop Schedule", style: .Default, handler: { _ -> Void in
-            let stopRouteTimeController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteTimesViewController") as! StopRouteTimesViewController
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Stop Schedule", style: .default, handler: { _ -> Void in
+            let stopRouteTimeController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteTimesViewController") as! StopRouteTimesViewController
             stopTime.route.routeId = self.stopTime?.route.routeId
             stopRouteTimeController.stopTime = stopTime
             
             self.navigationController?.pushViewController(stopRouteTimeController, animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Stop Lines", style: .Default, handler: { _ -> Void in
-            let stopRouteController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteViewController") as! StopRouteViewController
+        alertController.addAction(UIAlertAction(title: "Stop Lines", style: .default, handler: { _ -> Void in
+            let stopRouteController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteViewController") as! StopRouteViewController
             stopRouteController.stop = stopTime.stop
             
             self.navigationController?.pushViewController(stopRouteController, animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Show on Map", style: .Default, handler: { _ -> Void in
+        alertController.addAction(UIAlertAction(title: "Show on Map", style: .default, handler: { _ -> Void in
             self.animateMapRegion(to: stopTime.stop.coordinate)
             self.mapView.selectAnnotation(stopTime, animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     
     func fetchTripDetail() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
             strongSelf.times = StopTime.stopTimes((strongSelf.stopTime?.trip.tripId)!)
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                strongSelf.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            DispatchQueue.main.async(execute: { () -> Void in
+                strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
                 strongSelf.mapView.addAnnotations(strongSelf.times)
                 
                 // focus the selected stop
@@ -158,7 +158,7 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func mapRoute() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
             let shapes = Shape.shapes(forShape:(strongSelf.stopTime?.trip.shapeId)!)
@@ -169,8 +169,8 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
             }
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                strongSelf.mapView.addOverlay(polyline)
+            DispatchQueue.main.async(execute: { () -> Void in
+                strongSelf.mapView.add(polyline)
                 strongSelf.animateMapRegion(to: shapes[0].coordinate)
             });
         });

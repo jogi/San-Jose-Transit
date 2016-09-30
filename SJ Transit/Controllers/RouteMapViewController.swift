@@ -25,20 +25,20 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Route Map", customAttributes: nil)
+        Answers.logCustomEvent(withName: "Show Route Map", customAttributes: nil)
     }
     
     
     // MARK: - MKMapViewDelegate
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKPinAnnotationView?
         
-        if annotation.isKindOfClass(MKUserLocation) {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         } else {
-            annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "stopPin") as? MKPinAnnotationView
             
             if (annotationView == nil) {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
@@ -53,7 +53,7 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.lineWidth = 4.0;
         renderer.strokeColor = mapView.tintColor
@@ -65,7 +65,7 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Controller methods
     func mapRoute() {
         self.mapView.addAnnotations(self.times)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
             let shapes = Shape.shapes(forTrip:strongSelf.tripId!)
@@ -76,8 +76,8 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
             }
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                strongSelf.mapView.addOverlay(polyline)
+            DispatchQueue.main.async(execute: { () -> Void in
+                strongSelf.mapView.add(polyline)
                 strongSelf.animateMapRegion(to: shapes[0].coordinate)
             });
         });

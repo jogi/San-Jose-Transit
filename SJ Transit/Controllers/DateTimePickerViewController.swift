@@ -12,24 +12,24 @@ import Crashlytics
 class DateTimePickerViewController: UIViewController {
     @IBOutlet weak var pickerView: UIDatePicker!
     
-    var onDateSelected: ((NSDate) -> Void)?
+    var onDateSelected: ((Date) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.pickerView.backgroundColor = UIColor.whiteColor()
+        self.pickerView.backgroundColor = UIColor.white
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Date Picker", customAttributes: ["parent": self.parentViewController ?? "NA"])
+        Answers.logCustomEvent(withName: "Show Date Picker", customAttributes: ["parent": self.parent])
     }
     
     
-    @IBAction func doneAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func doneAction(_ sender: AnyObject) {
+        self.dismiss(animated: true) { () -> Void in
             if let onDateSelected = self.onDateSelected {
                 onDateSelected(self.pickerView.date)
             }

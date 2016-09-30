@@ -15,41 +15,41 @@ class FavoritesViewVontroller: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.addNoScheduleViewIfRequired()
+        _ = self.addNoScheduleViewIfRequired()
         
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterUpdate), name: NSNotification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.fetchFavorites()
-        Answers.logCustomEventWithName("Show Favorites", customAttributes: nil)
+        Answers.logCustomEvent(withName: "Show Favorites", customAttributes: nil)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return self.favorites.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.favorites[section].count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let outerCell: UITableViewCell!
-        let favorite = self.favorites[indexPath.section][indexPath.row]
+        let favorite = self.favorites[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
-        if favorite.type == .FavoriteRoute {
+        if favorite.type == .favoriteRoute {
             let cell = tableView.dequeueIdentifiableCell(RouteTableViewCell.self, forIndexPath: indexPath)
             cell.route = favorite.favorite as? Route
             outerCell = cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesStopCellIdentifier", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesStopCellIdentifier", for: indexPath)
             let stop = favorite.favorite as? Stop
             cell.textLabel?.text = stop?.stopName
             cell.detailTextLabel?.text = stop?.routes
@@ -60,35 +60,35 @@ class FavoritesViewVontroller: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let favorite = self.favorites[indexPath.section][indexPath.row]
-        if favorite.type == .FavoriteRoute {
-            let viewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("RouteDetailViewController") as? RouteDetailViewController
+        let favorite = self.favorites[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        if favorite.type == .favoriteRoute {
+            let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "RouteDetailViewController") as? RouteDetailViewController
             viewController?.route = favorite.favorite as? Route
             
             self.navigationController?.pushViewController(viewController!, animated: true)
         } else {
-            let stopRouteController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteViewController") as! StopRouteViewController
+            let stopRouteController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteViewController") as! StopRouteViewController
             stopRouteController.stop = favorite.favorite as? Stop
             self.navigationController?.pushViewController(stopRouteController, animated: true)
         }
     }
 
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             // Delete the row from the data source
-            Favorite.deleteFavorite(self.favorites[indexPath.section][indexPath.row].favoriteId)
-            self.favorites[indexPath.section].removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            Favorite.deleteFavorite(self.favorites[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].favoriteId)
+            self.favorites[(indexPath as NSIndexPath).section].remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
 
             if self.favorites.count == 0 {
                 tableView.addNoDataFooterView("No favorites.")
@@ -97,14 +97,14 @@ class FavoritesViewVontroller: UITableViewController {
     }
 
     
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        var tempFavorites = self.favorites[fromIndexPath.section]
-        let tempObject = tempFavorites[fromIndexPath.row]
-        tempFavorites.removeAtIndex(fromIndexPath.row)
-        tempFavorites.insert(tempObject, atIndex: toIndexPath.row)
-        self.favorites[fromIndexPath.section] = tempFavorites
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        var tempFavorites = self.favorites[(fromIndexPath as NSIndexPath).section]
+        let tempObject = tempFavorites[(fromIndexPath as NSIndexPath).row]
+        tempFavorites.remove(at: (fromIndexPath as NSIndexPath).row)
+        tempFavorites.insert(tempObject, at: (toIndexPath as NSIndexPath).row)
+        self.favorites[(fromIndexPath as NSIndexPath).section] = tempFavorites
         
-        for (index, element) in tempFavorites.enumerate() {
+        for (index, element) in tempFavorites.enumerated() {
             element.sortOrder = index
         }
         
@@ -112,35 +112,35 @@ class FavoritesViewVontroller: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
-        if sourceIndexPath.section != proposedDestinationIndexPath.section {
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if (sourceIndexPath as NSIndexPath).section != (proposedDestinationIndexPath as NSIndexPath).section {
             var row = 0
-            if sourceIndexPath.section < proposedDestinationIndexPath.section {
-                row = tableView.numberOfRowsInSection(sourceIndexPath.section) - 1
+            if (sourceIndexPath as NSIndexPath).section < (proposedDestinationIndexPath as NSIndexPath).section {
+                row = tableView.numberOfRows(inSection: (sourceIndexPath as NSIndexPath).section) - 1
             }
             
-            return NSIndexPath(forRow: row, inSection: sourceIndexPath.section)
+            return IndexPath(row: row, section: (sourceIndexPath as NSIndexPath).section)
         }
         
         return proposedDestinationIndexPath
     }
     
     
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     
     func fetchFavorites() {
         self.tableView.addLoadingFooterView()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             strongSelf.favorites = Favorite.favorites()
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
                 strongSelf.tableView.reloadData()
                 if strongSelf.favorites.count > 0 {
-                    strongSelf.tableView.tableFooterView = UIView(frame: CGRectZero)
+                    strongSelf.tableView.tableFooterView = UIView(frame: CGRect.zero)
                 } else {
                     strongSelf.tableView.addNoDataFooterView("No favorites.")
                 }

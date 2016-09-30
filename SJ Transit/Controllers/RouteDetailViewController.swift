@@ -17,7 +17,7 @@ class RouteDetailViewController: UITableViewController {
     
     var route: Route!
     var times: Array<StopTime> = Array<StopTime>()
-    var afterTime: NSDate = NSDate()
+    var afterTime: Date = Date()
     var tripId: String?
     
     override func viewDidLoad() {
@@ -35,36 +35,36 @@ class RouteDetailViewController: UITableViewController {
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Route Detail", customAttributes: ["route": self.route.routeShortName, "routeName": self.route.routeLongName])
+        Answers.logCustomEvent(withName: "Show Route Detail", customAttributes: ["route": self.route.routeShortName, "routeName": self.route.routeLongName])
     }
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.times.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueIdentifiableCell(TripStopTableViewCell.self, forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.stopTime = self.times[indexPath.row]
-        cell.topLineView.hidden = indexPath.row == 0
-        cell.bottomLineView.hidden = indexPath.row == (self.times.count - 1)
+        cell.stopTime = self.times[(indexPath as NSIndexPath).row]
+        cell.topLineView.isHidden = (indexPath as NSIndexPath).row == 0
+        cell.bottomLineView.isHidden = (indexPath as NSIndexPath).row == (self.times.count - 1)
         
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let stopTime = self.times[indexPath.row]
+        let stopTime = self.times[(indexPath as NSIndexPath).row]
         stopTime.route.routeId = self.route.routeId
         
-        let stopRouteTimeController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteTimesViewController") as! StopRouteTimesViewController
+        let stopRouteTimeController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteTimesViewController") as! StopRouteTimesViewController
         stopRouteTimeController.stopTime = stopTime
         stopRouteTimeController.afterTime = self.afterTime
         
@@ -74,7 +74,7 @@ class RouteDetailViewController: UITableViewController {
     
     func fetchTrip() {
         self.tableView.addLoadingFooterView()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             // get the first trip
             strongSelf.tripId = StopTime.trip(strongSelf.route?.routeId, directionId: Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex), afterTime: strongSelf.afterTime)
@@ -85,10 +85,10 @@ class RouteDetailViewController: UITableViewController {
                 strongSelf.times = []
             }
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
                 strongSelf.tableView.reloadData()
                 if strongSelf.times.count > 0 {
-                    strongSelf.tableView.tableFooterView = UIView(frame: CGRectZero)
+                    strongSelf.tableView.tableFooterView = UIView(frame: CGRect.zero)
                 } else {
                     print("No trips found for route: \(strongSelf.route?.routeId), direction: \(Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex)), afterTime: \(strongSelf.afterTime)")
                     strongSelf.tableView.addNoDataFooterView()
@@ -98,53 +98,53 @@ class RouteDetailViewController: UITableViewController {
     }
     
     // MARK: - IBActions
-    @IBAction func routeAction(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    @IBAction func routeAction(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if self.times.count > 0 {
-            alertController.addAction(UIAlertAction(title: "Route Map", style: .Default, handler: { _ -> Void in
-                let viewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("RouteMapViewController") as? RouteMapViewController
+            alertController.addAction(UIAlertAction(title: "Route Map", style: .default, handler: { _ -> Void in
+                let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "RouteMapViewController") as? RouteMapViewController
                 viewController?.times = self.times
                 viewController?.tripId = self.tripId
                 
                 self.navigationController?.pushViewController(viewController!, animated: true)
             }))
         }
-        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .Default, handler: { [weak self] _ -> Void in
+        alertController.addAction(UIAlertAction(title: "Change Departure Time", style: .default, handler: { [weak self] _ -> Void in
             guard let strongSelf = self else { return }
             
-            strongSelf.performSegueWithIdentifier("RouteTimePickerSegue", sender: strongSelf)
+            strongSelf.performSegue(withIdentifier: "RouteTimePickerSegue", sender: strongSelf)
         }))
-        if Favorite.isFavorite(.FavoriteRoute, typeId: self.route.routeId) {
-            alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+        if Favorite.isFavorite(.favoriteRoute, typeId: self.route.routeId) {
+            alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
                 
-                Favorite.deleteFavorite(.FavoriteRoute, typeId: strongSelf.route.routeId)
+                Favorite.deleteFavorite(.favoriteRoute, typeId: strongSelf.route.routeId)
             }))
         } else {
-            alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .Default, handler: { [weak self] _ -> Void in
+            alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
                 
-                Favorite.addFavorite(.FavoriteRoute, typeId: strongSelf.route.routeId)
+                Favorite.addFavorite(.favoriteRoute, typeId: strongSelf.route.routeId)
             }))
         }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func directionChanged(sender: UISegmentedControl) {
+    @IBAction func directionChanged(_ sender: UISegmentedControl) {
         self.times = []
         self.tableView.reloadData()
         self.fetchTrip()
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RouteTimePickerSegue" {
-            let viewController = segue.destinationViewController as! DateTimePickerViewController
+            let viewController = segue.destination as! DateTimePickerViewController
             viewController.onDateSelected = { selectedDate in
                 self.afterTime = selectedDate
                 
-                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                DispatchQueue.main.async(execute: { [weak self] () -> Void in
                     guard let strongSelf = self else { return }
                     strongSelf.times = []
                     strongSelf.tableView.reloadData()

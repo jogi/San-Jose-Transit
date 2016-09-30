@@ -35,7 +35,6 @@
 		D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */; };
 		D48019281C144E45004615BB /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019271C144E45004615BB /* Threading.swift */; };
 		D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */; };
-		D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192F1C14811C004615BB /* NSCalendar+Additions.swift */; };
 		D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019311C159966004615BB /* StopRouteTimesViewController.swift */; };
 		D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */; };
 		D480193A1C15B1BC004615BB /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */; };
@@ -122,7 +121,6 @@
 		D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SVProgressHUD.framework.dSYM; path = Carthage/Build/iOS/SVProgressHUD.framework.dSYM; sourceTree = "<group>"; };
 		D48019271C144E45004615BB /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
 		D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTableViewCell.swift; sourceTree = "<group>"; };
-		D480192F1C14811C004615BB /* NSCalendar+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Additions.swift"; sourceTree = "<group>"; };
 		D48019311C159966004615BB /* StopRouteTimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimesViewController.swift; sourceTree = "<group>"; };
 		D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimeTableViewCell.swift; sourceTree = "<group>"; };
 		D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 				D48019111C12B79C004615BB /* CellAdditions.swift */,
 				D480191E1C1306C1004615BB /* NSDate+Additions.swift */,
 				D48019271C144E45004615BB /* Threading.swift */,
-				D480192F1C14811C004615BB /* NSCalendar+Additions.swift */,
 				D480193B1C15C244004615BB /* String+Additions.swift */,
 				D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */,
 				D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */,
@@ -398,13 +395,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Vashishtha Jogi";
 				TargetAttributes = {
 					D44107D51BFD71CE0022B7E2 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = H5537L6Q5K;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -416,7 +413,7 @@
 					};
 					D49584A71CB4EA4000954327 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
 				};
@@ -515,7 +512,6 @@
 				D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */,
 				D495849C1CB23A2000954327 /* Utilities.swift in Sources */,
 				D49584941CAFAC4100954327 /* Constants.swift in Sources */,
-				D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */,
 				D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */,
 				D480191A1C12D1BF004615BB /* Calendar.swift in Sources */,
 				D495849E1CB2460700954327 /* Downloader.swift in Sources */,
@@ -574,8 +570,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -618,8 +616,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -638,6 +638,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -660,7 +661,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -682,7 +683,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -696,7 +697,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Debug;
@@ -710,7 +711,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Release;

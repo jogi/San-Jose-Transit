@@ -11,14 +11,14 @@ import SQLite
 
 
 enum RouteType: Int {
-    case LightRail = 0
-    case Subway = 1
-    case Rail = 2
-    case Bus = 3
-    case Ferry = 4
-    case CableCar = 5
-    case Gondola = 6
-    case Funicular = 7
+    case lightRail = 0
+    case subway = 1
+    case rail = 2
+    case bus = 3
+    case ferry = 4
+    case cableCar = 5
+    case gondola = 6
+    case funicular = 7
 }
 
 

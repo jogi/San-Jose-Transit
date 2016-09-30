@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     var hasAcquiredUserLocaion: Bool = false
     
     // MARK: - IBActions
-    @IBAction func locateUser(sender: UIBarButtonItem) {
+    @IBAction func locateUser(_ sender: UIBarButtonItem) {
         let region = MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 800, 800)
         self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
     }
@@ -38,20 +38,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         self.locationManager.requestWhenInUseAuthorization()
         
         self.fetchStops()
-        self.addNoScheduleViewIfRequired()
+        _ = self.addNoScheduleViewIfRequired()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterUpdate), name: NSNotification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Map", customAttributes: nil)
+        Answers.logCustomEvent(withName: "Show Map", customAttributes: nil)
     }
     
 
     // MARK: - MKMapViewDelegate
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if self.hasAcquiredUserLocaion == false {
             self.hasAcquiredUserLocaion = true
             let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
@@ -60,21 +60,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     }
     
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKPinAnnotationView?
         
-        if annotation.isKindOfClass(MKUserLocation) {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         } else {
-            annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("stopPin") as? MKPinAnnotationView
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "stopPin") as? MKPinAnnotationView
             
             if (annotationView == nil) {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
                 annotationView?.pinTintColor = mapView.tintColor
                 
-                let disclosureButton = UIButton(type: .DetailDisclosure)
-                disclosureButton.setImage(UIImage(named: "right-arrow"), forState: .Normal) // yup, annotation views are stupid, so try to trick it
+                let disclosureButton = UIButton(type: .detailDisclosure)
+                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControlState()) // yup, annotation views are stupid, so try to trick it
                 annotationView?.rightCalloutAccessoryView = disclosureButton
             } else {
                 annotationView?.annotation = annotation
@@ -85,9 +85,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     }
     
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let stop = view.annotation as? Stop
-        let stopRouteController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("StopRouteViewController") as! StopRouteViewController
+        let stopRouteController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteViewController") as! StopRouteViewController
         stopRouteController.stop = stop
         self.navigationController?.pushViewController(stopRouteController, animated: true)
     }
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     
     // MARK: - UISearchBarDelegate
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         SVProgressHUD.show()
         
@@ -103,20 +103,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
         
-        Answers.logSearchWithQuery(searchBar.text, customAttributes: nil)
+        Answers.logSearch(withQuery: searchBar.text, customAttributes: nil)
         
         let localSearch = MKLocalSearch(request: searchRequest)
-        localSearch.startWithCompletionHandler { (response, error) -> Void in
+        localSearch.start { (response, error) -> Void in
             guard let response = response else {
                 NSLog("Search error: \(error)")
-                SVProgressHUD.showErrorWithStatus("Try Again")
+                SVProgressHUD.showError(withStatus: "Try Again")
                 return
             }
             
             SVProgressHUD.dismiss()
             if response.mapItems.count > 0 {
                 let firstMapItem = response.mapItems[0] as MKMapItem!
-                self.mapView.setRegion(MKCoordinateRegionMakeWithDistance((firstMapItem.placemark.location?.coordinate)!, 1000, 1000), animated: true)
+                self.mapView.setRegion(MKCoordinateRegionMakeWithDistance((firstMapItem?.placemark.location?.coordinate)!, 1000, 1000), animated: true)
             }
         }
     }
@@ -124,12 +124,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - Controller methods
     func fetchStops() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] () -> Void in
+        DispatchQueue.global(qos: .background).async { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
             strongSelf.stops = Stop.stops()
             if (strongSelf.stops != nil) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     strongSelf.mapView.addAnnotations(strongSelf.stops!)
                 });
             }

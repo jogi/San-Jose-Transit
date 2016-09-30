@@ -9,45 +9,44 @@
 import Foundation
 
 
-extension NSDate {
+extension Date {
     var dayAsString: String! {
         get {
-            return DateFormatter.PSTDateFormatterDay.stringFromDate(self)
+            return DateFormatter.PSTDateFormatterDay.string(from: self)
         }
     }
     
     
     var timeAsString: String! {
         get {
-            return DateFormatter.PSTDateFormatterTime.stringFromDate(self)
+            return DateFormatter.PSTDateFormatterTime.string(from: self)
         }
     }
     
     
     var timeWithMeridianAsString: String! {
         get {
-            return DateFormatter.PSTDateFormatterTimeWithMeridian.stringFromDate(self)
+            return DateFormatter.PSTDateFormatterTimeWithMeridian.string(from: self)
         }
     }
     
     
     var dateAsString: String! {
         get {
-            return DateFormatter.PSTDateFormatterDate.stringFromDate(self)
+            return DateFormatter.PSTDateFormatterDate.string(from: self)
         }
     }
     
     
     func minutesFromNow() -> Int {
         // first form a date with today's date and the given time
-        let calendar = NSCalendar.currentCalendar()
+        var calendar = Foundation.Calendar.current
         // TODO:- fix this timezone
-        calendar.timeZone = NSTimeZone(name: "America/Los_Angeles")!
-        calendar.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        let (hour, minutes, seconds, _) = calendar.getTimeFromDate(self)
-        let newDate = calendar.dateBySettingHour(hour, minute: minutes, second: seconds, ofDate: NSDate(), options: [])
-        
-        let difference = Int((newDate?.timeIntervalSinceDate(NSDate()))!)
+        calendar.timeZone = TimeZone(identifier: "America/Los_Angeles")!
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: self)
+        let newDate = (calendar as NSCalendar).date(bySettingHour: dateComponents.hour!, minute: dateComponents.minute!, second: dateComponents.second!, of: Date(), options: [])
+        let difference = Int((newDate?.timeIntervalSince(Date()))!)
         
         return (difference / 60)
     }

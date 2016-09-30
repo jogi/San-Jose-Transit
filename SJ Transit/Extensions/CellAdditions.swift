@@ -19,7 +19,7 @@ protocol IdentifiableNibBasedCell: IdentifiableCell {
 
 extension IdentifiableNibBasedCell {
     static func nib() -> UINib {
-        return UINib(nibName: self.cellIdentifier(), bundle: NSBundle.mainBundle())
+        return UINib(nibName: self.cellIdentifier(), bundle: Bundle.main)
     }
 }
 
@@ -33,16 +33,16 @@ extension UITableView {
     // In cellForRowAtIndexPath:
     //		let cell = tableView.dequeueIdentifiableCell(SomeClass)
     
-    func registerIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(cellClass: T.Type) {
+    func registerIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(_ cellClass: T.Type) {
         if let nibBasedCellClass = cellClass as? IdentifiableNibBasedCell.Type {
-            self.registerNib(nibBasedCellClass.nib(), forCellReuseIdentifier: nibBasedCellClass.cellIdentifier())
+            self.register(nibBasedCellClass.nib(), forCellReuseIdentifier: nibBasedCellClass.cellIdentifier())
         } else {
-            self.registerClass(cellClass, forCellReuseIdentifier: cellClass.cellIdentifier())
+            self.register(cellClass, forCellReuseIdentifier: cellClass.cellIdentifier())
         }
     }
     
-    func dequeueIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(cellClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T {
-        return self.dequeueReusableCellWithIdentifier(cellClass.cellIdentifier(), forIndexPath: indexPath) as! T
+    func dequeueIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T {
+        return self.dequeueReusableCell(withIdentifier: cellClass.cellIdentifier(), for: indexPath) as! T
     }
 }
 
@@ -56,15 +56,15 @@ extension UICollectionView {
     // In cellForItemAtIndexPath:
     //		let cell = collectionView.dequeueIdentifiableCell(SomeClass.self, atIndexPath: indexPath)
     
-    func registerIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(cellClass: T.Type) {
+    func registerIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(_ cellClass: T.Type) {
         if let nibBasedCellClass = cellClass as? IdentifiableNibBasedCell.Type {
-            self.registerNib(nibBasedCellClass.nib(), forCellWithReuseIdentifier: nibBasedCellClass.cellIdentifier())
+            self.register(nibBasedCellClass.nib(), forCellWithReuseIdentifier: nibBasedCellClass.cellIdentifier())
         } else {
-            self.registerClass(cellClass, forCellWithReuseIdentifier: cellClass.cellIdentifier())
+            self.register(cellClass, forCellWithReuseIdentifier: cellClass.cellIdentifier())
         }
     }
     
-    func dequeueIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(cellClass: T.Type, forIndexPath indexPath: NSIndexPath) -> T {
-        return self.dequeueReusableCellWithReuseIdentifier(cellClass.cellIdentifier(), forIndexPath: indexPath) as! T
+    func dequeueIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T {
+        return self.dequeueReusableCell(withReuseIdentifier: cellClass.cellIdentifier(), for: indexPath) as! T
     }
 }

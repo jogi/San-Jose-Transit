@@ -10,8 +10,8 @@ import UIKit
 import SQLite
 
 enum ServiceAvailble: Int {
-    case Avaialble = 0
-    case Unavailable = 1
+    case avaialble = 0
+    case unavailable = 1
 }
 
 
@@ -28,8 +28,8 @@ enum CalendarWeekday: Int {
 
 class Calendar: NSObject {
     var serviceId: String!
-    var startDate: NSDate!
-    var endDate: NSDate!
+    var startDate: Date!
+    var endDate: Date!
     var monday: ServiceAvailble!
     var tuesday: ServiceAvailble!
     var wednesday: ServiceAvailble!
@@ -38,7 +38,7 @@ class Calendar: NSObject {
     var saturday: ServiceAvailble!
     var sunday: ServiceAvailble!
     
-    class func isServiceActive(date: NSDate, serviceId: String) -> Bool {
+    class func isServiceActive(_ date: Date, serviceId: String) -> Bool {
         guard let db = Database.connection else {
             return false
         }
@@ -49,7 +49,13 @@ class Calendar: NSObject {
         let colEndDate = Expression<String>("end_date")
         let colToday = Expression<Int>(date.dayAsString)
         
-        let count = db.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date.dateAsString && colEndDate >= date.dateAsString && colToday == 1).count)
+        var count = 0
+        
+        do {
+            count = try db.scalar(calendar.filter(colServiceId == serviceId && colStartDate <= date.dateAsString && colEndDate >= date.dateAsString && colToday == 1).count)
+        } catch {
+            print("Failed to execute isServiceActive query: \(error)")
+        }
         
         return count > 0
     }
