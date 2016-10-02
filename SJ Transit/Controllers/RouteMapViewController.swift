@@ -65,7 +65,8 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Controller methods
     func mapRoute() {
         self.mapView.addAnnotations(self.times)
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: { [weak self] () -> Void in
+        
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
             let shapes = Shape.shapes(forTrip:strongSelf.tripId!)
