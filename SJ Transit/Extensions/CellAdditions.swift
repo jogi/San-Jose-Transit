@@ -33,7 +33,7 @@ extension UITableView {
     // In cellForRowAtIndexPath:
     //		let cell = tableView.dequeueIdentifiableCell(SomeClass)
     
-    func registerIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(_ cellClass: T.Type) {
+    func registerIdentifiableCell<T: UITableViewCell>(_ cellClass: T.Type) where T: IdentifiableCell {
         if let nibBasedCellClass = cellClass as? IdentifiableNibBasedCell.Type {
             self.register(nibBasedCellClass.nib(), forCellReuseIdentifier: nibBasedCellClass.cellIdentifier())
         } else {
@@ -41,7 +41,7 @@ extension UITableView {
         }
     }
     
-    func dequeueIdentifiableCell<T: UITableViewCell where T: IdentifiableCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T {
+    func dequeueIdentifiableCell<T: UITableViewCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T where T: IdentifiableCell {
         return self.dequeueReusableCell(withIdentifier: cellClass.cellIdentifier(), for: indexPath) as! T
     }
 }
@@ -56,7 +56,7 @@ extension UICollectionView {
     // In cellForItemAtIndexPath:
     //		let cell = collectionView.dequeueIdentifiableCell(SomeClass.self, atIndexPath: indexPath)
     
-    func registerIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(_ cellClass: T.Type) {
+    func registerIdentifiableCell<T: UICollectionViewCell>(_ cellClass: T.Type) where T: IdentifiableCell {
         if let nibBasedCellClass = cellClass as? IdentifiableNibBasedCell.Type {
             self.register(nibBasedCellClass.nib(), forCellWithReuseIdentifier: nibBasedCellClass.cellIdentifier())
         } else {
@@ -64,7 +64,7 @@ extension UICollectionView {
         }
     }
     
-    func dequeueIdentifiableCell<T: UICollectionViewCell where T: IdentifiableCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T {
+    func dequeueIdentifiableCell<T: UICollectionViewCell>(_ cellClass: T.Type, forIndexPath indexPath: IndexPath) -> T where T: IdentifiableCell {
         return self.dequeueReusableCell(withReuseIdentifier: cellClass.cellIdentifier(), for: indexPath) as! T
     }
 }

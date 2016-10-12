@@ -1,3 +1,3 @@
-github "stephencelis/SQLite.swift" "swift3-mariotaku"
+github "stephencelis/SQLite.swift" "master"
 github "SVProgressHUD/SVProgressHUD"
 github "marmelroy/Zip"

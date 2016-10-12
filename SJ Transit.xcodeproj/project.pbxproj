@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */; };
+		D4429FED1DACAC4B001845CC /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4429FEC1DACAC4B001845CC /* Fabric.framework */; };
 		D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D477DEDF1C1020DB009C356E /* Assets.xcassets */; };
 		D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D477DEE11C1020DB009C356E /* LaunchScreen.storyboard */; };
 		D477DEE51C1020DB009C356E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D477DEE21C1020DB009C356E /* Main.storyboard */; };
@@ -54,7 +55,6 @@
 		D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */; };
 		D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */; };
 		D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D81CBDED4E0012320F /* DateFormatter.swift */; };
-		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
 		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
 		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
@@ -93,6 +93,7 @@
 		D44107D61BFD71CE0022B7E2 /* SJ Transit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SJ Transit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D44107E71BFD71CF0022B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4429FEC1DACAC4B001845CC /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = "SJ Transit/Vendor/Fabric.framework"; sourceTree = "<group>"; };
 		D477DEDF1C1020DB009C356E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D477DEE11C1020DB009C356E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D477DEE21C1020DB009C356E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		D49584AC1CB4EA4000954327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		D4CE44D81CBDED4E0012320F /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
-		D4FACC661C9CF003009A346A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "SJ Transit/Vendor/Crashlytics.framework"; sourceTree = "<group>"; };
 		D4FACC6C1CA89416009A346A /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
@@ -156,13 +156,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4429FED1DACAC4B001845CC /* Fabric.framework in Frameworks */,
 				D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */,
 				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
 				D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */,
 				D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */,
-				D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */,
 				D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,7 +270,7 @@
 		D48018F81C108B59004615BB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				D4FACC661C9CF003009A346A /* Fabric.framework */,
+				D4429FEC1DACAC4B001845CC /* Fabric.framework */,
 				D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */,
 				D48019231C140586004615BB /* SVProgressHUD.framework */,
 				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
