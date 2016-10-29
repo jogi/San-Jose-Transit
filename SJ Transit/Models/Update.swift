@@ -42,8 +42,10 @@ class Update {
     class func checkForUpdates(_ completion: @escaping (_ result: Result<Update, UpdateError>) -> Void) {
         Answers.logCustomEvent(withName: "Check Updates", customAttributes: nil)
         
+        URLCache.shared.removeAllCachedResponses()
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        sessionConfiguration.urlCache = nil
         let session = URLSession(configuration: sessionConfiguration)
         session.dataTask(with: URL(string: "http://www.sanjosetransit.com/extras/updates-debug.json")!, completionHandler: { (responseData, response, error) -> Void in
             if let error = error {
