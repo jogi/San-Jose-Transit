@@ -44,6 +44,7 @@ platform :ios do
   lane :store do
     # match(type: "appstore")
     # snapshot
+    increment_build_number
     gym(
         scheme: "SJ Transit",
         configuration: "Release"
