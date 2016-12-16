@@ -401,7 +401,7 @@
 					D44107D51BFD71CE0022B7E2 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = H5537L6Q5K;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -414,7 +414,7 @@
 					};
 					D49584A71CB4EA4000954327 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
 				};

@@ -162,17 +162,18 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
             guard let strongSelf = self else { return }
             
             let shapes = Shape.shapes(forShape:(strongSelf.stopTime?.trip.shapeId)!)
-            var points = [CLLocationCoordinate2D]()
+            var points: [CLLocationCoordinate2D] = []
             
             for aShape in shapes {
                 points.append(aShape.coordinate)
             }
             
-            let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
-            DispatchQueue.main.async(execute: { () -> Void in
-                strongSelf.mapView.add(polyline)
-                strongSelf.animateMapRegion(to: shapes[0].coordinate)
-            });
+            let polyline = MKPolyline(coordinates: &points, count: points.count)
+            
+            DispatchQueue.main.async {
+                strongSelf.mapView.add(polyline, level: .aboveRoads)
+                strongSelf.animateMapRegion(to: points.first!)
+            }
         });
     }
     
