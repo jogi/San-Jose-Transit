@@ -90,7 +90,7 @@ class SettingsViewController: UITableViewController {
     }
     
     
-    func reloadAfterUpdate() {
+    @objc func reloadAfterUpdate() {
         self.dataVersionLabel.text = "\(UserDefaults.standard.integer(forKey: kDefaultsGTFSVersionKey))"
         
         self.tableView.reloadData()

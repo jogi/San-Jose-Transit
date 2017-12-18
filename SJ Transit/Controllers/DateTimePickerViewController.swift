@@ -24,7 +24,7 @@ class DateTimePickerViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Date Picker", customAttributes: ["parent": "\(self.parent)" ])
+        Answers.logCustomEvent(withName: "Show Date Picker", customAttributes: ["parent": "\(String(describing: self.parent))" ])
     }
     
     

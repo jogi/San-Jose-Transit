@@ -68,7 +68,7 @@ class RoutesViewController: UITableViewController {
     }
     
     
-    func reloadAfterUpdate() {
+    @objc func reloadAfterUpdate() {
         // remove the no schedule view
         self.removeNoScheduleView()
         

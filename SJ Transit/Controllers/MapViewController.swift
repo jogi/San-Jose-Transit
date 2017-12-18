@@ -108,7 +108,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         let localSearch = MKLocalSearch(request: searchRequest)
         localSearch.start { (response, error) -> Void in
             guard let response = response else {
-                NSLog("Search error: \(error)")
+                NSLog("Search error: \(String(describing: error))")
                 SVProgressHUD.showError(withStatus: "Try Again")
                 return
             }
@@ -136,7 +136,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         }
     }
     
-    func reloadAfterUpdate() {
+    @objc func reloadAfterUpdate() {
         // remove the no schedule view
         self.removeNoScheduleView()
         

@@ -37,7 +37,6 @@ class SJ_TransitUITests: XCTestCase {
         let sjTransitMapviewNavigationBar = app.navigationBars["SJ_Transit.MapView"]
         sjTransitMapviewNavigationBar.buttons["location"].tap()
         sjTransitMapviewNavigationBar.searchFields["Search by address, city, zipcode"].tap()
-        sjTransitMapviewNavigationBar.searchFields["Search by address, city, zipcode"]
         app.typeText("San Jose")
         app.buttons["Search"].tap()
         

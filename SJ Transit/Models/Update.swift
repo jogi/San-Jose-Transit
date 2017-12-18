@@ -75,7 +75,7 @@ class Update {
     }
     
     
-    func presentUpdateAlert(on viewController: UIViewController, didSelectUpdate: @escaping ((Void) -> Void)) {
+    func presentUpdateAlert(on viewController: UIViewController, didSelectUpdate: @escaping (() -> Void)) {
         let alert = UIAlertController(title: "Update Available", message: "An update to the schedules is available with version \(self.version). Would you like to update?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
             didSelectUpdate()
@@ -93,7 +93,7 @@ class Update {
             SVProgressHUD.showProgress(progress)
             }, completion: { (download, error) in
                 if error != nil {
-                    print("Error downloading file: \(error)")
+                    print("Error downloading file: \(String(describing: error))")
                     SVProgressHUD.showError(withStatus: "Download Error")
                     completion?(error)
                 } else {
@@ -141,11 +141,11 @@ class Update {
     
     class func unzipFileToCaches(_ file: String, completion: ((Error?) -> Void)?) {
         do {
-            try Zip.unzipFile(URL(fileURLWithPath: file), destination: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]), overwrite: true, password: nil) { (progress) in
+            try Zip.unzipFile(URL(fileURLWithPath: file), destination: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]), overwrite: true, password: nil, progress: { (progress) in
                 if progress == 1.0 {
                     completion?(nil)
                 }
-            }
+            }, fileOutputHandler: nil)
         } catch {
             print("Error unzipping - \(error)")
             completion?(error)

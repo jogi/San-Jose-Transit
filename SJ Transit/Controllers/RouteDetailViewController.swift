@@ -90,7 +90,7 @@ class RouteDetailViewController: UITableViewController {
                 if strongSelf.times.count > 0 {
                     strongSelf.tableView.tableFooterView = UIView(frame: CGRect.zero)
                 } else {
-                    print("No trips found for route: \(strongSelf.route?.routeId), direction: \(Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex)), afterTime: \(strongSelf.afterTime)")
+                    print("No trips found for route: \(String(describing: strongSelf.route?.routeId)), direction: \(String(describing: Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex))), afterTime: \(strongSelf.afterTime)")
                     strongSelf.tableView.addNoDataFooterView()
                 }
             });
