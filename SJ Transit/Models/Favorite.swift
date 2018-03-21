@@ -11,8 +11,8 @@ import SQLite
 
 
 enum FavoriteType: Int {
-    case FavoriteRoute = 0
-    case FavoriteStop
+    case favoriteRoute = 0
+    case favoriteStop
 }
 
 class Favorite: NSObject {
@@ -48,7 +48,7 @@ class Favorite: NSObject {
                 favorite.type = FavoriteType(rawValue: row[colType])
                 favorite.typeId = row[colTypeId]
                 
-                if favorite.type == .FavoriteStop {
+                if favorite.type == .favoriteStop {
                     favorite.favorite = Stop.stop(byId: row[colTypeId])
                     stopList.append(favorite)
                 } else {
@@ -65,7 +65,7 @@ class Favorite: NSObject {
     }
     
     
-    class func isFavorite(favoriteType: FavoriteType, typeId: String) -> Bool {
+    class func isFavorite(_ favoriteType: FavoriteType, typeId: String) -> Bool {
         guard let db = Database.favoritesConnection else {
             return false
         }
@@ -75,13 +75,19 @@ class Favorite: NSObject {
         let colTypeId = Expression<String>("fav_type_id")
         let colType = Expression<Int>("fav_type")
         
-        let count = db.scalar(favorites.filter(colTypeId == typeId && colType == favoriteType.rawValue).count)
+        var count = 0
+        
+        do {
+            count = try db.scalar(favorites.filter(colTypeId == typeId && colType == favoriteType.rawValue).count)
+        } catch {
+            print("Error checking isFavorite: \(error)")
+        }
         
         return count > 0
     }
     
     
-    class func addFavorite(favoriteType: FavoriteType, typeId: String) {
+    class func addFavorite(_ favoriteType: FavoriteType, typeId: String) {
         guard let db = Database.favoritesConnection else {
             return
         }
@@ -99,7 +105,7 @@ class Favorite: NSObject {
     }
     
     
-    class func deleteFavorite(favoriteId: Int) {
+    class func deleteFavorite(_ favoriteId: Int) {
         guard let db = Database.favoritesConnection else {
             return
         }
@@ -120,7 +126,7 @@ class Favorite: NSObject {
     }
     
     
-    class func deleteFavorite(favoriteType: FavoriteType, typeId: String) {
+    class func deleteFavorite(_ favoriteType: FavoriteType, typeId: String) {
         guard let db = Database.favoritesConnection else {
             return
         }
@@ -143,7 +149,7 @@ class Favorite: NSObject {
     }
     
     
-    class func updateFavorites(favorites: [Favorite]) {
+    class func updateFavorites(_ favorites: [Favorite]) {
         guard let db = Database.favoritesConnection else {
             return
         }
@@ -182,8 +188,8 @@ class Favorite: NSObject {
         let colTypeId = Expression<String>("fav_type_id")
         
         do {
-            try db.run(favoritesTable.create(ifNotExists: true) { t in
-                t.column(colFavoriteId, primaryKey: .Autoincrement)
+            try _ = db.run(favoritesTable.create(ifNotExists: true) { t in
+                t.column(colFavoriteId, primaryKey: .autoincrement)
                 t.column(colType)
                 t.column(colTypeId)
                 t.column(colSortOrder)

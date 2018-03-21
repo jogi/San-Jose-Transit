@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case OpenRoutes
         
         init?(fullIdentifier: String) {
-            guard let shortIdentifier = fullIdentifier.componentsSeparatedByString(".").last else {
+            guard let shortIdentifier = fullIdentifier.components(separatedBy: ".").last else {
                 return nil
             }
             self.init(rawValue: shortIdentifier)
@@ -30,14 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        SVProgressHUD.setDefaultMaskType(.Clear)
-        SVProgressHUD.setDefaultStyle(.Dark)
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
         
-        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
-            self.handleShortcut(shortcutItem)
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+            _ = self.handleShortcut(shortcutItem)
             return false
         }
         
@@ -50,13 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         completionHandler(self.handleShortcut(shortcutItem))
     }
     
 
     //MARK: - Force Touch shortcut methods
-    private func handleShortcut(shortcutItem: UIApplicationShortcutItem) -> Bool {
+    fileprivate func handleShortcut(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
         let shortcutType = shortcutItem.type
         guard let shortcutIdentifier = ShortcutIdentifier(fullIdentifier: shortcutType) else {
             return false
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.selectTabBarItemForIdentifier(shortcutIdentifier)
     }
     
-    private func selectTabBarItemForIdentifier(identifier: ShortcutIdentifier) -> Bool {
+    fileprivate func selectTabBarItemForIdentifier(_ identifier: ShortcutIdentifier) -> Bool {
         guard let tabBarController = self.window?.rootViewController as? UITabBarController else {
             return false
         }
@@ -83,19 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func checkForUpdate() {
+    fileprivate func checkForUpdate() {
         if Utilities.isScheduleEmpty() == false {
             Update.checkForUpdates { (result) in
                 switch (result) {
-                case .Success(let update):
-                    if let window = self.window, viewController = window.rootViewController {
+                case .success(let update):
+                    if let window = self.window, let viewController = window.rootViewController {
                         if update.isNewerVersion() == true {
                             update.presentUpdateAlert(on: viewController) {
                                 update.downloadAndUnzip(nil)
                             }
                         }
                     }
-                case .Failure(_):
+                case .failure(_):
                     break
                 }
             }

@@ -10,8 +10,8 @@ import UIKit
 
 extension UITableView {
     func addLoadingFooterView() {
-        let footerView = UIView(frame: CGRectMake(0, 0, self.frame.size.width, 44))
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicator.center = footerView.center
         activityIndicator.startAnimating()
         
@@ -20,12 +20,12 @@ extension UITableView {
         self.tableFooterView = footerView
     }
     
-    func addNoDataFooterView(noDataText: String = "No trips found.") {
-        let footerView = UIView(frame: CGRectMake(0, 0, self.frame.size.width, 120))
+    func addNoDataFooterView(_ noDataText: String = "No trips found.") {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 120))
         let noDataLabel = UILabel(frame: footerView.frame)
         noDataLabel.text = noDataText
-        noDataLabel.textAlignment = .Center
-        noDataLabel.textColor = UIColor.lightGrayColor()
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = UIColor.lightGray
         footerView.addSubview(noDataLabel)
         
         self.tableFooterView = footerView

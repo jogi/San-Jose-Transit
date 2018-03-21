@@ -11,14 +11,14 @@ import Foundation
 class Downloader: NSObject {
     static let sharedInstance = Downloader()
     
-    lazy var session: NSURLSession = {
-        return NSURLSession(configuration: NSURLSessionConfiguration.ephemeralSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+    lazy var session: Foundation.URLSession = {
+        return Foundation.URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: self, delegateQueue: OperationQueue.main)
     }()
     var activeDownloads = [String: Download]()
     
-    func downloadFile(with URL: String, toPath: String?, downloadProgress: ((progress: Float) -> Void), completion: ((Download, ErrorType?) -> Void)) {
+    func downloadFile(with URL: String, toPath: String?, downloadProgress: @escaping ((_ progress: Float) -> Void), completion: @escaping ((Download, Error?) -> Void)) {
         let download = Download(url: URL)
-        download.downloadTask = self.session.downloadTaskWithURL(NSURL(string: URL)!)
+        download.downloadTask = self.session.downloadTask(with: Foundation.URL(string: URL)!)
         download.progressBlock = downloadProgress
         download.completion = completion
         download.downloadTask?.resume()
@@ -31,24 +31,24 @@ class Downloader: NSObject {
 class Download {
     let url: String
     let destinationPath: String
-    var downloadTask: NSURLSessionDownloadTask?
-    var progressBlock: (Float -> Void)? = nil
-    var completion: ((Download, ErrorType?) -> Void)? = nil
+    var downloadTask: URLSessionDownloadTask?
+    var progressBlock: ((Float) -> Void)? = nil
+    var completion: ((Download, Error?) -> Void)? = nil
     
     init(url: String) {
         self.url = url
-        self.destinationPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0].stringByAppendingString("/" + (url as NSString).lastPathComponent)
+        self.destinationPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + ("/" + (url as NSString).lastPathComponent)
     }
 }
 
 
-extension Downloader: NSURLSessionDownloadDelegate {
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        if let downloadUrl = downloadTask.originalRequest?.URL?.absoluteString, download = self.activeDownloads[downloadUrl] {
-            let fileManager = NSFileManager.defaultManager()
-            if fileManager.fileExistsAtPath(download.destinationPath) {
+extension Downloader: URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString, let download = self.activeDownloads[downloadUrl] {
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: download.destinationPath) {
                 do {
-                    try fileManager.removeItemAtPath(download.destinationPath)
+                    try fileManager.removeItem(atPath: download.destinationPath)
                 } catch {
                     print("Error deleting file at path \(download.destinationPath) - \(error)")
                     download.completion?(download, error)
@@ -56,21 +56,21 @@ extension Downloader: NSURLSessionDownloadDelegate {
             }
             
             do {
-                try fileManager.copyItemAtURL(location, toURL: NSURL(fileURLWithPath: download.destinationPath))
+                try fileManager.copyItem(at: location, to: URL(fileURLWithPath: download.destinationPath))
             } catch {
                 print("Could not copy file to disk: \(error)")
                 download.completion?(download, error)
             }
             
-            self.activeDownloads.removeValueForKey(downloadUrl)
+            self.activeDownloads.removeValue(forKey: downloadUrl)
             
             download.completion?(download, nil)
         }
     }
     
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        if let downloadUrl = downloadTask.originalRequest?.URL?.absoluteString, download = self.activeDownloads[downloadUrl], progressBlock = download.progressBlock {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        if let downloadUrl = downloadTask.originalRequest?.url?.absoluteString, let download = self.activeDownloads[downloadUrl], let progressBlock = download.progressBlock {
             let progress = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
             progressBlock(progress)
         }

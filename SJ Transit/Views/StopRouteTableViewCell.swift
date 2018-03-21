@@ -24,14 +24,14 @@ class StopRouteTableViewCell: UITableViewCell, IdentifiableCell {
             let minutesFromNow = stopTime.arrivalTime.minutesFromNow()
             if minutesFromNow >= 0 {
                 self.timeLabel.text = "\(minutesFromNow)"
-                self.timeLabel.hidden = false
-                self.minutesLabel.hidden = false
-                self.fullTimeLabel.hidden = true
+                self.timeLabel.isHidden = false
+                self.minutesLabel.isHidden = false
+                self.fullTimeLabel.isHidden = true
             } else {
                 self.fullTimeLabel.text = stopTime.arrivalTime.timeAsString
-                self.timeLabel.hidden = true
-                self.minutesLabel.hidden = true
-                self.fullTimeLabel.hidden = false
+                self.timeLabel.isHidden = true
+                self.minutesLabel.isHidden = true
+                self.fullTimeLabel.isHidden = false
             }
         }
     }

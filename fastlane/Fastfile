@@ -21,15 +21,6 @@ fastlane_version "1.68.0"
 default_platform :ios
 
 platform :ios do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-
-    carthage(
-        use_binaries: false,
-        platform: "iOS"
-    )
-  end
-
   desc "Runs all the tests"
   lane :test do
     scan
@@ -41,20 +32,26 @@ platform :ios do
     increment_build_number # version bump
     # match(type: "appstore") # more information: https://codesigning.guide
     gym # Build your app - more options available
-    pilot(skip_submission: true)
+    pilot(
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+      )
     upload_symbols_to_crashlytics
     clean_build_artifacts
   end
 
   desc "Deploy a new version to the App Store"
-  lane :appstore do
+  lane :store do
     # match(type: "appstore")
     # snapshot
+    increment_build_number
     gym(
         scheme: "SJ Transit",
         configuration: "Release"
     ) # Build your app - more options available
+    upload_symbols_to_crashlytics
     deliver(force: true)
+    clean_build_artifacts
     # frameit
   end
 

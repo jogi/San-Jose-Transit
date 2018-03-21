@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */; };
+		D4429FED1DACAC4B001845CC /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4429FEC1DACAC4B001845CC /* Fabric.framework */; };
 		D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D477DEDF1C1020DB009C356E /* Assets.xcassets */; };
 		D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D477DEE11C1020DB009C356E /* LaunchScreen.storyboard */; };
 		D477DEE51C1020DB009C356E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D477DEE21C1020DB009C356E /* Main.storyboard */; };
@@ -35,7 +36,6 @@
 		D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */; };
 		D48019281C144E45004615BB /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019271C144E45004615BB /* Threading.swift */; };
 		D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */; };
-		D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192F1C14811C004615BB /* NSCalendar+Additions.swift */; };
 		D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019311C159966004615BB /* StopRouteTimesViewController.swift */; };
 		D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */; };
 		D480193A1C15B1BC004615BB /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */; };
@@ -55,7 +55,6 @@
 		D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */; };
 		D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */; };
 		D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D81CBDED4E0012320F /* DateFormatter.swift */; };
-		D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC661C9CF003009A346A /* Fabric.framework */; };
 		D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */; };
 		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
@@ -94,6 +93,7 @@
 		D44107D61BFD71CE0022B7E2 /* SJ Transit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SJ Transit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D44107E71BFD71CF0022B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4429FEC1DACAC4B001845CC /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = "SJ Transit/Vendor/Fabric.framework"; sourceTree = "<group>"; };
 		D477DEDF1C1020DB009C356E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D477DEE11C1020DB009C356E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D477DEE21C1020DB009C356E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -122,7 +122,6 @@
 		D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SVProgressHUD.framework.dSYM; path = Carthage/Build/iOS/SVProgressHUD.framework.dSYM; sourceTree = "<group>"; };
 		D48019271C144E45004615BB /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
 		D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTableViewCell.swift; sourceTree = "<group>"; };
-		D480192F1C14811C004615BB /* NSCalendar+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Additions.swift"; sourceTree = "<group>"; };
 		D48019311C159966004615BB /* StopRouteTimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimesViewController.swift; sourceTree = "<group>"; };
 		D48019331C15997C004615BB /* StopRouteTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimeTableViewCell.swift; sourceTree = "<group>"; };
 		D48019391C15B1BC004615BB /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 		D49584AC1CB4EA4000954327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		D4CE44D81CBDED4E0012320F /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
-		D4FACC661C9CF003009A346A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "SJ Transit/Vendor/Crashlytics.framework"; sourceTree = "<group>"; };
 		D4FACC6C1CA89416009A346A /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
@@ -158,13 +156,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4429FED1DACAC4B001845CC /* Fabric.framework in Frameworks */,
 				D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */,
 				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
 				D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */,
 				D48018F11C108AA5004615BB /* SQLite.framework in Frameworks */,
-				D4FACC681C9CF003009A346A /* Fabric.framework in Frameworks */,
 				D4FACC6B1C9CF22A009A346A /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,7 +270,7 @@
 		D48018F81C108B59004615BB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				D4FACC661C9CF003009A346A /* Fabric.framework */,
+				D4429FEC1DACAC4B001845CC /* Fabric.framework */,
 				D4FACC6A1C9CF22A009A346A /* Crashlytics.framework */,
 				D48019231C140586004615BB /* SVProgressHUD.framework */,
 				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
@@ -320,7 +318,6 @@
 				D48019111C12B79C004615BB /* CellAdditions.swift */,
 				D480191E1C1306C1004615BB /* NSDate+Additions.swift */,
 				D48019271C144E45004615BB /* Threading.swift */,
-				D480192F1C14811C004615BB /* NSCalendar+Additions.swift */,
 				D480193B1C15C244004615BB /* String+Additions.swift */,
 				D4FDEDB21C19471600D01886 /* UITableView+Additions.swift */,
 				D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */,
@@ -398,12 +395,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Vashishtha Jogi";
 				TargetAttributes = {
 					D44107D51BFD71CE0022B7E2 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = H5537L6Q5K;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -415,6 +414,7 @@
 					};
 					D49584A71CB4EA4000954327 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0920;
 						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
 				};
@@ -513,7 +513,6 @@
 				D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */,
 				D495849C1CB23A2000954327 /* Utilities.swift in Sources */,
 				D49584941CAFAC4100954327 /* Constants.swift in Sources */,
-				D48019301C14811C004615BB /* NSCalendar+Additions.swift in Sources */,
 				D4FDEDB31C19471600D01886 /* UITableView+Additions.swift in Sources */,
 				D480191A1C12D1BF004615BB /* Calendar.swift in Sources */,
 				D495849E1CB2460700954327 /* Downloader.swift in Sources */,
@@ -567,13 +566,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -611,13 +618,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -636,6 +651,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -646,8 +662,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = H5537L6Q5K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -658,6 +675,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -666,9 +686,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 12;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 14;
+				DEVELOPMENT_TEAM = H5537L6Q5K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -679,6 +700,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jogi.iVTA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -692,6 +716,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Debug;
@@ -705,6 +731,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "SJ Transit";
 			};
 			name = Release;

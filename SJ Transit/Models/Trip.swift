@@ -11,13 +11,13 @@ import SQLite
 
 
 enum Direction: Int {
-    case Outbound
-    case Inbound
+    case outbound
+    case inbound
     
     var description: String {
         switch (self) {
-            case .Outbound: return "Outbound"
-            case .Inbound: return "Inbound"
+            case .outbound: return "Outbound"
+            case .inbound: return "Inbound"
         }
     }
 }
@@ -41,7 +41,7 @@ class Trip: NSObject {
     }
     
     // get all trip ids which are active today
-    class func trips(routeIds: Array<String>, activeOn: NSDate) -> (Array<String>) {
+    class func trips(_ routeIds: Array<String>, activeOn: Date) -> (Array<String>) {
         guard let db = Database.connection else {
             return []
         }
@@ -68,7 +68,7 @@ class Trip: NSObject {
     
     
     // get all trip ids which are active today in a specific direction
-    class func trips(routeIds: Array<String>, directionId: Direction!, activeOn: NSDate) -> (Array<String>) {
+    class func trips(_ routeIds: Array<String>, directionId: Direction!, activeOn: Date) -> (Array<String>) {
         guard let db = Database.connection else {
             return []
         }

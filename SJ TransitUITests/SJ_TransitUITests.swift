@@ -37,11 +37,10 @@ class SJ_TransitUITests: XCTestCase {
         let sjTransitMapviewNavigationBar = app.navigationBars["SJ_Transit.MapView"]
         sjTransitMapviewNavigationBar.buttons["location"].tap()
         sjTransitMapviewNavigationBar.searchFields["Search by address, city, zipcode"].tap()
-        sjTransitMapviewNavigationBar.searchFields["Search by address, city, zipcode"]
         app.typeText("San Jose")
         app.buttons["Search"].tap()
         
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(1).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).matchingIdentifier("San Fernando & 1St, 63, 81, 64, 72, 73, 65").elementBoundByIndex(0).tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element.children(matching: .other).matching(identifier: "San Fernando & 1St, 63, 81, 64, 72, 73, 65").element(boundBy: 0).tap()
         snapshot("01Maps")
         
         
@@ -53,10 +52,10 @@ class SJ_TransitUITests: XCTestCase {
         tabBarsQuery.buttons["Routes"].tap()
         
         let tablesQuery = app.tables
-        let cellsQuery = tablesQuery.cells.containingType(.StaticText, identifier:"22")
+        let cellsQuery = tablesQuery.cells.containing(.staticText, identifier:"22")
         snapshot("03Routes")
         
-        cellsQuery.childrenMatchingType(.StaticText).matchingIdentifier("Palo Alto - Eastridge").elementBoundByIndex(0).tap()
+        cellsQuery.children(matching: .staticText).matching(identifier: "Palo Alto - Eastridge").element(boundBy: 0).tap()
         snapshot("04RouteDetail")
         
         let tablesQuery2 = tablesQuery
@@ -68,14 +67,14 @@ class SJ_TransitUITests: XCTestCase {
         let sheetsQuery = app.sheets
         sheetsQuery.collectionViews.buttons["Change Departure Time"].tap()
         let datePickersQuery = app.datePickers
-        datePickersQuery.pickerWheels.elementBoundByIndex(1).adjustToPickerWheelValue("10")
-        datePickersQuery.pickerWheels.elementBoundByIndex(2).adjustToPickerWheelValue("42")
-        datePickersQuery.pickerWheels.elementBoundByIndex(3).adjustToPickerWheelValue("AM")
+        datePickersQuery.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "10")
+        datePickersQuery.pickerWheels.element(boundBy: 2).adjust(toPickerWheelValue: "42")
+        datePickersQuery.pickerWheels.element(boundBy: 3).adjust(toPickerWheelValue: "AM")
         
         app.toolbars.buttons["Done"].tap()
         snapshot("05StopRouteTrips")
         
-        tablesQuery.cells.containingType(.StaticText, identifier:"11:17 AM").staticTexts["Outbound to Eastridge"].tap()
+        tablesQuery.cells.containing(.staticText, identifier:"11:17 AM").staticTexts["Outbound to Eastridge"].tap()
         snapshot("06StopRouteMap")
         
         favoritesButton.tap()

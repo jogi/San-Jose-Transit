@@ -20,11 +20,11 @@ extension UIViewController {
                     originalRect.size.height -= navController.bottomLayoutGuide.length
                     noSchedulesView.frame = originalRect
                     navController.view.addSubview(noSchedulesView)
-                    navController.view.bringSubviewToFront(noSchedulesView)
+                    navController.view.bringSubview(toFront: noSchedulesView)
                 } else {
                     noSchedulesView.frame = self.view.bounds
                     self.view.addSubview(noSchedulesView)
-                    self.view.bringSubviewToFront(noSchedulesView)
+                    self.view.bringSubview(toFront: noSchedulesView)
                 }
                 noSchedulesView.tag = noScheduleViewTag
             }

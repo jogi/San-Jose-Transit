@@ -32,15 +32,15 @@ class TripStopTableViewCell: UITableViewCell, IdentifiableNibBasedCell {
         super.awakeFromNib()
         
         self.circleView.layer.cornerRadius = self.circleView.frame.size.height / 2.0
-        self.circleView.layer.borderColor = UIColor.whiteColor().CGColor
+        self.circleView.layer.borderColor = UIColor.white.cgColor
         self.circleView.layer.borderWidth = 1.0
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.topLineView.hidden = false
-        self.bottomLineView.hidden = false
+        self.topLineView.isHidden = false
+        self.bottomLineView.isHidden = false
         self.stopNameLabel.text = nil
         self.timeLabel.text = nil
     }

@@ -18,8 +18,8 @@ class RouteTableViewCell: UITableViewCell, IdentifiableCell {
             self.routeShortNameLabel.text = route?.routeShortName
             self.routeLongNameLabel.text = route?.routeLongName
             
-            if (route?.routeType == .LightRail) {
-                self.routeShortNameLabel.backgroundColor = UIColor.redColor()
+            if (route?.routeType == .lightRail) {
+                self.routeShortNameLabel.backgroundColor = UIColor.red
             } else {
                 self.routeShortNameLabel.backgroundColor = self.tintColor
             }

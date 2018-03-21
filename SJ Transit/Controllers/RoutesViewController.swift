@@ -16,16 +16,16 @@ class RoutesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.addNoScheduleViewIfRequired()
+        _ = self.addNoScheduleViewIfRequired()
         self.fetchRoutes()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadAfterUpdate), name: kDidFinishDownloadingSchedulesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterUpdate), name: NSNotification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEventWithName("Show Routes", customAttributes: nil)
+        Answers.logCustomEvent(withName: "Show Routes", customAttributes: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,26 +35,26 @@ class RoutesViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.routes.count
     }
     
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueIdentifiableCell(RouteTableViewCell.self, forIndexPath: indexPath)
 
-        cell.route = self.routes[indexPath.row]
+        cell.route = self.routes[(indexPath as NSIndexPath).row]
 
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let viewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("RouteDetailViewController") as? RouteDetailViewController
-        viewController?.route = self.routes[indexPath.row]
+        let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "RouteDetailViewController") as? RouteDetailViewController
+        viewController?.route = self.routes[(indexPath as NSIndexPath).row]
         
         self.navigationController?.pushViewController(viewController!, animated: true)
     }
@@ -68,7 +68,7 @@ class RoutesViewController: UITableViewController {
     }
     
     
-    func reloadAfterUpdate() {
+    @objc func reloadAfterUpdate() {
         // remove the no schedule view
         self.removeNoScheduleView()
         

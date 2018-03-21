@@ -12,17 +12,17 @@ import Crashlytics
 import SVProgressHUD
 import Zip
 
-enum UpdateError: ErrorType {
-    case Failed
-    case JSONError
-    case InvalidResponse
+enum UpdateError: Error {
+    case failed
+    case jsonError
+    case invalidResponse
 }
 
 // Wrapper for errors and success value.
 // Can be initialized with some T value or U error.
 enum Result<T, U> {
-    case Success(T)
-    case Failure(U)
+    case success(T)
+    case failure(U)
 }
 
 let kAgencyName = "VTA"
@@ -39,73 +39,77 @@ class Update {
     }
     
     
-    class func checkForUpdates(completion: (result: Result<Update, UpdateError>) -> Void) {
-        Answers.logCustomEventWithName("Check Updates", customAttributes: nil)
+    class func checkForUpdates(_ completion: @escaping (_ result: Result<Update, UpdateError>) -> Void) {
+        Answers.logCustomEvent(withName: "Check Updates", customAttributes: nil)
         
-        let session = NSURLSession.sharedSession()
-        session.dataTaskWithURL(NSURL(string: "http://www.sanjosetransit.com/extras/updates-debug.json")!) { (responseData, response, error) -> Void in
+        URLCache.shared.removeAllCachedResponses()
+        let sessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        sessionConfiguration.urlCache = nil
+        let session = URLSession(configuration: sessionConfiguration)
+        session.dataTask(with: URL(string: "http://www.sanjosetransit.com/extras/updates-debug.json")!, completionHandler: { (responseData, response, error) -> Void in
             if let error = error {
                 print("Update check failed: \(error)")
-                completion(result: Result.Failure(UpdateError.Failed))
+                completion(Result.failure(UpdateError.failed))
             } else if let responseData = responseData {
                 do {
-                    let responseDict = try NSJSONSerialization.JSONObjectWithData(responseData, options: .AllowFragments) as? [String: AnyObject]
+                    let responseDict = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: AnyObject]
                     if let responseDict = responseDict, let vtaUpdate = responseDict[kAgencyName] as? [String: AnyObject], let updateURL = vtaUpdate["updateURL"] as? String, let version = vtaUpdate["version"] as? NSNumber {
-                        let update = Update(agency: kAgencyName, updateURL: updateURL, version: version.integerValue)
-                        completion(result: Result.Success(update))
+                        let update = Update(agency: kAgencyName, updateURL: updateURL, version: version.intValue)
+                        completion(Result.success(update))
                     } else {
-                        completion(result: Result.Failure(UpdateError.InvalidResponse))
+                        completion(Result.failure(UpdateError.invalidResponse))
                     }
                 } catch {
                     print("Error parsing JSON for updates: \(error)")
-                    completion(result: Result.Failure(UpdateError.JSONError))
+                    completion(Result.failure(UpdateError.jsonError))
                 }
             }
-        }.resume()
+        }) .resume()
     }
     
     
     func isNewerVersion() -> Bool {
-        let currentDataVersion = NSUserDefaults.standardUserDefaults().integerForKey(kDefaultsGTFSVersionKey)
+        let currentDataVersion = UserDefaults.standard.integer(forKey: kDefaultsGTFSVersionKey)
         return self.version > currentDataVersion
     }
     
     
-    func presentUpdateAlert(on viewController: UIViewController, didSelectUpdate: (Void -> Void)) {
-        let alert = UIAlertController(title: "Update Available", message: "An update to the schedules is available with version \(self.version). Would you like to update?", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { _ in
+    func presentUpdateAlert(on viewController: UIViewController, didSelectUpdate: @escaping (() -> Void)) {
+        let alert = UIAlertController(title: "Update Available", message: "An update to the schedules is available with version \(self.version). Would you like to update?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
             didSelectUpdate()
         }))
-        alert.addAction(UIAlertAction(title: "Later", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Later", style: .cancel, handler: nil))
         
-        dispatch_async(dispatch_get_main_queue(), {
-            viewController.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: {
+            viewController.present(alert, animated: true, completion: nil)
         })
     }
     
     
-    func downloadAndUnzip(completion: (ErrorType? -> Void)?) {
+    func downloadAndUnzip(_ completion: ((Error?) -> Void)?) {
         Downloader.sharedInstance.downloadFile(with: updateURL, toPath: nil, downloadProgress: { (progress) in
             SVProgressHUD.showProgress(progress)
             }, completion: { (download, error) in
                 if error != nil {
-                    print("Error downloading file: \(error)")
-                    SVProgressHUD.showErrorWithStatus("Download Error")
+                    print("Error downloading file: \(String(describing: error))")
+                    SVProgressHUD.showError(withStatus: "Download Error")
                     completion?(error)
                 } else {
-                    SVProgressHUD.showSuccessWithStatus("Download Complete")
+                    SVProgressHUD.showSuccess(withStatus: "Download Complete")
                     // Unzip
                     Update.unzipFileToCaches(download.destinationPath, completion: { (error) in
                         if error == nil {
                             print("Unzip successful")
                             defer {
-                                NSNotificationCenter.defaultCenter().postNotificationName(kDidFinishDownloadingSchedulesNotification, object: nil)
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
                                 self.updateDefaultsWithLatestVersion()
                                 completion?(nil)
                             }
                             // delete the zip file
                             do {
-                                try NSFileManager.defaultManager().removeItemAtPath(download.destinationPath)
+                                try FileManager.default.removeItem(atPath: download.destinationPath)
                             } catch {
                                 print("Error deleting the temp downloaded file: \(error)")
                             }
@@ -119,29 +123,29 @@ class Update {
     
     
     func updateDefaultsWithLatestVersion() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setBool(false, forKey: kDefaultsFirstTimeKey)
-        defaults.setInteger(self.version, forKey: kDefaultsGTFSVersionKey)
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: kDefaultsFirstTimeKey)
+        defaults.set(self.version, forKey: kDefaultsGTFSVersionKey)
         defaults.synchronize()
     }
     
     
     class func presentSchedulesUpToDateAlert(on viewController: UIViewController) {
-        let alert = UIAlertController(title: "Schedules up to date", message: nil, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
-        dispatch_async(dispatch_get_main_queue(), {
-            viewController.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Schedules up to date", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        DispatchQueue.main.async(execute: {
+            viewController.present(alert, animated: true, completion: nil)
         })
     }
     
     
-    class func unzipFileToCaches(file: String, completion: (ErrorType? -> Void)?) {
+    class func unzipFileToCaches(_ file: String, completion: ((Error?) -> Void)?) {
         do {
-            try Zip.unzipFile(NSURL(fileURLWithPath: file), destination: NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0]), overwrite: true, password: nil) { (progress) in
+            try Zip.unzipFile(URL(fileURLWithPath: file), destination: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]), overwrite: true, password: nil, progress: { (progress) in
                 if progress == 1.0 {
                     completion?(nil)
                 }
-            }
+            }, fileOutputHandler: nil)
         } catch {
             print("Error unzipping - \(error)")
             completion?(error)

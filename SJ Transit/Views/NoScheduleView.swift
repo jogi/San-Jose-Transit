@@ -12,18 +12,18 @@ import SVProgressHUD
 
 class NoScheduleView: UIView {
     
-    @IBAction func download(sender: AnyObject) {
+    @IBAction func download(_ sender: AnyObject) {
         // first get the latest Updates URL
-        SVProgressHUD.showWithStatus("Checking for Updates")
+        SVProgressHUD.show(withStatus: "Checking for Updates")
         Update.checkForUpdates { (result) in
             switch (result) {
-            case .Success(let update):
+            case .success(let update):
                 update.downloadAndUnzip({ (error) in
                     if error != nil {
                         print("Error downloading update")
                     }
                 })
-            case .Failure(_):
+            case .failure(_):
                 print("Unable to check for updates.")
             }
         }
@@ -32,7 +32,7 @@ class NoScheduleView: UIView {
 
 
 extension UIView {
-    class func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIView? {
-        return UINib(nibName: nibNamed, bundle: bundle).instantiateWithOwner(nil, options: nil)[0] as? UIView
+    class func loadFromNibNamed(_ nibNamed: String, bundle : Bundle? = nil) -> UIView? {
+        return UINib(nibName: nibNamed, bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as? UIView
     }
 }
