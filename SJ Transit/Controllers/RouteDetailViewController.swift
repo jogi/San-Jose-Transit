@@ -37,7 +37,7 @@ class RouteDetailViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Route Detail", customAttributes: ["route": self.route.routeShortName, "routeName": self.route.routeLongName])
+        Answers.logCustomEvent(withName: "Show Route Detail", customAttributes: ["route": self.route.routeShortName ?? "default_route", "routeName": self.route.routeLongName ?? "default_route"])
     }
 
     // MARK: - Table view data source
@@ -74,10 +74,11 @@ class RouteDetailViewController: UITableViewController {
     
     func fetchTrip() {
         self.tableView.addLoadingFooterView()
+        let selectedDirection = Direction(rawValue: self.directionSegment.selectedSegmentIndex)
         DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             // get the first trip
-            strongSelf.tripId = StopTime.trip(strongSelf.route?.routeId, directionId: Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex), afterTime: strongSelf.afterTime)
+            strongSelf.tripId = StopTime.trip(strongSelf.route?.routeId, directionId: selectedDirection, afterTime: strongSelf.afterTime)
             
             if let tripId = strongSelf.tripId {
                 strongSelf.times = StopTime.stopTimes(tripId)
@@ -90,7 +91,7 @@ class RouteDetailViewController: UITableViewController {
                 if strongSelf.times.count > 0 {
                     strongSelf.tableView.tableFooterView = UIView(frame: CGRect.zero)
                 } else {
-                    print("No trips found for route: \(String(describing: strongSelf.route?.routeId)), direction: \(String(describing: Direction(rawValue: strongSelf.directionSegment.selectedSegmentIndex))), afterTime: \(strongSelf.afterTime)")
+                    print("No trips found for route: \(String(describing: strongSelf.route?.routeId)), direction: \(String(describing: selectedDirection)), afterTime: \(strongSelf.afterTime)")
                     strongSelf.tableView.addNoDataFooterView()
                 }
             });

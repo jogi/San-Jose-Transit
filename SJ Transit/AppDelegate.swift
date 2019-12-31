@@ -30,13 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
         
-        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+        if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
             _ = self.handleShortcut(shortcutItem)
             return false
         }
@@ -88,10 +88,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Update.checkForUpdates { (result) in
                 switch (result) {
                 case .success(let update):
-                    if let window = self.window, let viewController = window.rootViewController {
-                        if update.isNewerVersion() == true {
-                            update.presentUpdateAlert(on: viewController) {
-                                update.downloadAndUnzip(nil)
+                    DispatchQueue.main.async {
+                        if let window = self.window, let viewController = window.rootViewController {
+                            if update.isNewerVersion() == true {
+                                update.presentUpdateAlert(on: viewController) {
+                                    update.downloadAndUnzip(nil)
+                                }
                             }
                         }
                     }

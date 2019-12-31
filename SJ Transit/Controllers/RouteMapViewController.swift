@@ -78,7 +78,7 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
             DispatchQueue.main.async(execute: { () -> Void in
-                strongSelf.mapView.add(polyline)
+                strongSelf.mapView.addOverlay(polyline)
                 strongSelf.animateMapRegion(to: shapes[0].coordinate)
             });
         });
@@ -86,7 +86,7 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     
     
     func animateMapRegion(to coordinate:CLLocationCoordinate2D) {
-        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let span = MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         self.mapView.setRegion(region, animated: true)
     }

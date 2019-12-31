@@ -179,6 +179,6 @@ class StopTime: NSObject, MKAnnotation {
     
     
     override var description : String {
-        return "<\(self.stop.stopId), \(self.arrivalTime), \(self.departureTime), \(self.route.routeId!), \(self.route.routeShortName!), \(self.trip.directionId!), \(self.trip.tripHeadsign!)>\n"
+        return "<\(String(describing: self.stop.stopId)), \(String(describing: self.arrivalTime)), \(String(describing: self.departureTime)), \(self.route.routeId!), \(self.route.routeShortName!), \(self.trip.directionId!), \(self.trip.tripHeadsign!)>\n"
     }
 }

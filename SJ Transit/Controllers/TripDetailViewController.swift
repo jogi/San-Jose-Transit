@@ -75,7 +75,7 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
                 annotationView?.pinTintColor = mapView.tintColor
                 
                 let disclosureButton = UIButton(type: .detailDisclosure)
-                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControlState()) // yup, annotation views are stupid, so try to trick it
+                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControl.State()) // yup, annotation views are stupid, so try to trick it
                 annotationView?.rightCalloutAccessoryView = disclosureButton
             } else {
                 annotationView?.annotation = annotation
@@ -171,7 +171,7 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
             let polyline = MKPolyline(coordinates: &points, count: points.count)
             
             DispatchQueue.main.async {
-                strongSelf.mapView.add(polyline, level: .aboveRoads)
+                strongSelf.mapView.addOverlay(polyline, level: .aboveRoads)
                 strongSelf.animateMapRegion(to: points.first!)
             }
         });
@@ -179,7 +179,7 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func animateMapRegion(to coordinate:CLLocationCoordinate2D) {
-        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let span = MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         self.mapView.setRegion(region, animated: true)
     }

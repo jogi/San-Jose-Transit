@@ -11,7 +11,7 @@ import UIKit
 extension UITableView {
     func addLoadingFooterView() {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.center = footerView.center
         activityIndicator.startAnimating()
         

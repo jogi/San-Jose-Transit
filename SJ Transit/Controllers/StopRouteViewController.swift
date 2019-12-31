@@ -32,7 +32,7 @@ class StopRouteViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Answers.logCustomEvent(withName: "Show Stop Route", customAttributes: ["stop": self.stop!.stopName, "routes": self.stop!.routes ?? ""])
+        Answers.logCustomEvent(withName: "Show Stop Route", customAttributes: ["stop": self.stop!.stopName ?? "default_stop", "routes": self.stop!.routes ?? ""])
     }
 
     // MARK: - Table view data source

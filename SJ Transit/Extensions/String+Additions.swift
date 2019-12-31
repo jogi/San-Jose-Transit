@@ -11,7 +11,7 @@ import Foundation
 extension String {
     var sanitizedTimeString: String {
         get {
-            var originalComponents = self.components(separatedBy: ":")
+            let originalComponents = self.components(separatedBy: ":")
             var hour = Int(originalComponents[0])!
             if hour >= 24 {
                 hour = hour - 24

@@ -24,7 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - IBActions
     @IBAction func locateUser(_ sender: UIBarButtonItem) {
-        let region = MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 800, 800)
+        let region = MKCoordinateRegion.init(center: self.mapView.userLocation.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
         self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
     }
     
@@ -54,7 +54,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if self.hasAcquiredUserLocaion == false {
             self.hasAcquiredUserLocaion = true
-            let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
+            let region = MKCoordinateRegion.init(center: userLocation.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
             self.mapView.setRegion(self.mapView.regionThatFits(region), animated: true)
         }
     }
@@ -74,7 +74,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
                 annotationView?.pinTintColor = mapView.tintColor
                 
                 let disclosureButton = UIButton(type: .detailDisclosure)
-                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControlState()) // yup, annotation views are stupid, so try to trick it
+                disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControl.State()) // yup, annotation views are stupid, so try to trick it
                 annotationView?.rightCalloutAccessoryView = disclosureButton
             } else {
                 annotationView?.annotation = annotation
@@ -99,7 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         searchBar.resignFirstResponder()
         SVProgressHUD.show()
         
-        let searchRequest = MKLocalSearchRequest()
+        let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
         
@@ -115,8 +115,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
             
             SVProgressHUD.dismiss()
             if response.mapItems.count > 0 {
-                let firstMapItem = response.mapItems[0] as MKMapItem!
-                self.mapView.setRegion(MKCoordinateRegionMakeWithDistance((firstMapItem?.placemark.location?.coordinate)!, 1000, 1000), animated: true)
+                let firstMapItem = response.mapItems[0] as MKMapItem?
+                self.mapView.setRegion(MKCoordinateRegion.init(center: (firstMapItem?.placemark.location?.coordinate)!, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
             }
         }
     }
