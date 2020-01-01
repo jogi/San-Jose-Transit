@@ -7,10 +7,10 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 			<key>CFBundleTypeName</key>
 			<string>MKDirectionsRequest</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.apple.maps.directionsrequest</string>
@@ -32,7 +32,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
