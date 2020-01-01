@@ -66,7 +66,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lu4-aj-yOZ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lu4-aj-yOZ">
                                             <rect key="frame" x="15" y="11.333333333333334" width="44" height="21.333333333333329"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -149,7 +149,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="348" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AKN-3g-8Ag">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AKN-3g-8Ag">
                                             <rect key="frame" x="15" y="14.666666666666666" width="48" height="26.666666666666671"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -206,7 +206,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nqx-s2-fxx">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nqx-s2-fxx">
                                     <rect key="frame" x="15" y="14.666666666666666" width="48" height="26.666666666666671"/>
                                     <color key="backgroundColor" red="0.2117267102" green="0.58770948649999999" blue="0.99686223269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -903,9 +903,9 @@
         <image name="settings-tb-selected" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Biq-BZ-PfL"/>
-        <segue reference="jfl-i5-B7H"/>
-        <segue reference="Lik-LT-jwq"/>
+        <segue reference="Hsg-Ba-iX2"/>
+        <segue reference="T4Z-pV-N2v"/>
+        <segue reference="TZo-os-kCV"/>
         <segue reference="KPh-JI-SXh"/>
     </inferredMetricsTieBreakers>
 </document>
