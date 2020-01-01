@@ -120,8 +120,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="732-pG-NAQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="favorites-tb" selectedImage="favorites-tb-selected" id="Yq7-eu-jtu"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hbb-57-Dkc">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Hbb-57-Dkc">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -237,7 +237,7 @@
                             <outlet property="delegate" destination="HAn-5I-McI" id="mnl-uw-1nR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="47S-xJ-qyG">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="47S-xJ-qyG">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Back" id="8vP-s4-5sq"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="YoC-ed-tY4">
@@ -283,7 +283,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Fms-3i-HaT">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="592"/>
                                 <connections>
                                     <outlet property="delegate" destination="sfW-Mc-skQ" id="2d5-pS-pSx"/>
                                 </connections>
@@ -360,8 +360,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MHO-yw-0ge" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Routes" image="routes-tb" selectedImage="routes-tb-selected" id="TrT-iG-fp9"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hoh-bI-idY">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="hoh-bI-idY">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -400,7 +400,7 @@
                             <constraint firstItem="zTi-5G-WCe" firstAttribute="top" secondItem="ymq-Ks-XRb" secondAttribute="bottom" id="jxG-U2-TOB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uJ8-Hd-tde">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="uJ8-Hd-tde">
                         <barButtonItem key="leftBarButtonItem" image="location" id="L06-js-obP">
                             <connections>
                                 <action selector="locateUser:" destination="qeU-Wc-e1s" id="MY2-0X-K5R"/>
@@ -552,7 +552,7 @@
                             <outlet property="delegate" destination="qau-on-Bax" id="Mwj-bS-tUz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="DOo-kJ-2Sw">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="DOo-kJ-2Sw">
                         <barButtonItem key="backBarButtonItem" title="Back" id="nIF-kG-LNy"/>
                         <barButtonItem key="rightBarButtonItem" image="more" id="Unl-ff-7Xj">
                             <connections>
@@ -657,13 +657,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbt-wJ-uZK">
-                                <rect key="frame" x="0.0" y="87.999999999999986" width="375" height="246.66666666666663"/>
+                                <rect key="frame" x="0.0" y="87.999999999999986" width="375" height="227.66666666666663"/>
                                 <connections>
                                     <outlet property="delegate" destination="tFZ-ZE-ZXb" id="aCv-00-PUH"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-OE-jhj">
-                                <rect key="frame" x="10" y="288.66666666666669" width="36" height="36"/>
+                                <rect key="frame" x="10" y="269.66666666666669" width="36" height="36"/>
                                 <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9E1-nf-dzY"/>
@@ -681,7 +681,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oID-p0-68d">
-                                <rect key="frame" x="0.0" y="334.66666666666674" width="375" height="394.33333333333326"/>
+                                <rect key="frame" x="0.0" y="315.66666666666674" width="375" height="364.33333333333326"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="tFZ-ZE-ZXb" id="fPy-a0-T04"/>
@@ -724,8 +724,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jWu-Sm-sWy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map-tb" selectedImage="map-tb-selected" id="lAX-wY-Nhp"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fPb-fW-aFq">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="fPb-fW-aFq">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -875,8 +875,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S5y-Cx-wBu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="settings-tb" selectedImage="settings-tb-selected" id="hQe-vU-3Wj"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pk5-Hw-fYP">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Pk5-Hw-fYP">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -903,9 +903,9 @@
         <image name="settings-tb-selected" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OqD-YI-Y5T"/>
-        <segue reference="tzb-Xo-Zya"/>
+        <segue reference="Biq-BZ-PfL"/>
+        <segue reference="jfl-i5-B7H"/>
         <segue reference="Lik-LT-jwq"/>
-        <segue reference="3PA-wD-rQ7"/>
+        <segue reference="KPh-JI-SXh"/>
     </inferredMetricsTieBreakers>
 </document>

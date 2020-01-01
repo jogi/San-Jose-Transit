@@ -11,10 +11,27 @@ import SQLite
 import Crashlytics
 
 class RoutesViewController: UITableViewController {
-    var routes: Array<Route>!
+    var routes: [Route] = []
+    var filteredRoutes: [Route] = []
+    var searchController: UISearchController!
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.definesPresentationContext = true
+        self.searchController.delegate = self
+        self.navigationItem.searchController = self.searchController
         
         _ = self.addNoScheduleViewIfRequired()
         self.fetchRoutes()
@@ -37,14 +54,14 @@ class RoutesViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.routes.count
+        return self.isFiltering ? self.filteredRoutes.count : self.routes.count
     }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueIdentifiableCell(RouteTableViewCell.self, forIndexPath: indexPath)
 
-        cell.route = self.routes[(indexPath as NSIndexPath).row]
+        cell.route = self.isFiltering ? self.filteredRoutes[indexPath.row] : self.routes[indexPath.row]
 
         return cell
     }
@@ -54,7 +71,7 @@ class RoutesViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "RouteDetailViewController") as? RouteDetailViewController
-        viewController?.route = self.routes[(indexPath as NSIndexPath).row]
+        viewController?.route = self.isFiltering ? self.filteredRoutes[indexPath.row] : self.routes[indexPath.row]
         
         self.navigationController?.pushViewController(viewController!, animated: true)
     }
@@ -67,12 +84,29 @@ class RoutesViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    
     @objc func reloadAfterUpdate() {
         // remove the no schedule view
         self.removeNoScheduleView()
         
         // reload data
         self.fetchRoutes()
+    }
+}
+
+extension RoutesViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchString = searchController.searchBar.text?.lowercased(), searchString.count > 0 else {
+            return
+        }
+        
+        self.filteredRoutes = self.routes.filter {
+            $0.routeLongName.lowercased().contains(searchString) || $0.routeShortName.lowercased().contains(searchString)
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        self.tableView.reloadData()
     }
 }
