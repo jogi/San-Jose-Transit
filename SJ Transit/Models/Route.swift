@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 
 
-enum RouteType: Int {
+enum RouteType: Int, CustomStringConvertible {
     case lightRail = 0
     case subway = 1
     case rail = 2
@@ -19,6 +19,19 @@ enum RouteType: Int {
     case cableCar = 5
     case gondola = 6
     case funicular = 7
+    
+    var description: String {
+        switch self {
+        case .lightRail: return "Light Rail"
+        case .subway: return "Subway"
+        case .rail: return "Rail"
+        case .bus: return "Bus"
+        case .ferry: return "Ferry"
+        case .cableCar: return "Cable Car"
+        case .gondola: return "Gondola"
+        case .funicular: return "Funicular"
+        }
+    }
 }
 
 

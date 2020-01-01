@@ -56,9 +56,9 @@ class SettingsViewController: UITableViewController {
                 }
             case .support:
                 if (indexPath as NSIndexPath).row == 0 {
-                    UIApplication.shared.openURL(URL(string: "mailto:sanjosetransit@gmail.com")!)
+                    UIApplication.shared.open(URL(string: "mailto:sanjosetransit@gmail.com")!, options: [:], completionHandler: nil)
                 } else if (indexPath as NSIndexPath).row == 1 {
-                    UIApplication.shared.openURL(URL(string: "http://www.vta.org")!)
+                    UIApplication.shared.open(URL(string: "http://www.vta.org")!, options: [:], completionHandler: nil)
                 }
             default: break
             }

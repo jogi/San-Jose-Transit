@@ -458,7 +458,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="08K-Iu-AvC" firstAttribute="leading" secondItem="5xt-35-ry5" secondAttribute="leading" constant="15" id="Jxz-yK-w3Q"/>
                                 <constraint firstItem="P4V-lo-g3D" firstAttribute="top" secondItem="5xt-35-ry5" secondAttribute="top" constant="15" id="Rsb-6Y-hPq"/>
@@ -510,7 +510,6 @@
                                                 <constraint firstAttribute="height" constant="18" id="Spp-Bs-BYa"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88:99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUi-Dr-OOp">
@@ -670,7 +669,7 @@
                                     <constraint firstAttribute="height" constant="36" id="9E1-nf-dzY"/>
                                     <constraint firstAttribute="width" constant="36" id="x3f-Bk-ilG"/>
                                 </constraints>
-                                <state key="normal" image="location"/>
+                                <state key="normal" image="location" catalog="system"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -893,6 +892,7 @@
     <resources>
         <image name="favorites-tb" width="28" height="26"/>
         <image name="favorites-tb-selected" width="28" height="26"/>
+        <image name="location" catalog="system" width="64" height="56"/>
         <image name="location" width="22" height="22"/>
         <image name="map-tb" width="28" height="24"/>
         <image name="map-tb-selected" width="28" height="24"/>
@@ -905,7 +905,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="OqD-YI-Y5T"/>
         <segue reference="tzb-Xo-Zya"/>
-        <segue reference="TZo-os-kCV"/>
+        <segue reference="Lik-LT-jwq"/>
         <segue reference="3PA-wD-rQ7"/>
     </inferredMetricsTieBreakers>
 </document>
