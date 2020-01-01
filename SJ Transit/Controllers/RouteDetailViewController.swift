@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Crashlytics
 
 class RouteDetailViewController: UITableViewController {
     // MARK: - IBOutlets
@@ -32,12 +31,6 @@ class RouteDetailViewController: UITableViewController {
         self.tableView.registerIdentifiableCell(TripStopTableViewCell.self)
         
         self.fetchTrip()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Route Detail", customAttributes: ["route": self.route.routeShortName ?? "default_route", "routeName": self.route.routeLongName ?? "default_route"])
     }
 
     // MARK: - Table view data source

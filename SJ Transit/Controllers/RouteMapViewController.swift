@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import Crashlytics
 
 class RouteMapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
@@ -22,12 +21,6 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
         self.title = "Route Map"
         self.mapRoute()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Route Map", customAttributes: nil)
     }
     
     

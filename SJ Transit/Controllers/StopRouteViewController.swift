@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Crashlytics
 
 class StopRouteViewController: UITableViewController {
     // MARK: - IBOutlets
@@ -26,13 +25,6 @@ class StopRouteViewController: UITableViewController {
         self.routesLabel.text = self.stop?.routes
         
         self.fetchStopTimes()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        Answers.logCustomEvent(withName: "Show Stop Route", customAttributes: ["stop": self.stop!.stopName ?? "default_stop", "routes": self.stop!.routes ?? ""])
     }
 
     // MARK: - Table view data source

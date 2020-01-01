@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Crashlytics
 import SVProgressHUD
 
 enum SettingsSection: Int {
@@ -30,12 +29,6 @@ class SettingsViewController: UITableViewController {
         self.dataVersionLabel.text = "\(UserDefaults.standard.integer(forKey: kDefaultsGTFSVersionKey))"
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterUpdate), name: NSNotification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Updates", customAttributes: nil)
     }
 
     override func didReceiveMemoryWarning() {

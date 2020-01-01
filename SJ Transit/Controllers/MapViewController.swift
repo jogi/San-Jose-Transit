@@ -10,7 +10,6 @@ import UIKit
 import CoreLocation
 import MapKit
 import SVProgressHUD
-import Crashlytics
 
 class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
@@ -41,12 +40,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         _ = self.addNoScheduleViewIfRequired()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterUpdate), name: NSNotification.Name(rawValue: kDidFinishDownloadingSchedulesNotification), object: nil)
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Map", customAttributes: nil)
     }
     
 
@@ -102,8 +95,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = searchBar.text
         searchRequest.region = self.mapView.region
-        
-        Answers.logSearch(withQuery: searchBar.text, customAttributes: nil)
         
         let localSearch = MKLocalSearch(request: searchRequest)
         localSearch.start { (response, error) -> Void in

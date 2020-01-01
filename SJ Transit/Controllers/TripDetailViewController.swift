@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import Crashlytics
 
 class TripDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate {
     // MARK: - IBOutlets
@@ -28,12 +27,6 @@ class TripDetailViewController: UIViewController, UITableViewDataSource, UITable
         
         self.fetchTripDetail()
         self.mapRoute()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Answers.logCustomEvent(withName: "Show Trip Detail", customAttributes: nil)
     }
     
     // MARK: - Table view data source
