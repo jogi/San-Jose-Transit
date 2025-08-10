@@ -38,9 +38,9 @@
 		D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */; };
 		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
 		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
+		D48118D32E4910100008AE6B /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D4AA100E2E4908D400AAA001 /* gtfs.db */; };
 		D48E3CFA2C695F2A009ADE79 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D48E3CF92C695F2A009ADE79 /* SVProgressHUD */; };
 		D48E3CFD2C695F7A009ADE79 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = D48E3CFC2C695F7A009ADE79 /* Zip */; };
-		D4901B7C2E48FA6F001E03D0 /* SJ_TransitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4901B7A2E48FA6F001E03D0 /* SJ_TransitTests.swift */; };
 		D49558401CBE1F710059CF2D /* Coverage.geojson in Resources */ = {isa = PBXBuildFile; fileRef = D495583F1CBE1F710059CF2D /* Coverage.geojson */; };
 		D49584941CAFAC4100954327 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584931CAFAC4100954327 /* Constants.swift */; };
 		D49584961CAFAD5F00954327 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */; };
@@ -48,9 +48,15 @@
 		D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49584991CAFAFAB00954327 /* NoScheduleView.xib */; };
 		D495849C1CB23A2000954327 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849B1CB23A2000954327 /* Utilities.swift */; };
 		D495849E1CB2460700954327 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849D1CB2460700954327 /* Downloader.swift */; };
-		D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */; };
+		D4AA10012E4908AA00AAA001 /* GTFSDatabaseTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA10052E4908AA00AAA001 /* GTFSDatabaseTestSupport.swift */; };
+		D4AA10022E4908AA00AAA001 /* RouteQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA10062E4908AA00AAA001 /* RouteQueryTests.swift */; };
+		D4AA10032E4908AA00AAA001 /* StopAndShapeQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA10072E4908AA00AAA001 /* StopAndShapeQueryTests.swift */; };
+		D4AA10042E4908AA00AAA001 /* TripAndStopTimeQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA10082E4908AA00AAA001 /* TripAndStopTimeQueryTests.swift */; };
+		D4AA10092E4908AA00AAA001 /* FavoriteQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA100A2E4908AA00AAA001 /* FavoriteQueryTests.swift */; };
+		D4AA100B2E4908AA00AAA001 /* CalendarQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA100C2E4908AA00AAA001 /* CalendarQueryTests.swift */; };
+		D4AA100D2E4908D400AAA001 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D4AA100E2E4908D400AAA001 /* gtfs.db */; };
+		D4AA10102E49090400AAA001 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4AA100F2E49090400AAA001 /* SQLite */; };
 		D4BED7F623BACEC200F8781C /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4BED7F523BACEC200F8781C /* SQLite */; };
-		D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */; };
 		D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D81CBDED4E0012320F /* DateFormatter.swift */; };
 		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
@@ -61,13 +67,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		D4901B752E48FA65001E03D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D44107CE1BFD71CE0022B7E2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D44107D51BFD71CE0022B7E2;
-			remoteInfo = "SJ Transit";
-		};
-		D49584AD1CB4EA4000954327 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D44107CE1BFD71CE0022B7E2 /* Project object */;
 			proxyType = 1;
@@ -112,7 +111,6 @@
 		D480193F1C16C923004615BB /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		D48019411C172624004615BB /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		D4901B712E48FA65001E03D0 /* SJ TransitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SJ TransitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4901B7A2E48FA6F001E03D0 /* SJ_TransitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJ_TransitTests.swift; sourceTree = "<group>"; };
 		D495583F1CBE1F710059CF2D /* Coverage.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coverage.geojson; sourceTree = "<group>"; };
 		D49584931CAFAC4100954327 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
@@ -120,10 +118,13 @@
 		D49584991CAFAFAB00954327 /* NoScheduleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoScheduleView.xib; sourceTree = "<group>"; };
 		D495849B1CB23A2000954327 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		D495849D1CB2460700954327 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
-		D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SJ TransitUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJ_TransitUITests.swift; sourceTree = "<group>"; };
-		D49584AC1CB4EA4000954327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		D4AA10052E4908AA00AAA001 /* GTFSDatabaseTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTFSDatabaseTestSupport.swift; sourceTree = "<group>"; };
+		D4AA10062E4908AA00AAA001 /* RouteQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteQueryTests.swift; sourceTree = "<group>"; };
+		D4AA10072E4908AA00AAA001 /* StopAndShapeQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAndShapeQueryTests.swift; sourceTree = "<group>"; };
+		D4AA10082E4908AA00AAA001 /* TripAndStopTimeQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAndStopTimeQueryTests.swift; sourceTree = "<group>"; };
+		D4AA100A2E4908AA00AAA001 /* FavoriteQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteQueryTests.swift; sourceTree = "<group>"; };
+		D4AA100C2E4908AA00AAA001 /* CalendarQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQueryTests.swift; sourceTree = "<group>"; };
+		D4AA100E2E4908D400AAA001 /* gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = gtfs.db; path = "SJ TransitTests/gtfs.db"; sourceTree = SOURCE_ROOT; };
 		D4CE44D81CBDED4E0012320F /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		D4FACC6C1CA89416009A346A /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripStopTableViewCell.xib; sourceTree = "<group>"; };
@@ -150,13 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D49584A51CB4EA4000954327 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				D4AA10102E49090400AAA001 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				D44107D81BFD71CE0022B7E2 /* SJ Transit */,
-				D49584A91CB4EA4000954327 /* SJ TransitUITests */,
 				D4901B7B2E48FA6F001E03D0 /* SJ TransitTests */,
 				D477DEF41C102204009C356E /* Frameworks */,
 				D44107D71BFD71CE0022B7E2 /* Products */,
@@ -178,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				D44107D61BFD71CE0022B7E2 /* SJ Transit.app */,
-				D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */,
 				D4901B712E48FA65001E03D0 /* SJ TransitTests.xctest */,
 			);
 			name = Products;
@@ -312,19 +305,15 @@
 		D4901B7B2E48FA6F001E03D0 /* SJ TransitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D4901B7A2E48FA6F001E03D0 /* SJ_TransitTests.swift */,
+				D4AA10052E4908AA00AAA001 /* GTFSDatabaseTestSupport.swift */,
+				D4AA10062E4908AA00AAA001 /* RouteQueryTests.swift */,
+				D4AA10072E4908AA00AAA001 /* StopAndShapeQueryTests.swift */,
+				D4AA10082E4908AA00AAA001 /* TripAndStopTimeQueryTests.swift */,
+				D4AA100A2E4908AA00AAA001 /* FavoriteQueryTests.swift */,
+				D4AA100C2E4908AA00AAA001 /* CalendarQueryTests.swift */,
+				D4AA100E2E4908D400AAA001 /* gtfs.db */,
 			);
 			path = "SJ TransitTests";
-			sourceTree = "<group>";
-		};
-		D49584A91CB4EA4000954327 /* SJ TransitUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */,
-				D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */,
-				D49584AC1CB4EA4000954327 /* Info.plist */,
-			);
-			path = "SJ TransitUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,28 +356,11 @@
 			);
 			name = "SJ TransitTests";
 			packageProductDependencies = (
+				D4AA100F2E49090400AAA001 /* SQLite */,
 			);
 			productName = "SJ TransitTests";
 			productReference = D4901B712E48FA65001E03D0 /* SJ TransitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D49584A71CB4EA4000954327 /* SJ TransitUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D49584B11CB4EA4000954327 /* Build configuration list for PBXNativeTarget "SJ TransitUITests" */;
-			buildPhases = (
-				D49584A41CB4EA4000954327 /* Sources */,
-				D49584A51CB4EA4000954327 /* Frameworks */,
-				D49584A61CB4EA4000954327 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D49584AE1CB4EA4000954327 /* PBXTargetDependency */,
-			);
-			name = "SJ TransitUITests";
-			productName = "SJ TransitUITests";
-			productReference = D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -419,11 +391,6 @@
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = D44107D51BFD71CE0022B7E2;
 					};
-					D49584A71CB4EA4000954327 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 1130;
-						TestTargetID = D44107D51BFD71CE0022B7E2;
-					};
 				};
 			};
 			buildConfigurationList = D44107D11BFD71CE0022B7E2 /* Build configuration list for PBXProject "SJ Transit" */;
@@ -445,7 +412,6 @@
 			projectRoot = "";
 			targets = (
 				D44107D51BFD71CE0022B7E2 /* SJ Transit */,
-				D49584A71CB4EA4000954327 /* SJ TransitUITests */,
 				D4901B702E48FA65001E03D0 /* SJ TransitTests */,
 			);
 		};
@@ -462,6 +428,7 @@
 				D477DEE51C1020DB009C356E /* Main.storyboard in Resources */,
 				D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */,
 				D49558401CBE1F710059CF2D /* Coverage.geojson in Resources */,
+				D4AA100D2E4908D400AAA001 /* gtfs.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,13 +436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D49584A61CB4EA4000954327 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				D48118D32E4910100008AE6B /* gtfs.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,16 +489,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4901B7C2E48FA6F001E03D0 /* SJ_TransitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D49584A41CB4EA4000954327 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */,
-				D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */,
+				D4AA10012E4908AA00AAA001 /* GTFSDatabaseTestSupport.swift in Sources */,
+				D4AA10022E4908AA00AAA001 /* RouteQueryTests.swift in Sources */,
+				D4AA10032E4908AA00AAA001 /* StopAndShapeQueryTests.swift in Sources */,
+				D4AA10042E4908AA00AAA001 /* TripAndStopTimeQueryTests.swift in Sources */,
+				D4AA10092E4908AA00AAA001 /* FavoriteQueryTests.swift in Sources */,
+				D4AA100B2E4908AA00AAA001 /* CalendarQueryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,11 +505,6 @@
 			isa = PBXTargetDependency;
 			target = D44107D51BFD71CE0022B7E2 /* SJ Transit */;
 			targetProxy = D4901B752E48FA65001E03D0 /* PBXContainerItemProxy */;
-		};
-		D49584AE1CB4EA4000954327 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D44107D51BFD71CE0022B7E2 /* SJ Transit */;
-			targetProxy = D49584AD1CB4EA4000954327 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -777,44 +729,6 @@
 			};
 			name = Release;
 		};
-		D49584AF1CB4EA4000954327 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "SJ Transit";
-			};
-			name = Debug;
-		};
-		D49584B01CB4EA4000954327 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jogi..SJ-TransitUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "SJ Transit";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -841,15 +755,6 @@
 			buildConfigurations = (
 				D4901B772E48FA65001E03D0 /* Debug */,
 				D4901B782E48FA65001E03D0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D49584B11CB4EA4000954327 /* Build configuration list for PBXNativeTarget "SJ TransitUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D49584AF1CB4EA4000954327 /* Debug */,
-				D49584B01CB4EA4000954327 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -893,6 +798,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		D4AA100F2E49090400AAA001 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
 		};
 		D4BED7F523BACEC200F8781C /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;

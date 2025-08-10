@@ -10,9 +10,19 @@ import Foundation
 import SQLite
 
 class Database {
+    // Injection points (optional). When set, these override default constants.
+    static var overrideGTFSDBPath: String?
+    static var overrideFavoritesDBPath: String?
+
+    // Configure paths for unit tests or alternate environments
+    static func configure(gtfsPath: String? = nil, favoritesPath: String? = nil) {
+        overrideGTFSDBPath = gtfsPath
+        overrideFavoritesDBPath = favoritesPath
+    }
+
     static var connection: Connection? {
         get {
-            let path = kGTFSDBPath
+            let path = overrideGTFSDBPath ?? kGTFSDBPath
             
             var db: Connection?
             do {
@@ -28,7 +38,7 @@ class Database {
     
     static var favoritesConnection: Connection? {
         get {
-            let path = kFavoritesDBPath
+            let path = overrideFavoritesDBPath ?? kFavoritesDBPath
             
             var db: Connection?
             do {
