@@ -66,7 +66,10 @@ import Testing
         #expect(tripStops.sorted { $0.stopSequence < $1.stopSequence }.first?.stopSequence == tripStops.first?.stopSequence)
 
         // Use start-of-day cutoff and pick a stop that yields future times
-        let afterTime = DateFormatter.SQLTimeFormatter.date(from: "00:00:00")!
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = TimeZone(abbreviation: "PST")!
+
+        let afterTime = cal.date(from: DateComponents(year: 2025, month: 8, day: 11, hour: 0, minute: 0, second: 1))!
         var stopId: String = tripStops.first!.stop.stopId!
         for s in tripStops {
             let candidate = s.stop.stopId!
