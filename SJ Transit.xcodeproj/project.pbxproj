@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,8 +29,6 @@
 		D480191A1C12D1BF004615BB /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019191C12D1BF004615BB /* Calendar.swift */; };
 		D480191D1C130010004615BB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480191C1C130010004615BB /* Database.swift */; };
 		D480191F1C1306C1004615BB /* NSDate+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480191E1C1306C1004615BB /* NSDate+Additions.swift */; };
-		D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48019231C140586004615BB /* SVProgressHUD.framework */; };
-		D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */; };
 		D48019281C144E45004615BB /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019271C144E45004615BB /* Threading.swift */; };
 		D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */; };
 		D48019321C159966004615BB /* StopRouteTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019311C159966004615BB /* StopRouteTimesViewController.swift */; };
@@ -40,6 +38,8 @@
 		D480193E1C16C82F004615BB /* TripStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193D1C16C82F004615BB /* TripStopTableViewCell.swift */; };
 		D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480193F1C16C923004615BB /* TripDetailViewController.swift */; };
 		D48019421C172624004615BB /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48019411C172624004615BB /* Shape.swift */; };
+		D48E3CFA2C695F2A009ADE79 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D48E3CF92C695F2A009ADE79 /* SVProgressHUD */; };
+		D48E3CFD2C695F7A009ADE79 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = D48E3CFC2C695F7A009ADE79 /* Zip */; };
 		D49558401CBE1F710059CF2D /* Coverage.geojson in Resources */ = {isa = PBXBuildFile; fileRef = D495583F1CBE1F710059CF2D /* Coverage.geojson */; };
 		D49584941CAFAC4100954327 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584931CAFAC4100954327 /* Constants.swift */; };
 		D49584961CAFAD5F00954327 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584951CAFAD5F00954327 /* UIViewController+Additions.swift */; };
@@ -47,8 +47,6 @@
 		D495849A1CAFAFAB00954327 /* NoScheduleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49584991CAFAFAB00954327 /* NoScheduleView.xib */; };
 		D495849C1CB23A2000954327 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849B1CB23A2000954327 /* Utilities.swift */; };
 		D495849E1CB2460700954327 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495849D1CB2460700954327 /* Downloader.swift */; };
-		D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D495849F1CB34FBD00954327 /* Zip.framework */; };
-		D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */ = {isa = PBXBuildFile; fileRef = D49584A11CB34FE300954327 /* Zip.framework.dSYM */; };
 		D49584AB1CB4EA4000954327 /* SJ_TransitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */; };
 		D4BED7F623BACEC200F8781C /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4BED7F523BACEC200F8781C /* SQLite */; };
 		D4CE44D51CBADAB20012320F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D41CBADAB20012320F /* SnapshotHelper.swift */; };
@@ -69,21 +67,6 @@
 			remoteInfo = "SJ Transit";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		D48018F31C108AF7004615BB /* Carthage - Copy Debug Symbols */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-				D49584A31CB3500A00954327 /* Zip.framework.dSYM in Carthage - Copy Debug Symbols */,
-				D48019261C1405B4004615BB /* SVProgressHUD.framework.dSYM in Carthage - Copy Debug Symbols */,
-			);
-			name = "Carthage - Copy Debug Symbols";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D44107D61BFD71CE0022B7E2 /* SJ Transit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SJ Transit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,8 +94,6 @@
 		D480191C1C130010004615BB /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		D480191E1C1306C1004615BB /* NSDate+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Additions.swift"; sourceTree = "<group>"; };
 		D48019211C1404C6004615BB /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
-		D48019231C140586004615BB /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
-		D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SVProgressHUD.framework.dSYM; path = Carthage/Build/iOS/SVProgressHUD.framework.dSYM; sourceTree = "<group>"; };
 		D48019271C144E45004615BB /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
 		D480192D1C1466EE004615BB /* StopRouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTableViewCell.swift; sourceTree = "<group>"; };
 		D48019311C159966004615BB /* StopRouteTimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRouteTimesViewController.swift; sourceTree = "<group>"; };
@@ -129,8 +110,6 @@
 		D49584991CAFAFAB00954327 /* NoScheduleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoScheduleView.xib; sourceTree = "<group>"; };
 		D495849B1CB23A2000954327 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		D495849D1CB2460700954327 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
-		D495849F1CB34FBD00954327 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Zip.framework; path = Carthage/Build/iOS/Zip.framework; sourceTree = "<group>"; };
-		D49584A11CB34FE300954327 /* Zip.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Zip.framework.dSYM; path = Carthage/Build/iOS/Zip.framework.dSYM; sourceTree = "<group>"; };
 		D49584A81CB4EA4000954327 /* SJ TransitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SJ TransitUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49584AA1CB4EA4000954327 /* SJ_TransitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJ_TransitUITests.swift; sourceTree = "<group>"; };
 		D49584AC1CB4EA4000954327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,11 +127,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D49584A01CB34FBD00954327 /* Zip.framework in Frameworks */,
 				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
+				D48E3CFA2C695F2A009ADE79 /* SVProgressHUD in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
-				D48019241C140586004615BB /* SVProgressHUD.framework in Frameworks */,
+				D48E3CFD2C695F7A009ADE79 /* Zip in Frameworks */,
 				D4BED7F623BACEC200F8781C /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,23 +228,11 @@
 		D477DEF41C102204009C356E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D48018F81C108B59004615BB /* Vendor */,
 				D48019131C12BB60004615BB /* QuartzCore.framework */,
 				D477DEF21C1021FF009C356E /* CoreLocation.framework */,
 				D477DEF01C1021F8009C356E /* MapKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D48018F81C108B59004615BB /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				D48019231C140586004615BB /* SVProgressHUD.framework */,
-				D48019251C1405B4004615BB /* SVProgressHUD.framework.dSYM */,
-				D495849F1CB34FBD00954327 /* Zip.framework */,
-				D49584A11CB34FE300954327 /* Zip.framework.dSYM */,
-			);
-			name = Vendor;
 			sourceTree = "<group>";
 		};
 		D48018FA1C117ED1004615BB /* Models */ = {
@@ -343,8 +310,6 @@
 				D44107D21BFD71CE0022B7E2 /* Sources */,
 				D44107D31BFD71CE0022B7E2 /* Frameworks */,
 				D44107D41BFD71CE0022B7E2 /* Resources */,
-				D48018F21C108AB5004615BB /* Carthage - Copy Frameworks */,
-				D48018F31C108AF7004615BB /* Carthage - Copy Debug Symbols */,
 			);
 			buildRules = (
 			);
@@ -353,6 +318,8 @@
 			name = "SJ Transit";
 			packageProductDependencies = (
 				D4BED7F523BACEC200F8781C /* SQLite */,
+				D48E3CF92C695F2A009ADE79 /* SVProgressHUD */,
+				D48E3CFC2C695F7A009ADE79 /* Zip */,
 			);
 			productName = "SJ Transit";
 			productReference = D44107D61BFD71CE0022B7E2 /* SJ Transit.app */;
@@ -382,8 +349,9 @@
 		D44107CE1BFD71CE0022B7E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "Vashishtha Jogi";
 				TargetAttributes = {
 					D44107D51BFD71CE0022B7E2 = {
@@ -418,6 +386,8 @@
 			mainGroup = D44107CD1BFD71CE0022B7E2;
 			packageReferences = (
 				D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */,
+				D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
+				D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = D44107D71BFD71CE0022B7E2 /* Products */;
 			projectDirPath = "";
@@ -451,25 +421,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D48018F21C108AB5004615BB /* Carthage - Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Zip.framework",
-			);
-			name = "Carthage - Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D44107D21BFD71CE0022B7E2 /* Sources */ = {
@@ -538,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -557,6 +509,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -567,6 +520,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -593,6 +547,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -612,6 +567,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -622,6 +578,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -648,11 +605,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = H5537L6Q5K;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"\"$(PROJECT_DIR)/SJ Transit/Vendor\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -677,11 +630,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = H5537L6Q5K;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"\"$(PROJECT_DIR)/SJ Transit/Vendor\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,7 +652,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -722,7 +671,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				INFOPLIST_FILE = "SJ TransitUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -769,6 +718,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
+		D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
 		D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
@@ -780,6 +745,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D48E3CF92C695F2A009ADE79 /* SVProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
+			productName = SVProgressHUD;
+		};
+		D48E3CFC2C695F7A009ADE79 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
 		D4BED7F523BACEC200F8781C /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */;
