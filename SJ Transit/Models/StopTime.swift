@@ -74,7 +74,9 @@ class StopTime: NSObject, MKAnnotation {
                 
                 times.append(aStopTime)
             }
-        } catch _ {}
+        } catch {
+            print("Error getting stop-times: \(error)")
+        }
         
         return times
     }

@@ -66,9 +66,11 @@ class Route: NSObject {
         let colRouteType = Expression<Int>("route_type")
         let colRouteLongName = Expression<String>("route_long_name")
         let colRouteShortName = Expression<String?>("route_short_name")
+        // For numeric sorting of string short names (e.g., "2" before "10")
+        let colRouteShortNameInt = Expression<Int?>("CAST(route_short_name AS INTEGER)")
         
         do {
-            for route in try db.prepare(routes.order(cast(colRouteShortName) as Expression<Int?>, colRouteShortName)) {
+            for route in try db.prepare(routes.order(colRouteShortNameInt.asc, colRouteShortName.asc)) {
                 let aRoute = Route()
                 aRoute.routeId = route[colRouteId]
                 aRoute.routeType = RouteType(rawValue: route[colRouteType])
