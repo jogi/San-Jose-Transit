@@ -89,7 +89,7 @@ class Stop: NSObject, MKAnnotation {
         
         let colStopId = Expression<String>("stop_id")
         let colStopName = Expression<String>("stop_name")
-        let colRoutes = Expression<String>("routes")
+        let colRoutes = Expression<String?>("routes")
         
         do {
             for row in try db.prepare(stops.filter(colStopId == stopId)) {
