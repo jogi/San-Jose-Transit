@@ -1,18 +1,22 @@
-//
-//  TripAndStopTimeQueryTests.swift
-//
-
 import Foundation
 import Testing
 @testable import SJ_Transit
+import GTFSModel
 
 @Suite struct TripAndStopTimeQueryTests {
 
-    private func findActiveDate(for routeId: String, horizonDays: Int = 30) -> (date: Date, tripIds: [String])? {
-        let cal = Calendar.current
-        for offset in 0..<horizonDays {
-            let date = cal.date(byAdding: .day, value: offset, to: Date())!
-            let tripIds = Trip.trips([routeId], activeOn: date)
+    private func findActiveDate(for routeIdentifier: String) -> (date: Date, tripIds: [String])? {
+        guard let range = TestDBSupport.calendarDateRange() else {
+            return nil
+        }
+        let calendar = Foundation.Calendar.current
+        let totalDays = calendar.dateComponents([.day], from: range.start, to: range.end).day ?? 0
+        guard totalDays >= 0 else {
+            return nil
+        }
+        for offset in 0...totalDays {
+            let date = calendar.date(byAdding: .day, value: offset, to: range.start)!
+            let tripIds = Trip.trips([routeIdentifier], activeOn: date)
             if !tripIds.isEmpty {
                 return (date, tripIds)
             }
@@ -23,19 +27,16 @@ import Testing
     @Test func trip_and_stop_times_queries_cover_paths() throws {
         try TestDBSupport.ensureGTFSInstalled()
 
-        // Choose a route with active service soon
         let allRoutes = Route.routes()
-        print("[Test] allRoutes.count=\(allRoutes.count)")
         if allRoutes.isEmpty {
             Issue.record("No routes available in GTFS DB")
             return
         }
 
-        var picked: (routeId: String, activeDate: Date, tripIds: [String])?
+        var picked: (routeIdentifier: String, activeDate: Date, tripIds: [String])?
         for route in allRoutes {
-            if let rid = route.routeId, let found = findActiveDate(for: rid) {
-                picked = (rid, found.date, found.tripIds)
-                print("[Test] picked routeId=\(rid) tripIds.count=\(found.tripIds.count)")
+            if let found = findActiveDate(for: route.identifier) {
+                picked = (route.identifier, found.date, found.tripIds)
                 break
             }
         }
@@ -43,80 +44,66 @@ import Testing
             Issue.record("No active trips found in horizon for any route")
             return
         }
-        let routeId = picked!.routeId
+        let routeIdentifier = picked!.routeIdentifier
         let activeOn = picked!.activeDate
         let tripIds = picked!.tripIds
         
-        // Validate multi-route Trip.trips union behavior against per-route results
-        if let another = allRoutes.first(where: { $0.routeId != routeId })?.routeId {
-            let tripsSingleA = Trip.trips([routeId], activeOn: activeOn)
+        if let another = allRoutes.first(where: { $0.identifier != routeIdentifier })?.identifier {
+            let tripsSingleA = Trip.trips([routeIdentifier], activeOn: activeOn)
             let tripsSingleB = Trip.trips([another], activeOn: activeOn)
-            let tripsCombined = Trip.trips([routeId, another], activeOn: activeOn)
-            // Combined must contain at least all from A and B
+            let tripsCombined = Trip.trips([routeIdentifier, another], activeOn: activeOn)
             #expect(Set(tripsSingleA).isSubset(of: Set(tripsCombined)))
             #expect(Set(tripsSingleB).isSubset(of: Set(tripsCombined)))
         }
 
-        // 1) Trip.stopTimes(tripId)
         let sampleTripId = tripIds[0]
-        print("[Test] sampleTripId=\(sampleTripId)")
-        let tripStops = StopTime.stopTimes(sampleTripId)
-        print("[Test] tripStops.count=\(tripStops.count)")
+        let tripStops = StopTime.tripStopTimes(tripIdentifier: sampleTripId)
         #expect(!tripStops.isEmpty)
-        #expect(tripStops.sorted { $0.stopSequence < $1.stopSequence }.first?.stopSequence == tripStops.first?.stopSequence)
+        #expect(tripStops.map { $0.stopSequence } == tripStops.map { $0.stopSequence }.sorted())
 
-        // Use start-of-day cutoff and pick a stop that yields future times
-        var cal = Calendar(identifier: .gregorian)
-        cal.timeZone = TimeZone(abbreviation: "PST")!
+        var calendar = Foundation.Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(abbreviation: "PST")!
 
-        let afterTime = cal.date(from: DateComponents(year: 2025, month: 8, day: 11, hour: 0, minute: 0, second: 1))!
-        var stopId: String = tripStops.first!.stop.stopId!
-        for s in tripStops {
-            let candidate = s.stop.stopId!
-            let probe = StopTime.stopTimes(candidate, routeId: routeId, tripIds: tripIds, afterTime: afterTime)
+        let startOfActiveDay = calendar.startOfDay(for: activeOn)
+        let afterTime = calendar.date(byAdding: .second, value: 1, to: startOfActiveDay) ?? activeOn
+        var stopIdentifier: String = tripStops.first!.stopIdentifier
+
+        let routeIds = [routeIdentifier]
+        for stop in tripStops {
+            let probe = StopTime.routeSummaries(stopIdentifier: stop.stopIdentifier, routeIdentifiers: routeIds, afterTime: afterTime)
             if !probe.isEmpty {
-                stopId = candidate
+                stopIdentifier = stop.stopIdentifier
                 break
             }
         }
 
-        // 2) StopTime.stopTimes(stopId, routeId, tripIds, afterTime)
-        let timesForStopAndRoute = StopTime.stopTimes(stopId, routeId: routeId, tripIds: tripIds, afterTime: afterTime)
-        print("[Test] timesForStopAndRoute.count=\(timesForStopAndRoute.count) stopId=\(stopId) afterTime=\(DateFormatter.SQLTimeFormatter.string(from: afterTime))")
+        let timesForStopAndRoute = StopTime.routeStopTimes(stopIdentifier: stopIdentifier, routeIdentifier: routeIdentifier, afterTime: afterTime)
         #expect(!timesForStopAndRoute.isEmpty)
-        for t in timesForStopAndRoute {
-            #expect(t.arrivalTime != nil)
-            #expect(t.trip.tripHeadsign != nil)
-            #expect(t.trip.tripId != nil)
-            #expect(t.trip.shapeId != nil)
-            #expect(t.trip.directionId != nil)
+        for time in timesForStopAndRoute {
+            #expect(DateFormatter.SQLTimeFormatter.string(from: time.arrivalTime).isEmpty == false)
+            #expect(time.tripHeadsign != nil)
+            #expect(!time.tripIdentifier.isEmpty)
+            #expect(time.shapeIdentifier != nil)
+            #expect(time.directionIdentifier != nil)
         }
 
-        // 3) StopTime.stopTimes(stopId, afterTime, tripIds) — grouped per route
-        let timesForStopAnyRoute = StopTime.stopTimes(stopId, afterTime: afterTime, tripIds: tripIds)
-        print("[Test] timesForStopAnyRoute.count=\(timesForStopAnyRoute.count)")
+        let timesForStopAnyRoute = StopTime.routeSummaries(stopIdentifier: stopIdentifier, routeIdentifiers: routeIds, afterTime: afterTime)
         #expect(!timesForStopAnyRoute.isEmpty)
 
-        // 4) StopTime.trip(routeId, directionId, afterTime) — choose a seen direction
-        let chosenDirection = timesForStopAndRoute.first!.trip.directionId!
-        let nextTripId = StopTime.trip(routeId, directionId: chosenDirection, afterTime: afterTime)
-        print("[Test] chosenDirection=\(chosenDirection) nextTripId=\(String(describing: nextTripId))")
+        let chosenDirection = timesForStopAndRoute.first!.directionIdentifier ?? 0
+        let nextTripId = StopTime.nextTripIdentifier(routeIdentifier: routeIdentifier, directionIdentifier: chosenDirection, afterTime: afterTime)
         #expect(nextTripId != nil)
 
-        // 5) Shapes for trip and for shape id
-        if let shapeId = timesForStopAndRoute.first!.trip.shapeId {
-            let byShape = Shape.shapes(forShape: shapeId)
-            print("[Test] shapes.byShape.count=\(byShape.count) shapeId=\(shapeId)")
+        if let shapeIdentifier = timesForStopAndRoute.first!.shapeIdentifier {
+            let byShape = Shape.shapes(forShape: shapeIdentifier)
             #expect(!byShape.isEmpty)
         }
         let shapesByTrip = Shape.shapes(forTrip: sampleTripId)
-        print("[Test] shapes.byTrip.count=\(shapesByTrip.count)")
         #expect(!shapesByTrip.isEmpty)
-        // sequence should be ascending
-        let ordered = shapesByTrip.map { $0.pointSequence! }
+
+        let ordered = shapesByTrip.map { Int($0.sequence) }
         #expect(ordered == ordered.sorted())
 
-        // 6) Stop lookup ties back
-        #expect(Stop.stop(byId: stopId) != nil)
+        #expect(Stop.stop(byId: stopIdentifier) != nil)
     }
 }

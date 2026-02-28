@@ -2,13 +2,11 @@
 //  GTFSDatabaseTestSupport.swift
 //  SJ TransitTests
 //
-//  Helpers to install gtfs.db into the app caches directory and reset favorites DB.
-//
 
 import Foundation
 import Testing
 @testable import SJ_Transit
-import SQLite
+import GRDB
 
 final class _TestBundleToken {}
 
@@ -18,7 +16,6 @@ enum TestDBSupport {
     static func ensureGTFSInstalled() throws {
         guard !installed else { return }
 
-        // Resolve gtfs.db from the unit test bundle resources
         let bundle = Bundle(for: _TestBundleToken.self)
         guard let srcURL = bundle.url(forResource: "gtfs", withExtension: "db") ??
                 Bundle.main.url(forResource: "gtfs", withExtension: "db") else {
@@ -26,22 +23,19 @@ enum TestDBSupport {
             return
         }
 
-        // Provide explicit paths to the app Database for tests
         let tmpDir = NSTemporaryDirectory() as NSString
         let favsPath = tmpDir.appendingPathComponent("test-favorites.sqlite3")
-        // Set injectable paths
         Database.configure(gtfsPath: srcURL.path, favoritesPath: favsPath)
 
-        // Debug info to confirm file visibility in simulator
         let exists = FileManager.default.fileExists(atPath: srcURL.path)
         print("[TestDBSupport] Using GTFS at: \(srcURL.path) exists=\(exists)")
         print("[TestDBSupport] Favorites at: \(favsPath)")
 
-        // Quick smoke: try opening and counting routes
-        if let db = Database.connection {
+        if let dbQueue = Database.connection {
             do {
-                let tbl = Table("routes")
-                let count = try db.scalar(tbl.count)
+                let count = try dbQueue.read { db in
+                    try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM routes") ?? 0
+                }
                 print("[TestDBSupport] routes count=\(count)")
             } catch {
                 Issue.record("Unable to query routes count: \(error)")
@@ -50,48 +44,68 @@ enum TestDBSupport {
             Issue.record("Database.connection is nil for path: \(String(describing: Database.overrideGTFSDBPath))")
         }
 
-        // Ensure a clean favorites file
         resetFavoritesDB()
-
-        // Minimal diagnostics for visibility in CI logs
         diagnoseDatabase()
 
         installed = true
     }
 
     static func resetFavoritesDB() {
-        // Remove the configured favorites DB if present
         let path = Database.overrideFavoritesDBPath ?? {
             let docsDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             return (docsDir as NSString).appendingPathComponent("favorites.sqlite3")
         }()
+        let gtfsPath = Database.overrideGTFSDBPath
         let fm = FileManager.default
         if fm.fileExists(atPath: path) {
             try? fm.removeItem(atPath: path)
         }
+        Database.configure(gtfsPath: gtfsPath, favoritesPath: path)
         Favorite.createFavoritesIfRequred()
+    }
+
+    static func calendarDateRange() -> (start: Date, end: Date)? {
+        guard let dbQueue = Database.connection else {
+            return nil
+        }
+
+        do {
+            return try dbQueue.read { db in
+                guard let row = try Row.fetchOne(
+                    db,
+                    sql: "SELECT MIN(start_date) AS min_start, MAX(end_date) AS max_end FROM calendar"
+                ) else {
+                    return nil
+                }
+                guard let minStart = row["min_start"] as String?,
+                      let maxEnd = row["max_end"] as String?,
+                      let startDate = DateFormatter.PSTDateFormatterDate.date(from: minStart),
+                      let endDate = DateFormatter.PSTDateFormatterDate.date(from: maxEnd) else {
+                    return nil
+                }
+                return (startDate, endDate)
+            }
+        } catch {
+            return nil
+        }
     }
 }
 
-// MARK: - Diagnostics
 func diagnoseDatabase() {
-    guard let db = Database.connection else {
+    guard let dbQueue = Database.connection else {
         print("[Diag] Database.connection is nil at path: \(String(describing: Database.overrideGTFSDBPath))")
         return
     }
     do {
-        let routes = Table("routes")
-        let stops = Table("stops")
-        let trips = Table("trips")
-        let stopTimes = Table("stop_times")
-        let calendar = Table("calendar")
-
-        let rc = try db.scalar(routes.count)
-        let sc = try db.scalar(stops.count)
-        let tc = try db.scalar(trips.count)
-        let stc = try db.scalar(stopTimes.count)
-        let cc = try db.scalar(calendar.count)
-        print("[Diag] counts routes=\(rc) stops=\(sc) trips=\(tc) stop_times=\(stc) calendar=\(cc)")
+        let counts = try dbQueue.read { db in
+            let routes = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM routes") ?? 0
+            let stops = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM stops") ?? 0
+            let trips = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM trips") ?? 0
+            let stopTimes = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM stop_times") ?? 0
+            let calendar = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM calendar") ?? 0
+            return (routes, stops, trips, stopTimes, calendar)
+        }
+        print("[Diag] counts routes=\(counts.0) stops=\(counts.1) trips=\(counts.2) stop_times=\(counts.3) calendar=\(counts.4)")
     } catch {
         print("[Diag] Counting tables failed: \(error)")
     }

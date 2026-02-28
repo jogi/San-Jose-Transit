@@ -1,10 +1,7 @@
-//
-//  StopAndShapeQueryTests.swift
-//
-
 import Foundation
 import Testing
 @testable import SJ_Transit
+import GTFSModel
 
 @Suite struct StopAndShapeQueryTests {
     @Test func stops_fetch_and_lookup_roundtrip() throws {
@@ -13,19 +10,16 @@ import Testing
         let stops = Stop.stops()
         #expect(!stops.isEmpty)
 
-        for s in stops.prefix(5) {
-            #expect(s.stopId != nil)
-            #expect(s.stopName != nil)
-            #expect(s.latitude != nil)
-            #expect(s.longitude != nil)
+        for stop in stops.prefix(5) {
+            #expect(!stop.identifier.isEmpty)
+            #expect(stop.name != nil)
 
-            if let sid = s.stopId, let fetched = Stop.stop(byId: sid) {
-                #expect(fetched.stopId == s.stopId)
-                #expect(fetched.stopName == s.stopName)
+            if let fetched = Stop.stop(byId: stop.identifier) {
+                #expect(fetched.identifier == stop.identifier)
+                #expect(fetched.name == stop.name)
             } else {
-                Issue.record("Failed to refetch stop by id: \(String(describing: s.stopId))")
+                Issue.record("Failed to refetch stop by id: \(stop.identifier)")
             }
         }
     }
 }
-
