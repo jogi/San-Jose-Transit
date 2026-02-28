@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GTFSModel
 
 class RouteTableViewCell: UITableViewCell, IdentifiableCell {
     // MARK: - IBOutlets
@@ -15,10 +16,10 @@ class RouteTableViewCell: UITableViewCell, IdentifiableCell {
     
     var route: Route? {
         didSet {
-            self.routeShortNameLabel.text = route?.routeShortName
-            self.routeLongNameLabel.text = route?.routeLongName
+            self.routeShortNameLabel.text = route?.shortName
+            self.routeLongNameLabel.text = route?.longName
             
-            if (route?.routeType == .lightRail) {
+            if route?.type == .tram {
                 self.routeShortNameLabel.backgroundColor = UIColor.red
             } else {
                 self.routeShortNameLabel.backgroundColor = self.tintColor

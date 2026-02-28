@@ -8,11 +8,12 @@
 
 import UIKit
 import MapKit
+import GTFSModel
 
 class RouteMapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
-    var times: [StopTime] = [StopTime]()
+    var times: [TripStopSummary] = []
     var tripId: String?
     
     override func viewDidLoad() {
@@ -57,22 +58,24 @@ class RouteMapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Controller methods
     func mapRoute() {
-        self.mapView.addAnnotations(self.times)
+        self.mapView.addAnnotations(self.times.map(StopTimeAnnotation.init))
         
         DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
+            guard let tripId = strongSelf.tripId else { return }
             
-            let shapes = Shape.shapes(forTrip:strongSelf.tripId!)
+            let shapes = Shape.shapes(forTrip: tripId)
             var points = [CLLocationCoordinate2D]()
             
             for aShape in shapes {
                 points.append(aShape.coordinate)
             }
+            guard points.isEmpty == false else { return }
             
             let polyline = MKPolyline(coordinates: &points[0], count: shapes.count)
             DispatchQueue.main.async(execute: { () -> Void in
                 strongSelf.mapView.addOverlay(polyline)
-                strongSelf.animateMapRegion(to: shapes[0].coordinate)
+                strongSelf.animateMapRegion(to: points[0])
             });
         });
     }

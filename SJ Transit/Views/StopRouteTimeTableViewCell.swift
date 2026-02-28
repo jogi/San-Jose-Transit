@@ -1,11 +1,3 @@
-//
-//  StopRouteTimeTableViewCell.swift
-//  SJ Transit
-//
-//  Created by Vashishtha Jogi on 12/7/15.
-//  Copyright © 2015 Vashishtha Jogi. All rights reserved.
-//
-
 import UIKit
 
 class StopRouteTimeTableViewCell: UITableViewCell, IdentifiableCell {
@@ -14,10 +6,14 @@ class StopRouteTimeTableViewCell: UITableViewCell, IdentifiableCell {
     @IBOutlet weak var tripHeadsignLabel: UILabel!
     
     // Properties
-    var stopTime: StopTime! {
+    var stopTime: StopRouteSummary! {
         didSet {
             self.timeLabel.text = stopTime.arrivalTime.timeWithMeridianAsString
-            self.tripHeadsignLabel.text = stopTime.trip.directionId.description + " to " + stopTime.trip.tripHeadsign
+            if let directionIdentifier = stopTime.directionIdentifier {
+                self.tripHeadsignLabel.text = directionIdentifier.transitDirectionDescription + " to " + (stopTime.tripHeadsign ?? "")
+            } else {
+                self.tripHeadsignLabel.text = stopTime.tripHeadsign
+            }
         }
     }
     

@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import GTFSModel
 
 class StopRouteTimesViewController: UITableViewController {
-    var stopTime: StopTime?
-    var data: Array<StopTime> = []
+    var stopTime: StopRouteSummary?
+    var data: [StopRouteSummary] = []
     var afterTime: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = self.stopTime?.stop.stopName
+        self.title = self.stopTime?.stopName
         self.fetchStopTimes()
     }
 
@@ -39,8 +40,6 @@ class StopRouteTimesViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let tripDetailController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "TripDetailViewController") as! TripDetailViewController
-        let aStopTime = self.data[(indexPath as NSIndexPath).row]
-        aStopTime.stop = self.stopTime!.stop
         tripDetailController.stopTime = self.data[(indexPath as NSIndexPath).row]
         self.navigationController?.pushViewController(tripDetailController, animated: true)
     }
@@ -64,9 +63,14 @@ class StopRouteTimesViewController: UITableViewController {
         DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             
-            // get all relevant tripIds
-            let tripIds = Trip.trips([(strongSelf.stopTime?.route.routeId)!], activeOn: strongSelf.afterTime)
-            strongSelf.data = StopTime.stopTimes(strongSelf.stopTime?.stop.stopId, routeId: strongSelf.stopTime?.route.routeId, tripIds: tripIds, afterTime: strongSelf.afterTime)
+            guard let stopTime = strongSelf.stopTime else {
+                return
+            }
+            strongSelf.data = StopTime.routeStopTimes(
+                stopIdentifier: stopTime.stopIdentifier,
+                routeIdentifier: stopTime.routeIdentifier,
+                afterTime: strongSelf.afterTime
+            )
             
             DispatchQueue.main.async(execute: { () -> Void in
                 strongSelf.tableView.reloadData()
@@ -85,15 +89,15 @@ class StopRouteTimesViewController: UITableViewController {
             guard let strongSelf = self else { return }
             strongSelf.performSegue(withIdentifier: "StopRouteTimePickerSegue", sender: strongSelf)
         }))
-        if Favorite.isFavorite(.favoriteStop, typeId: (self.stopTime?.stop.stopId)!) {
+        if Favorite.isFavorite(.favoriteStop, typeId: (self.stopTime?.stopIdentifier)!) {
             alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
-                Favorite.deleteFavorite(.favoriteStop, typeId: (strongSelf.stopTime?.stop.stopId)!)
+                Favorite.deleteFavorite(.favoriteStop, typeId: (strongSelf.stopTime?.stopIdentifier)!)
             }))
         } else {
             alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
-                Favorite.addFavorite(.favoriteStop, typeId: (strongSelf.stopTime?.stop.stopId)!)
+                Favorite.addFavorite(.favoriteStop, typeId: (strongSelf.stopTime?.stopIdentifier)!)
             }))
         }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

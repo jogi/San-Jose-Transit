@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GTFSModel
 
 class FavoritesViewVontroller: UITableViewController {
     var favorites = [[Favorite]]()
@@ -49,7 +50,7 @@ class FavoritesViewVontroller: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesStopCellIdentifier", for: indexPath)
             let stop = favorite.favorite as? Stop
-            cell.textLabel?.text = stop?.stopName
+            cell.textLabel?.text = stop?.name
             cell.detailTextLabel?.text = stop?.routes
             outerCell = cell
         }

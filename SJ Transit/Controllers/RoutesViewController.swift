@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SQLite
+import GTFSModel
 
 class RoutesViewController: UITableViewController {
     var routes: [Route] = []
@@ -93,7 +93,7 @@ extension RoutesViewController: UISearchResultsUpdating, UISearchControllerDeleg
         }
         
         self.filteredRoutes = self.routes.filter {
-            $0.routeLongName.lowercased().contains(searchString) || $0.routeShortName.lowercased().contains(searchString)
+            ($0.longName ?? "").lowercased().contains(searchString) || ($0.shortName ?? "").lowercased().contains(searchString)
         }
         
         self.tableView.reloadData()

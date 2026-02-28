@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GTFSModel
 
 class RouteDetailViewController: UITableViewController {
     // MARK: - IBOutlets
@@ -15,15 +16,16 @@ class RouteDetailViewController: UITableViewController {
     @IBOutlet weak var longNameLabel: UILabel!
     
     var route: Route!
-    var times: Array<StopTime> = Array<StopTime>()
+    var times: [TripStopSummary] = []
     var afterTime: Date = Date()
     var tripId: String?
+    var selectedDirectionIdentifier: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.shortNameLabel.text = self.route.routeShortName
-        self.longNameLabel.text = self.route.routeLongName
+        self.shortNameLabel.text = self.route.shortName
+        self.longNameLabel.text = self.route.longName
         
         self.shortNameLabel.layer.cornerRadius = 4.0
         self.shortNameLabel.layer.masksToBounds = true
@@ -55,10 +57,24 @@ class RouteDetailViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let stopTime = self.times[(indexPath as NSIndexPath).row]
-        stopTime.route.routeId = self.route.routeId
+        let stopRouteSummary = StopRouteSummary(
+            arrivalTime: stopTime.arrivalTime,
+            routeIdentifier: self.route.identifier,
+            routeShortName: self.route.shortName,
+            routeLongName: self.route.longName,
+            tripIdentifier: self.tripId ?? "",
+            tripHeadsign: nil,
+            directionIdentifier: selectedDirectionIdentifier,
+            shapeIdentifier: nil,
+            stopIdentifier: stopTime.stopIdentifier,
+            stopName: stopTime.stopName,
+            stopLatitude: stopTime.stopLatitude,
+            stopLongitude: stopTime.stopLongitude,
+            stopRoutes: stopTime.stopRoutes
+        )
         
         let stopRouteTimeController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteTimesViewController") as! StopRouteTimesViewController
-        stopRouteTimeController.stopTime = stopTime
+        stopRouteTimeController.stopTime = stopRouteSummary
         stopRouteTimeController.afterTime = self.afterTime
         
         self.navigationController?.pushViewController(stopRouteTimeController, animated: true)
@@ -67,14 +83,15 @@ class RouteDetailViewController: UITableViewController {
     
     func fetchTrip() {
         self.tableView.addLoadingFooterView()
-        let selectedDirection = Direction(rawValue: self.directionSegment.selectedSegmentIndex)
+        let selectedDirection = self.directionSegment.selectedSegmentIndex
+        self.selectedDirectionIdentifier = selectedDirection
         DispatchQueue.global(qos: .background).async(execute: { [weak self] () -> Void in
             guard let strongSelf = self else { return }
             // get the first trip
-            strongSelf.tripId = StopTime.trip(strongSelf.route?.routeId, directionId: selectedDirection, afterTime: strongSelf.afterTime)
+            strongSelf.tripId = StopTime.nextTripIdentifier(routeIdentifier: strongSelf.route.identifier, directionIdentifier: selectedDirection, afterTime: strongSelf.afterTime)
             
             if let tripId = strongSelf.tripId {
-                strongSelf.times = StopTime.stopTimes(tripId)
+                strongSelf.times = StopTime.tripStopTimes(tripIdentifier: tripId)
             } else {
                 strongSelf.times = []
             }
@@ -84,7 +101,7 @@ class RouteDetailViewController: UITableViewController {
                 if strongSelf.times.count > 0 {
                     strongSelf.tableView.tableFooterView = UIView(frame: CGRect.zero)
                 } else {
-                    print("No trips found for route: \(String(describing: strongSelf.route?.routeId)), direction: \(String(describing: selectedDirection)), afterTime: \(strongSelf.afterTime)")
+                    print("No trips found for route: \(strongSelf.route.identifier), direction: \(selectedDirection), afterTime: \(strongSelf.afterTime)")
                     strongSelf.tableView.addNoDataFooterView()
                 }
             });
@@ -108,17 +125,17 @@ class RouteDetailViewController: UITableViewController {
             
             strongSelf.performSegue(withIdentifier: "RouteTimePickerSegue", sender: strongSelf)
         }))
-        if Favorite.isFavorite(.favoriteRoute, typeId: self.route.routeId) {
+        if Favorite.isFavorite(.favoriteRoute, typeId: self.route.identifier) {
             alertController.addAction(UIAlertAction(title: "Remove As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
                 
-                Favorite.deleteFavorite(.favoriteRoute, typeId: strongSelf.route.routeId)
+                Favorite.deleteFavorite(.favoriteRoute, typeId: strongSelf.route.identifier)
             }))
         } else {
             alertController.addAction(UIAlertAction(title: "Add As Favorite", style: .default, handler: { [weak self] _ -> Void in
                 guard let strongSelf = self else { return }
                 
-                Favorite.addFavorite(.favoriteRoute, typeId: strongSelf.route.routeId)
+                Favorite.addFavorite(.favoriteRoute, typeId: strongSelf.route.identifier)
             }))
         }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

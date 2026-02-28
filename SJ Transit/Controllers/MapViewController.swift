@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import SVProgressHUD
+import GTFSModel
 
 class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
@@ -18,7 +19,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     // MARK: - Vars
     var locationManager: CLLocationManager!
-    var stops: Array<Stop>?
+    var stops: [Stop]?
+    var stopAnnotations: [StopAnnotation] = []
     var hasAcquiredUserLocaion: Bool = false
     
     // MARK: - IBActions
@@ -79,7 +81,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let stop = view.annotation as? Stop
+        let stop = (view.annotation as? StopAnnotation)?.stop
         let stopRouteController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "StopRouteViewController") as! StopRouteViewController
         stopRouteController.stop = stop
         self.navigationController?.pushViewController(stopRouteController, animated: true)
@@ -119,9 +121,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
             guard let strongSelf = self else { return }
             
             strongSelf.stops = Stop.stops()
-            if (strongSelf.stops != nil) {
+            if let stops = strongSelf.stops {
+                strongSelf.stopAnnotations = stops.map(StopAnnotation.init)
                 DispatchQueue.main.async(execute: { () -> Void in
-                    strongSelf.mapView.addAnnotations(strongSelf.stops!)
+                    strongSelf.mapView.addAnnotations(strongSelf.stopAnnotations)
                 });
             }
         }

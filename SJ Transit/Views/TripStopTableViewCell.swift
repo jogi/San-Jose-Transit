@@ -16,9 +16,9 @@ class TripStopTableViewCell: UITableViewCell, IdentifiableNibBasedCell {
     @IBOutlet weak var stopNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var stopTime: StopTime? {
+    var stopTime: TripStopSummary? {
         didSet {
-            self.stopNameLabel.text = stopTime?.stop.stopName
+            self.stopNameLabel.text = stopTime?.stopName
             self.timeLabel.text = stopTime?.arrivalTime.timeWithMeridianAsString
         }
     }
