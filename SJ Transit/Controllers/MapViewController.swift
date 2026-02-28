@@ -56,17 +56,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView: MKPinAnnotationView?
+        var annotationView: MKMarkerAnnotationView?
         
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
         } else {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "stopPin") as? MKPinAnnotationView
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "stopPin") as? MKMarkerAnnotationView
             
             if (annotationView == nil) {
-                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
+                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "stopPin")
                 annotationView?.canShowCallout = true
-                annotationView?.pinTintColor = mapView.tintColor
+                annotationView?.markerTintColor = mapView.tintColor
                 
                 let disclosureButton = UIButton(type: .detailDisclosure)
                 disclosureButton.setImage(UIImage(named: "right-arrow"), for: UIControl.State()) // yup, annotation views are stupid, so try to trick it

@@ -17,7 +17,7 @@ extension UIViewController {
             if let noSchedulesView = NoScheduleView.loadFromNibNamed("NoScheduleView") {
                 if let navController = self.navigationController {
                     var originalRect = navController.view.bounds
-                    originalRect.size.height -= navController.bottomLayoutGuide.length
+                    originalRect.size.height -= navController.view.safeAreaInsets.bottom
                     noSchedulesView.frame = originalRect
                     navController.view.addSubview(noSchedulesView)
                     navController.view.bringSubviewToFront(noSchedulesView)
