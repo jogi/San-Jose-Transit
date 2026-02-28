@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D44003DB2F52B5A6006C15C2 /* GTFSModel in Frameworks */ = {isa = PBXBuildFile; productRef = D44003DA2F52B5A6006C15C2 /* GTFSModel */; };
+		D44003E22F52BC4C006C15C2 /* TransitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44003E12F52BC4C006C15C2 /* TransitStore.swift */; };
+		D44003E42F52BC9E006C15C2 /* TransitAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44003E32F52BC9E006C15C2 /* TransitAnnotations.swift */; };
 		D44107DA1BFD71CF0022B7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */; };
 		D477DEE31C1020DB009C356E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D477DEDF1C1020DB009C356E /* Assets.xcassets */; };
 		D477DEE41C1020DB009C356E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D477DEE11C1020DB009C356E /* LaunchScreen.storyboard */; };
@@ -55,8 +58,6 @@
 		D4AA10092E4908AA00AAA001 /* FavoriteQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA100A2E4908AA00AAA001 /* FavoriteQueryTests.swift */; };
 		D4AA100B2E4908AA00AAA001 /* CalendarQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AA100C2E4908AA00AAA001 /* CalendarQueryTests.swift */; };
 		D4AA100D2E4908D400AAA001 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = D4AA100E2E4908D400AAA001 /* gtfs.db */; };
-		D4AA10102E49090400AAA001 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4AA100F2E49090400AAA001 /* SQLite */; };
-		D4BED7F623BACEC200F8781C /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4BED7F523BACEC200F8781C /* SQLite */; };
 		D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE44D81CBDED4E0012320F /* DateFormatter.swift */; };
 		D4FACC6D1CA89416009A346A /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FACC6C1CA89416009A346A /* Update.swift */; };
 		D4FDEDAF1C193CC700D01886 /* TripStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FDEDAE1C193CC700D01886 /* TripStopTableViewCell.xib */; };
@@ -76,6 +77,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D44003E02F52BB3C006C15C2 /* QueryBaseline.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QueryBaseline.md; sourceTree = "<group>"; };
+		D44003E12F52BC4C006C15C2 /* TransitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitStore.swift; sourceTree = "<group>"; };
+		D44003E32F52BC9E006C15C2 /* TransitAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitAnnotations.swift; sourceTree = "<group>"; };
 		D44107D61BFD71CE0022B7E2 /* SJ Transit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SJ Transit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44107D91BFD71CF0022B7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D44107E71BFD71CF0022B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,10 +144,10 @@
 			files = (
 				D48019141C12BB60004615BB /* QuartzCore.framework in Frameworks */,
 				D477DEF31C1021FF009C356E /* CoreLocation.framework in Frameworks */,
+				D44003DB2F52B5A6006C15C2 /* GTFSModel in Frameworks */,
 				D48E3CFA2C695F2A009ADE79 /* SVProgressHUD in Frameworks */,
 				D477DEF11C1021F8009C356E /* MapKit.framework in Frameworks */,
 				D48E3CFD2C695F7A009ADE79 /* Zip in Frameworks */,
-				D4BED7F623BACEC200F8781C /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +155,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AA10102E49090400AAA001 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +168,7 @@
 				D4901B7B2E48FA6F001E03D0 /* SJ TransitTests */,
 				D477DEF41C102204009C356E /* Frameworks */,
 				D44107D71BFD71CE0022B7E2 /* Products */,
+				D44003E02F52BB3C006C15C2 /* QueryBaseline.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -298,6 +302,8 @@
 				D49584931CAFAC4100954327 /* Constants.swift */,
 				D495849B1CB23A2000954327 /* Utilities.swift */,
 				D495849D1CB2460700954327 /* Downloader.swift */,
+				D44003E12F52BC4C006C15C2 /* TransitStore.swift */,
+				D44003E32F52BC9E006C15C2 /* TransitAnnotations.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -333,9 +339,9 @@
 			);
 			name = "SJ Transit";
 			packageProductDependencies = (
-				D4BED7F523BACEC200F8781C /* SQLite */,
 				D48E3CF92C695F2A009ADE79 /* SVProgressHUD */,
 				D48E3CFC2C695F7A009ADE79 /* Zip */,
+				D44003DA2F52B5A6006C15C2 /* GTFSModel */,
 			);
 			productName = "SJ Transit";
 			productReference = D44107D61BFD71CE0022B7E2 /* SJ Transit.app */;
@@ -356,7 +362,6 @@
 			);
 			name = "SJ TransitTests";
 			packageProductDependencies = (
-				D4AA100F2E49090400AAA001 /* SQLite */,
 			);
 			productName = "SJ TransitTests";
 			productReference = D4901B712E48FA65001E03D0 /* SJ TransitTests.xctest */;
@@ -370,7 +375,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2630;
 				ORGANIZATIONNAME = "Vashishtha Jogi";
 				TargetAttributes = {
 					D44107D51BFD71CE0022B7E2 = {
@@ -403,9 +408,9 @@
 			);
 			mainGroup = D44107CD1BFD71CE0022B7E2;
 			packageReferences = (
-				D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */,
 				D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 				D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */,
+				D44003D92F52B5A6006C15C2 /* XCRemoteSwiftPackageReference "GTFSModel" */,
 			);
 			productRefGroup = D44107D71BFD71CE0022B7E2 /* Products */;
 			projectDirPath = "";
@@ -456,6 +461,7 @@
 				D48019401C16C923004615BB /* TripDetailViewController.swift in Sources */,
 				D48019281C144E45004615BB /* Threading.swift in Sources */,
 				D480192E1C1466EE004615BB /* StopRouteTableViewCell.swift in Sources */,
+				D44003E42F52BC9E006C15C2 /* TransitAnnotations.swift in Sources */,
 				D48019341C15997C004615BB /* StopRouteTimeTableViewCell.swift in Sources */,
 				D4CE44D91CBDED4E0012320F /* DateFormatter.swift in Sources */,
 				D495849C1CB23A2000954327 /* Utilities.swift in Sources */,
@@ -474,6 +480,7 @@
 				D48019161C12D181004615BB /* Trip.swift in Sources */,
 				D49584981CAFAF9700954327 /* NoScheduleView.swift in Sources */,
 				D48019081C11C9C4004615BB /* RouteDetailViewController.swift in Sources */,
+				D44003E22F52BC4C006C15C2 /* TransitStore.swift in Sources */,
 				D477DEE81C1020EE009C356E /* FavoritesViewVontroller.swift in Sources */,
 				D477DEEF1C1021A4009C356E /* MapViewController.swift in Sources */,
 				D48019421C172624004615BB /* Shape.swift in Sources */,
@@ -542,6 +549,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = H5537L6Q5K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -559,10 +567,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -600,6 +609,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = H5537L6Q5K;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -611,9 +621,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -628,7 +639,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = H5537L6Q5K;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -653,7 +663,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = H5537L6Q5K;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SJ Transit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -683,7 +692,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5537L6Q5K;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
@@ -713,7 +721,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5537L6Q5K;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
@@ -762,6 +769,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D44003D92F52B5A6006C15C2 /* XCRemoteSwiftPackageReference "GTFSModel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jogi/GTFSModel";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD";
@@ -778,17 +793,14 @@
 				minimumVersion = 2.1.2;
 			};
 		};
-		D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.12.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D44003DA2F52B5A6006C15C2 /* GTFSModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44003D92F52B5A6006C15C2 /* XCRemoteSwiftPackageReference "GTFSModel" */;
+			productName = GTFSModel;
+		};
 		D48E3CF92C695F2A009ADE79 /* SVProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D48E3CF82C695F2A009ADE79 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
@@ -798,16 +810,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D48E3CFB2C695F7A009ADE79 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
-		};
-		D4AA100F2E49090400AAA001 /* SQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */;
-			productName = SQLite;
-		};
-		D4BED7F523BACEC200F8781C /* SQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BED7F423BACEC200F8781C /* XCRemoteSwiftPackageReference "SQLite" */;
-			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
